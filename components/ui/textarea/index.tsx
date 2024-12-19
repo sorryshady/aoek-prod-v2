@@ -78,7 +78,7 @@ const TextareaInput = React.forwardRef<
         parentVariants: {
           size: parentSize,
         },
-        class: className,
+        class: `${className} bg-white`,
       })}
     />
   );

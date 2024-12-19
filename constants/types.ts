@@ -187,22 +187,51 @@ export type ProfilePhoto = {
   photoId: string | null;
 };
 
+// export type RegisterFormData = {
+//   name: string;
+//   dob: string;
+//   gender: Gender;
+//   bloodGroup: BloodGroup;
+//   userStatus: UserStatus;
+//   retiredDepartment: Department | undefined;
+//   department: Department | undefined;
+//   designation: Designation | undefined;
+//   officeAddress: string | undefined;
+//   workDistrict: District | undefined;
+//   personalAddress: string;
+//   homeDistrict: District ;
+//   email: string;
+//   phoneNumber?: string | undefined;
+//   mobileNumber: string;
+//   photoUrl?: string | undefined;
+//   photoId?: string | undefined;
+// };
+
+
 export type RegisterFormData = {
-  name: string;
-  dob: string;
-  gender: Gender;
-  bloodGroup: BloodGroup;
-  userStatus: UserStatus;
-  retiredDepartment: Department | undefined;
-  department: Department | undefined;
-  designation: Designation | undefined;
-  officeAddress: string | undefined;
-  workDistrict: District | undefined;
-  personalAddress: string;
-  homeDistrict: District ;
-  email: string;
-  phoneNumber?: string | undefined;
-  mobileNumber: string;
-  photoUrl?: string | undefined;
-  photoId?: string | undefined;
-};
+    // Stage 1: Personal Details
+    fullName: string;
+    dob: string;
+    gender: Gender | null;
+    bloodGroup: BloodGroup | null;
+    // Stage 2: Professional Details
+    userStatus: UserStatus | null;
+    retiredDepartment: Department | null;
+    department: Department | null;
+    designation: Designation | null;
+    officeAddress: string;
+    workDistrict: District | null;
+    // Stage 3: Contact
+    personalAddress: string;
+    homeDistrict: District | null;
+    email: string;
+    phoneNumber: string | null;
+    mobileNumber: string;
+    // Stage 4: Profile Photo
+    photoUrl: string | null;
+    photoId: string | null;
+  };
+
+  export type RegisterFormErrors = {
+    [K in keyof RegisterFormData]?: string;
+  };
