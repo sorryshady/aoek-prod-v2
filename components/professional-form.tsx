@@ -3,8 +3,6 @@ import {
   VStack,
   FormControlLabelText,
   FormControlLabel,
-  Input,
-  InputField,
   FormControlError,
   FormControlErrorText,
   Select,
@@ -16,6 +14,8 @@ import {
   SelectDragIndicator,
   SelectItem,
   SelectInput,
+  Textarea,
+  TextareaInput,
 } from "./ui";
 import React from "react";
 import {
@@ -47,7 +47,9 @@ const ProfessionalForm = ({
           <FormControlLabelText>User Status</FormControlLabelText>
         </FormControlLabel>
         <Select
-          selectedValue={formData.userStatus}
+          selectedValue={
+            formData.userStatus ? changeTypeToText(formData.userStatus) : ""
+          }
           onValueChange={(value) => {
             setFormData({ ...formData, userStatus: value as UserStatus });
             if (errors.userStatus)
@@ -119,7 +121,11 @@ const ProfessionalForm = ({
               <FormControlLabelText>Designation</FormControlLabelText>
             </FormControlLabel>
             <Select
-              selectedValue={formData.designation}
+              selectedValue={
+                formData.designation
+                  ? changeTypeToText(formData.designation)
+                  : ""
+              }
               onValueChange={(value) => {
                 setFormData({ ...formData, designation: value as Designation });
                 if (errors.designation)
@@ -159,7 +165,11 @@ const ProfessionalForm = ({
               <FormControlLabelText>Office District</FormControlLabelText>
             </FormControlLabel>
             <Select
-              selectedValue={formData.workDistrict}
+              selectedValue={
+                formData.workDistrict
+                  ? changeTypeToText(formData.workDistrict)
+                  : ""
+              }
               onValueChange={(value) => {
                 setFormData({ ...formData, workDistrict: value as District });
                 if (errors.workDistrict)
@@ -198,8 +208,8 @@ const ProfessionalForm = ({
             <FormControlLabel>
               <FormControlLabelText>Office Address</FormControlLabelText>
             </FormControlLabel>
-            <Input>
-              <InputField
+            <Textarea>
+              <TextareaInput
                 value={formData.officeAddress}
                 onChangeText={(value) => {
                   setFormData({ ...formData, officeAddress: value });
@@ -208,7 +218,7 @@ const ProfessionalForm = ({
                 }}
                 placeholder="Enter your office address"
               />
-            </Input>
+            </Textarea>
           </FormControl>
         </>
       )}

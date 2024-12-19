@@ -64,11 +64,6 @@ const ForgotPassword = () => {
           >
             <View className="flex-1 px-4 items-center mt-10">
               <View className="w-full max-w-[400px]">
-                <Image
-                  source={images.logo}
-                  className="w-[150px] h-[150px] self-center"
-                  resizeMode="contain"
-                />
                 <View className="bg-white rounded-2xl w-full gap-5 relative mb-[5rem]">
                   <Image
                     source={images.background}

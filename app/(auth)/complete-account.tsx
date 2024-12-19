@@ -1,74 +1,115 @@
 import {
-  ScrollView,
+  Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   Text,
   View,
-  Alert,
 } from "react-native";
-import React, { useState } from "react";
-import { images } from "@/constants";
-import { SafeAreaView } from "react-native-safe-area-context";
-import GradientBackground from "@/components/gradient-background";
-import { Image } from "react-native";
-import { registerUser } from "@/api/register";
+import React, { useEffect, useState } from "react";
+import { useGlobalContext } from "@/context/global-provider";
+import { Redirect, router } from "expo-router";
 import {
-  BloodGroup,
-  ContactDetails,
-  Department,
-  Designation,
-  District,
-  Gender,
-  PersonalDetails,
-  ProfessionalDetails,
-  ProfilePhoto,
+  CompleteUser,
   RegisterFormData,
   RegisterFormErrors,
   RegistrationStep,
-  UserStatus,
 } from "@/constants/types";
-import { router } from "expo-router";
 import {
   isValidDate,
-  isValidPhoneNumber,
-  isValidMobileNumber,
   isValidEmail,
+  isValidMobileNumber,
+  isValidPhoneNumber,
 } from "@/lib/utils";
-import { ButtonText, Button, HStack, ButtonSpinner } from "@/components/ui";
+import { Button, ButtonSpinner, ButtonText, HStack } from "@/components/ui";
 import PersonalForm from "@/components/personal-form";
 import ProfessionalForm from "@/components/professional-form";
 import ContactForm from "@/components/contact-form";
 import PhotoForm from "@/components/photo-form";
+import { SafeAreaView } from "react-native-safe-area-context";
+import GradientBackground from "@/components/gradient-background";
+import { images } from "@/constants";
 import SuccessAlert from "@/components/success-alert";
+import { completeAccount } from "@/api/complete-account";
 
+function determineStartingStep(user: CompleteUser): number {
+  // Check personal info
+  if (!user.name || !user.gender || !user.dob || !user.bloodGroup) {
+    return 0;
+  }
+  // Check professional info
+  if (!user.designation || !user.department || !user.workDistrict) {
+    return 1;
+  }
+  // Check contact info
+  if (!user.email || !user.mobileNumber || !user.personalAddress) {
+    return 2;
+  }
+  // Check photo
+  if (!user.photoUrl) {
+    return 3;
+  }
+  return 0; // Fallback
+}
 const STAGES = ["Personal ", "Professional ", "Contact ", " Photo"];
-const initialFormData: RegisterFormData = {
-  name: "",
-  dob: "",
-  gender: null,
-  bloodGroup: null,
-  userStatus: null,
-  retiredDepartment: null,
-  department: null,
-  designation: null,
-  officeAddress: "",
-  workDistrict: null,
-  personalAddress: "",
-  homeDistrict: null,
-  email: "",
-  phoneNumber: null,
-  mobileNumber: "",
-  photoUrl: null,
-  photoId: null,
-};
-
-const SignUp = () => {
-  const [errors, setErrors] = useState<RegisterFormErrors>({});
+const CompleteAccount = () => {
+  const { user, refetchData, isLoading: contextLoading } = useGlobalContext();
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentStage, setCurrentStage] = useState(0);
-  const [formData, setFormData] = useState<RegisterFormData>(initialFormData);
+  const [errors, setErrors] = useState<RegisterFormErrors>({});
+  const [formData, setFormData] = useState<RegisterFormData>({
+    name: user?.name || "",
+    dob: user?.dob ? new Date(user.dob).toLocaleDateString("en-GB") : "",
+    gender: user?.gender || null,
+    bloodGroup: user?.bloodGroup || null,
+    userStatus: user?.userStatus || null,
+    retiredDepartment: user?.retiredDepartment || null,
+    department: user?.department || null,
+    designation: user?.designation || null,
+    officeAddress: user?.officeAddress || "",
+    workDistrict: user?.workDistrict || null,
+    personalAddress: user?.personalAddress || "",
+    homeDistrict: user?.homeDistrict || null,
+    email: user?.email || "",
+    mobileNumber: user?.mobileNumber || "",
+    phoneNumber: user?.phoneNumber || "",
+    photoId: user?.photoId || null,
+    photoUrl: user?.photoUrl || null,
+  });
+
+  if (!user && !contextLoading) {
+    return <Redirect href="/sign-in" />;
+  }
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || "",
+        dob: user.dob ? new Date(user.dob).toLocaleDateString("en-GB") : "",
+        gender: user.gender || null,
+        bloodGroup: user.bloodGroup || null,
+        userStatus: user.userStatus || null,
+        retiredDepartment: user.retiredDepartment || null,
+        department: user.department || null,
+        designation: user.designation || null,
+        officeAddress: user.officeAddress || "",
+        workDistrict: user.workDistrict || null,
+        personalAddress: user.personalAddress || "",
+        homeDistrict: user.homeDistrict || null,
+        email: user.email || "",
+        mobileNumber: user.mobileNumber || "",
+        phoneNumber: user.phoneNumber || "",
+        photoId: user.photoId || null,
+        photoUrl: user.photoUrl || null,
+      });
+    }
+  }, [user]);
+
+  const [currentStage, setCurrentStage] = useState<number>(() =>
+    user ? determineStartingStep(user) : 0,
+  );
 
   const validateStage = (): boolean => {
     const newErrors: RegisterFormErrors = {};
@@ -118,16 +159,6 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => {
-    if (validateStage()) {
-      setCurrentStage((prev) => Math.min(prev + 1, STAGES.length - 1));
-    }
-  };
-
-  const handlePrevious = () => {
-    setCurrentStage((prev) => Math.max(prev - 1, 0));
-  };
-
   const handleSubmit = async () => {
     if (!validateStage()) {
       Alert.alert("Error", "Please fix the errors before submitting");
@@ -138,18 +169,25 @@ const SignUp = () => {
     formData.photoUrl = formData.photoUrl || undefined;
     formData.photoId = formData.photoId || undefined;
     setIsLoading(true);
-    const response = await registerUser(formData);
+    const response = await completeAccount(formData);
     setIsLoading(false);
     if (response.error) {
       setError(response.error);
     } else {
-      setFormData(initialFormData);
-      setCurrentStage(0);
-      setSuccess(response.message);
-      setTimeout(() => {
-        router.push("/sign-in");
-      }, 2000);
+      setSuccess("Account updated successfully");
+      await refetchData();
+      router.push("/home");
     }
+  };
+
+  const handleNext = () => {
+    if (validateStage()) {
+      setCurrentStage((prev) => Math.min(prev + 1, STAGES.length - 1));
+    }
+  };
+
+  const handlePrevious = () => {
+    setCurrentStage((prev) => Math.max(prev - 1, 0));
   };
 
   const renderStageIndicators = () => (
@@ -230,7 +268,7 @@ const SignUp = () => {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View className="flex-1 px-4 items-center justify-center mt-10">
+            <View className="flex-1 px-4 items-center mt-10">
               <View className="w-full max-w-[400px]">
                 <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
                   <Image
@@ -240,7 +278,7 @@ const SignUp = () => {
                   />
                   <View className="p-6">
                     <Text className="text-black text-center font-psemibold text-2xl mb-6">
-                      Register
+                      Complete your account
                     </Text>
                     {success ? (
                       <View className="flex-1 items-center justify-center">
@@ -277,7 +315,7 @@ const SignUp = () => {
                               className="flex-1 mx-2"
                             >
                               <ButtonText>
-                                {isLoading ? "Submitting..." : "Submit"}
+                                {isLoading ? "Updating..." : "Update"}
                               </ButtonText>
                               {isLoading && <ButtonSpinner color="#fff" />}
                             </Button>
@@ -285,20 +323,6 @@ const SignUp = () => {
                         </View>
                       </>
                     )}
-                    <HStack
-                      space="sm"
-                      className="justify-center items-center mt-6"
-                    >
-                      <Text>Already have an account? </Text>
-                      <Button
-                        variant="link"
-                        onPress={() => router.push("/sign-in")}
-                      >
-                        <ButtonText className="text-blue-500">
-                          Sign in
-                        </ButtonText>
-                      </Button>
-                    </HStack>
                   </View>
                 </View>
               </View>
@@ -310,4 +334,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default CompleteAccount;

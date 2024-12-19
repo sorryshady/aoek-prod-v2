@@ -18,6 +18,8 @@ import {
   SelectDragIndicator,
   SelectItem,
   SelectInput,
+  Textarea,
+  TextareaInput,
 } from "./ui";
 import React from "react";
 
@@ -40,8 +42,8 @@ const ContactForm = ({
         <FormControlLabel>
           <FormControlLabelText>Personal Address</FormControlLabelText>
         </FormControlLabel>
-        <Input>
-          <InputField
+        <Textarea>
+          <TextareaInput
             value={formData.personalAddress}
             onChangeText={(value) => {
               setFormData({ ...formData, personalAddress: value });
@@ -50,7 +52,7 @@ const ContactForm = ({
             }}
             placeholder="Enter your home address"
           />
-        </Input>
+        </Textarea>
         {errors.personalAddress && (
           <FormControlError>
             <FormControlErrorText>
@@ -65,7 +67,7 @@ const ContactForm = ({
           <FormControlLabelText>Home District</FormControlLabelText>
         </FormControlLabel>
         <Select
-          selectedValue={formData.homeDistrict}
+          selectedValue={formData.homeDistrict ? changeTypeToText(formData.homeDistrict) : ""}
           onValueChange={(value) => {
             setFormData({ ...formData, homeDistrict: value as District });
             if (errors.homeDistrict)

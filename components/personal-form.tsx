@@ -25,6 +25,7 @@ import {
   RegisterFormData,
   RegisterFormErrors,
 } from "@/constants/types";
+import { changeTypeToText } from "@/lib/utils";
 
 interface PersonalFormProps {
   formData: RegisterFormData;
@@ -88,7 +89,9 @@ const PersonalForm = ({
           <FormControlLabelText>Gender</FormControlLabelText>
         </FormControlLabel>
         <Select
-          selectedValue={formData.gender}
+          selectedValue={
+            formData.gender ? changeTypeToText(formData.gender) : ""
+          }
           onValueChange={(value) => {
             setFormData({ ...formData, gender: value as Gender });
             if (errors.gender) setErrors({ ...errors, gender: undefined });
@@ -121,7 +124,13 @@ const PersonalForm = ({
           <FormControlLabelText>Blood Group</FormControlLabelText>
         </FormControlLabel>
         <Select
-          selectedValue={formData.bloodGroup}
+          selectedValue={
+            formData.bloodGroup
+              ? formData.bloodGroup
+                  .replace("_POS", " +ve")
+                  .replace("_NEG", " -ve")
+              : ""
+          }
           onValueChange={(value) => {
             setFormData({ ...formData, bloodGroup: value as BloodGroup });
             if (errors.bloodGroup)

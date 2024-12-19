@@ -95,9 +95,38 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = async () => {
-    queryClient.clear();
-    await removeToken({ key: "session" });
-    router.replace("/sign-in");
+    try {
+      // First set the current user data to null
+      queryClient.setQueryData(["user"], null);
+      queryClient.setQueryData(["latestRequest"], null);
+
+      // Remove all queries and cache
+      queryClient.removeQueries();
+      queryClient.clear();
+
+      // Reset the query client state
+      queryClient.resetQueries();
+
+      // Reset the context state
+      const contextValue = {
+        isLoggedIn: false,
+        user: null,
+        isLoading: false,
+        error: null,
+        latestRequest: null,
+      };
+
+      // Remove the session token
+      await removeToken({ key: "session" });
+
+      // Small delay before navigation to ensure cleanup is complete
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Navigate to sign-in
+      router.replace("/sign-in");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   const contextValue = {

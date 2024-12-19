@@ -57,6 +57,7 @@ interface SetupFormData {
   confirmPassword: string;
 }
 const SignIn = () => {
+  const { refetchData } = useGlobalContext();
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
@@ -116,7 +117,7 @@ const SignIn = () => {
           key: "session",
           value: response.token,
         });
-        // await refetchData();
+        await refetchData();
         router.replace("/home");
       }
     } catch (error) {
@@ -381,13 +382,8 @@ const SignIn = () => {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View className="flex-1 px-4 items-center mt-10">
+            <View className="flex-1 px-4 items-center justify-center mt-10">
               <View className="w-full max-w-[400px]">
-                <Image
-                  source={images.logo}
-                  className="w-[150px] h-[150px] self-center"
-                  resizeMode="contain"
-                />
                 <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
                   <Image
                     source={images.background}
