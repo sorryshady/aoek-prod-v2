@@ -108,7 +108,7 @@ const SecurityAnswerForm = ({
         >
           {isLoading ? (
             <>
-              <ButtonSpinner color="white" />
+              <ButtonSpinner color="#fff" />
               <ButtonText>Verifying...</ButtonText>
             </>
           ) : (
@@ -274,7 +274,7 @@ const ResetPasswordForm = ({
           >
             {isLoading ? (
               <>
-                <ButtonSpinner color="white" />
+                <ButtonSpinner color="#fff" />
                 <ButtonText>Confirming...</ButtonText>
               </>
             ) : (

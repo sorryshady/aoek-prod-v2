@@ -171,7 +171,7 @@ export type ProfessionalDetails = {
   retiredDepartment: Department | null;
   department: Department | null;
   designation: Designation | null;
-  officeAddress: string ;
+  officeAddress: string;
   workDistrict: District | null;
 };
 export type ContactDetails = {
@@ -207,31 +207,30 @@ export type ProfilePhoto = {
 //   photoId?: string | undefined;
 // };
 
-
 export type RegisterFormData = {
-    // Stage 1: Personal Details
-    fullName: string;
-    dob: string;
-    gender: Gender | null;
-    bloodGroup: BloodGroup | null;
-    // Stage 2: Professional Details
-    userStatus: UserStatus | null;
-    retiredDepartment: Department | null;
-    department: Department | null;
-    designation: Designation | null;
-    officeAddress: string;
-    workDistrict: District | null;
-    // Stage 3: Contact
-    personalAddress: string;
-    homeDistrict: District | null;
-    email: string;
-    phoneNumber: string | null;
-    mobileNumber: string;
-    // Stage 4: Profile Photo
-    photoUrl: string | null;
-    photoId: string | null;
-  };
+  // Stage 1: Personal Details
+  name: string;
+  dob: string;
+  gender: Gender | null;
+  bloodGroup: BloodGroup | null;
+  // Stage 2: Professional Details
+  userStatus: UserStatus | null;
+  retiredDepartment: Department | null;
+  department: Department | null;
+  designation: Designation | null;
+  officeAddress: string;
+  workDistrict: District | null;
+  // Stage 3: Contact
+  personalAddress: string;
+  homeDistrict: District | null;
+  email: string;
+  phoneNumber: string | null | undefined;
+  mobileNumber: string;
+  // Stage 4: Profile Photo
+  photoUrl: string | null | undefined;
+  photoId: string | null | undefined;
+};
 
-  export type RegisterFormErrors = {
-    [K in keyof RegisterFormData]?: string;
-  };
+export type RegisterFormErrors = {
+  [K in keyof RegisterFormData]?: string;
+};

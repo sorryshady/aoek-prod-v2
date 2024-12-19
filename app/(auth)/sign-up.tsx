@@ -39,10 +39,11 @@ import PersonalForm from "@/components/personal-form";
 import ProfessionalForm from "@/components/professional-form";
 import ContactForm from "@/components/contact-form";
 import PhotoForm from "@/components/photo-form";
+import SuccessAlert from "@/components/success-alert";
 
 const STAGES = ["Personal ", "Professional ", "Contact ", " Photo"];
 const initialFormData: RegisterFormData = {
-  fullName: "",
+  name: "",
   dob: "",
   gender: null,
   bloodGroup: null,
@@ -66,7 +67,7 @@ const SignUp = () => {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentStage, setCurrentStage] = useState(1);
+  const [currentStage, setCurrentStage] = useState(0);
   const [formData, setFormData] = useState<RegisterFormData>(initialFormData);
 
   const validateStage = (): boolean => {
@@ -74,7 +75,7 @@ const SignUp = () => {
 
     switch (currentStage) {
       case 0:
-        if (!formData.fullName.trim()) newErrors.fullName = "Name is required";
+        if (!formData.name.trim()) newErrors.name = "Name is required";
         if (!formData.dob) newErrors.dob = "Date of birth is required";
         if (!isValidDate(formData.dob))
           newErrors.dob = "Please enter a valid date of birth";
@@ -104,8 +105,6 @@ const SignUp = () => {
         if (!formData.email.trim()) newErrors.email = "Email is required";
         if (!isValidEmail(formData.email))
           newErrors.email = "Please enter a valid email";
-        if (!formData.phoneNumber)
-          newErrors.phoneNumber = "Phone number is required";
         if (formData.phoneNumber && !isValidPhoneNumber(formData.phoneNumber))
           newErrors.phoneNumber = "Please enter a valid phone number";
         if (!formData.mobileNumber.trim())
@@ -134,20 +133,22 @@ const SignUp = () => {
       Alert.alert("Error", "Please fix the errors before submitting");
       return;
     }
-
+    formData.dob = formData.dob.replace(/-/g, "/");
+    formData.phoneNumber = formData.phoneNumber || undefined;
+    formData.photoUrl = formData.photoUrl || undefined;
+    formData.photoId = formData.photoId || undefined;
     setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Form submitted:", formData);
-      Alert.alert("Success", "Registration completed successfully!");
-      // Reset form
+    const response = await registerUser(formData);
+    setIsLoading(false);
+    if (response.error) {
+      setError(response.error);
+    } else {
       setFormData(initialFormData);
       setCurrentStage(0);
-    } catch (error) {
-      Alert.alert("Error", "Failed to submit form. Please try again.");
-      console.error("Form submission error:", error);
-    } finally {
-      setIsLoading(false);
+      setSuccess(response.message);
+      setTimeout(() => {
+        router.push("/sign-in");
+      }, 2000);
     }
   };
 
@@ -193,9 +194,22 @@ const SignUp = () => {
           />
         );
       case 2:
-        return <ContactForm />;
+        return (
+          <ContactForm
+            formData={formData}
+            setFormData={setFormData}
+            errors={errors}
+            setErrors={setErrors}
+          />
+        );
       case 3:
-        return <PhotoForm />;
+        return (
+          <PhotoForm
+            formData={formData}
+            setFormData={setFormData}
+            error={error}
+          />
+        );
     }
   };
 
@@ -233,41 +247,49 @@ const SignUp = () => {
                     <Text className="text-black text-center font-psemibold text-2xl mb-6">
                       Register
                     </Text>
-                    {renderStageIndicators()}
-                    {renderCurrentStage()}
-                    <HStack className="mt-6 justify-between">
-                      {currentStage > 0 && (
-                        <Button
-                          variant="outline"
-                          onPress={handlePrevious}
-                          className="flex-1 mr-2"
-                        >
-                          <ButtonText>Previous</ButtonText>
-                        </Button>
-                      )}
+                    {success ? (
+                      <View className="flex-1 items-center justify-center">
+                        <SuccessAlert message={success} />
+                      </View>
+                    ) : (
+                      <>
+                        {renderStageIndicators()}
+                        {renderCurrentStage()}
+                        <HStack className="mt-6 justify-between">
+                          {currentStage > 0 && (
+                            <Button
+                              variant="outline"
+                              onPress={handlePrevious}
+                              className="flex-1 mr-2"
+                            >
+                              <ButtonText>Previous</ButtonText>
+                            </Button>
+                          )}
 
-                      {currentStage < STAGES.length - 1 ? (
-                        <Button
-                          action="primary"
-                          onPress={handleNext}
-                          className="flex-1 ml-2"
-                        >
-                          <ButtonText>Next</ButtonText>
-                        </Button>
-                      ) : (
-                        <Button
-                          action="primary"
-                          onPress={handleSubmit}
-                          disabled={isLoading}
-                          className="flex-1 ml-2"
-                        >
-                          <ButtonText>
-                            {isLoading ? "Submitting..." : "Submit"}
-                          </ButtonText>
-                          {isLoading && <ButtonSpinner />}
-                        </Button>
-                      )}
-                    </HStack>
+                          {currentStage < STAGES.length - 1 ? (
+                            <Button
+                              action="primary"
+                              onPress={handleNext}
+                              className="flex-1 ml-2"
+                            >
+                              <ButtonText>Next</ButtonText>
+                            </Button>
+                          ) : (
+                            <Button
+                              action="primary"
+                              onPress={handleSubmit}
+                              isDisabled={isLoading}
+                              className="flex-1 ml-2"
+                            >
+                              <ButtonText>
+                                {isLoading ? "Submitting..." : "Submit"}
+                              </ButtonText>
+                              {isLoading && <ButtonSpinner color="#fff" />}
+                            </Button>
+                          )}
+                        </HStack>
+                      </>
+                    )}
                   </View>
                 </View>
               </View>

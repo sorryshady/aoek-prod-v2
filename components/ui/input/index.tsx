@@ -110,7 +110,8 @@ const Input = React.forwardRef<React.ElementRef<typeof UIInput>, IInputProps>(
         ref={ref}
         {...props}
         className={
-          inputStyle({ variant, size, class: className }) + " bg-white"
+          inputStyle({ variant, size, class: className }) +
+          " bg-white rounded-lg"
         }
         context={{ variant, size }}
       />

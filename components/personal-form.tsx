@@ -40,24 +40,23 @@ const PersonalForm = ({
 }: PersonalFormProps) => {
   return (
     <VStack className="gap-4">
-      <FormControl isInvalid={!!errors.fullName}>
+      <FormControl isInvalid={!!errors.name}>
         <FormControlLabel>
           <FormControlLabelText>Name</FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
-            value={formData.fullName}
+            value={formData.name}
             onChangeText={(value) => {
-              setFormData({ ...formData, fullName: value });
-              if (errors.fullName)
-                setErrors({ ...errors, fullName: undefined });
+              setFormData({ ...formData, name: value });
+              if (errors.name) setErrors({ ...errors, name: undefined });
             }}
             placeholder="Enter your name"
           />
         </Input>
-        {errors.fullName && (
+        {errors.name && (
           <FormControlError>
-            <FormControlErrorText>{errors.fullName}</FormControlErrorText>
+            <FormControlErrorText>{errors.name}</FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>

@@ -3,8 +3,8 @@ import {
   VStack,
   FormControlLabelText,
   FormControlLabel,
-  Textarea,
-  TextareaInput,
+  Input,
+  InputField,
   FormControlError,
   FormControlErrorText,
   Select,
@@ -42,83 +42,6 @@ const ProfessionalForm = ({
 }: ProfessionalFormProps) => {
   return (
     <VStack className="gap-4">
-      {/* <FormControl isInvalid={!!errors.fullName}>
-        <FormControlLabel>
-          <FormControlLabelText>Name</FormControlLabelText>
-        </FormControlLabel>
-        <Input>
-          <InputField
-            value={formData.fullName}
-            onChangeText={(value) => {
-              setFormData({ ...formData, fullName: value });
-              if (errors.fullName)
-                setErrors({ ...errors, fullName: undefined });
-            }}
-            placeholder="Enter your name"
-          />
-        </Input>
-        {errors.fullName && (
-          <FormControlError>
-            <FormControlErrorText>{errors.fullName}</FormControlErrorText>
-          </FormControlError>
-        )}
-      </FormControl> */}
-
-      {/* <FormControl isInvalid={!!errors.dob}>
-        <FormControlLabel>
-          <FormControlLabelText>Date of Birth</FormControlLabelText>
-        </FormControlLabel>
-        <Input>
-          <InputField
-            value={formData.dob}
-            onChangeText={(value) => {
-              setFormData({ ...formData, dob: value });
-              if (errors.dob) setErrors({ ...errors, dob: undefined });
-            }}
-            placeholder="Enter your date of birth"
-            keyboardType="numeric"
-          />
-        </Input>
-        {errors.dob && (
-          <FormControlError>
-            <FormControlErrorText>{errors.dob}</FormControlErrorText>
-          </FormControlError>
-        )}
-      </FormControl> */}
-
-      {/* <FormControl isInvalid={!!errors.gender}>
-        <FormControlLabel>
-          <FormControlLabelText>Gender</FormControlLabelText>
-        </FormControlLabel>
-        <Select
-          selectedValue={formData.gender}
-          onValueChange={(value) => {
-            setFormData({ ...formData, gender: value as Gender });
-            if (errors.gender) setErrors({ ...errors, gender: undefined });
-          }}
-        >
-          <SelectTrigger>
-            <SelectInput placeholder="Select gender" />
-          </SelectTrigger>
-          <SelectPortal>
-            <SelectBackdrop />
-            <SelectContent>
-              <SelectDragIndicatorWrapper>
-                <SelectDragIndicator />
-              </SelectDragIndicatorWrapper>
-              <SelectItem label="Male" value="MALE" />
-              <SelectItem label="Female" value="FEMALE" />
-              <SelectItem label="Other" value="OTHER" />
-            </SelectContent>
-          </SelectPortal>
-        </Select>
-        {errors.gender && (
-          <FormControlError>
-            <FormControlErrorText>{errors.gender}</FormControlErrorText>
-          </FormControlError>
-        )}
-      </FormControl> */}
-
       <FormControl isInvalid={!!errors.userStatus}>
         <FormControlLabel>
           <FormControlLabelText>User Status</FormControlLabelText>
@@ -275,8 +198,8 @@ const ProfessionalForm = ({
             <FormControlLabel>
               <FormControlLabelText>Office Address</FormControlLabelText>
             </FormControlLabel>
-            <Textarea>
-              <TextareaInput
+            <Input>
+              <InputField
                 value={formData.officeAddress}
                 onChangeText={(value) => {
                   setFormData({ ...formData, officeAddress: value });
@@ -285,9 +208,53 @@ const ProfessionalForm = ({
                 }}
                 placeholder="Enter your office address"
               />
-            </Textarea>
+            </Input>
           </FormControl>
         </>
+      )}
+      {formData.userStatus === "RETIRED" && (
+        <FormControl isInvalid={!!errors.retiredDepartment}>
+          <FormControlLabel>
+            <FormControlLabelText>Retired Department</FormControlLabelText>
+          </FormControlLabel>
+          <Select
+            selectedValue={formData.retiredDepartment}
+            onValueChange={(value) => {
+              setFormData({
+                ...formData,
+                retiredDepartment: value as Department,
+              });
+              if (errors.retiredDepartment)
+                setErrors({ ...errors, retiredDepartment: undefined });
+            }}
+          >
+            <SelectTrigger>
+              <SelectInput placeholder="Select department" />
+            </SelectTrigger>
+            <SelectPortal>
+              <SelectBackdrop />
+              <SelectContent>
+                <SelectDragIndicatorWrapper>
+                  <SelectDragIndicator />
+                </SelectDragIndicatorWrapper>
+                {Object.values(Department).map((department) => (
+                  <SelectItem
+                    key={department}
+                    label={department}
+                    value={department}
+                  />
+                ))}
+              </SelectContent>
+            </SelectPortal>
+          </Select>
+          {errors.retiredDepartment && (
+            <FormControlError>
+              <FormControlErrorText>
+                {errors.retiredDepartment}
+              </FormControlErrorText>
+            </FormControlError>
+          )}
+        </FormControl>
       )}
     </VStack>
   );

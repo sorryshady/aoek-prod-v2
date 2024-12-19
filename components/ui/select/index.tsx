@@ -158,7 +158,7 @@ const SelectTrigger = React.forwardRef<
   return (
     <UISelect.Trigger
       className={selectTriggerStyle({
-        class: className,
+        class: `bg-white w-full rounded-lg ${className}`,
         size,
         variant,
       })}
@@ -180,7 +180,7 @@ const SelectInput = React.forwardRef<
   return (
     <UISelect.Input
       className={selectInputStyle({
-        class: `h-[50px] bg-white w-full ${className}`,
+        class: `h-[50px] bg-white w-full rounded-lg ${className}`,
         parentVariants: {
           size: parentSize,
           variant: parentVariant,
