@@ -1,9 +1,5 @@
-import {
-  getCurrentUser,
-  getLatestUserRequest,
-  getCompleteUser,
-} from "@/api/user";
-import { User, RequestResponse, CompleteUser } from "@/constants/types";
+import { getLatestUserRequest, getCompleteUser } from "@/api/user";
+import { RequestResponse, CompleteUser } from "@/constants/types";
 import { createContext, useContext } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getToken, removeToken } from "@/lib/handle-session-tokens";

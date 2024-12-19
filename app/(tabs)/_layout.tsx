@@ -1,25 +1,9 @@
 import { Image, ImageSourcePropType, Platform, View } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
-
+import { Home, User, Newspaper, Download } from "lucide-react-native";
 import { StatusBar } from "expo-status-bar";
 
-interface TabIconProps {
-  icon: ImageSourcePropType;
-  color: string;
-}
-const TabIcon = ({ icon, color }: TabIconProps) => {
-  return (
-    <View className="items-center justify-center gap-1">
-      <Image
-        source={icon}
-        resizeMode="contain"
-        tintColor={color}
-        className="w-7 h-7"
-      />
-    </View>
-  );
-};
 const TabsLayout = () => {
   return (
     <>
@@ -40,9 +24,7 @@ const TabsLayout = () => {
           options={{
             title: "Home",
             headerShown: false,
-            // tabBarIcon: ({ color }) => (
-            //   <TabIcon icon={icons.home} color={color} />
-            // ),
+            tabBarIcon: ({ color }) => <Home color={color} />,
           }}
         />
         {/* <Tabs.Screen
@@ -74,17 +56,15 @@ const TabsLayout = () => {
             //   <TabIcon icon={icons.downloads} color={color} />
             // ),
           }}
-        />
+        /> */}
         <Tabs.Screen
           name="profile"
           options={{
             title: "Profile",
             headerShown: false,
-            // tabBarIcon: ({ color }) => (
-            //   <TabIcon icon={icons.user} color={color} />
-            // ),
+            tabBarIcon: ({ color }) => <User color={color} />,
           }}
-        /> */}
+        />
         {/* <Tabs.Screen
           name="about"
           options={{ href: null, headerShown: false }}
