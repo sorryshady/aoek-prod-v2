@@ -16,7 +16,7 @@ export const unstable_settings = {
 
 SplashScreen.preventAutoHideAsync();
 // Create a client
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 2,

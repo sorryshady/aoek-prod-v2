@@ -176,7 +176,7 @@ const CompleteAccount = () => {
     } else {
       setSuccess("Account updated successfully");
       await refetchData();
-      router.push("/home");
+      router.push("/profile");
     }
   };
 

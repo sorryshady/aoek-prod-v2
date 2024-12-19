@@ -120,7 +120,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
       await removeToken({ key: "session" });
 
       // Small delay before navigation to ensure cleanup is complete
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Navigate to sign-in
       router.replace("/sign-in");
