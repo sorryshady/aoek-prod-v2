@@ -184,7 +184,6 @@ const SignIn = () => {
       </FormControl>
       <Button
         size="lg"
-        variant="solid"
         action="primary"
         isDisabled={isLoading}
         onPress={handleNext}
