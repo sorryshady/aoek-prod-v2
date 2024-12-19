@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
-  Modal,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
 
 import { changePassword } from "@/api/user";
 import {
+  AlertDialogContent,
+  AlertDialog,
+  AlertDialogHeader,
+  AlertDialogBackdrop,
   Button,
   ButtonSpinner,
+  Heading,
   ButtonText,
   FormControl,
-  FormControlLabel,
   FormControlLabelText,
   Input,
   InputField,
+  FormControlLabel,
+  AlertDialogBody,
 } from "./ui";
 import PasswordEntry from "./password-entry";
 import ErrorAlert from "./error-alert";
@@ -83,90 +87,183 @@ const ChangePasswordModal = ({ visible, onClose }: Props) => {
   };
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={onClose}
-      presentationStyle="overFullScreen"
-      statusBarTranslucent={true}
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1 justify-end bg-black/50"
+    <>
+      <AlertDialog isOpen={visible} onClose={onClose} size="lg">
+        <AlertDialogBackdrop />
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <Heading className="text-typography-950 font-semibold" size="md">
+              Change Password
+            </Heading>
+          </AlertDialogHeader>
+          <AlertDialogBody>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="flex-1 justify-end bg-black/50"
+            >
+              <View className="bg-white pt-6">
+                <View className="gap-4">
+                  <FormControl>
+                    <FormControlLabel>
+                      <FormControlLabelText>
+                        Current Password
+                      </FormControlLabelText>
+                    </FormControlLabel>
+
+                    <PasswordEntry
+                      value={formData.currentPassword}
+                      setValue={(value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          currentPassword: value,
+                        }))
+                      }
+                      placeholder="Enter current password"
+                      showPasswordStrength={false}
+                    />
+                  </FormControl>
+
+                  <FormControl>
+                    <FormControlLabel>
+                      <FormControlLabelText>New Password</FormControlLabelText>
+                    </FormControlLabel>
+                    <PasswordEntry
+                      value={formData.newPassword}
+                      setValue={(value) =>
+                        setFormData((prev) => ({ ...prev, newPassword: value }))
+                      }
+                      placeholder="Enter new password"
+                      showPasswordStrength={true}
+                    />
+                  </FormControl>
+
+                  <FormControl>
+                    <FormControlLabel>
+                      <FormControlLabelText>
+                        Confirm New Password
+                      </FormControlLabelText>
+                    </FormControlLabel>
+                    <PasswordEntry
+                      value={formData.confirmPassword}
+                      setValue={(value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          confirmPassword: value,
+                        }))
+                      }
+                      placeholder="Confirm new password"
+                      showPasswordStrength={false}
+                    />
+                  </FormControl>
+
+                  {error && <ErrorAlert error={error} />}
+                  {successMessage && <SuccessAlert message={successMessage} />}
+                  <View className="gap-4 mt-4">
+                    <Button
+                      className="bg-[#5386A4]"
+                      isDisabled={isLoading}
+                      onPress={handleSubmit}
+                    >
+                      <ButtonText>
+                        {isLoading ? "Changing Password..." : "Change Password"}
+                      </ButtonText>
+                      {isLoading && <ButtonSpinner color="white" />}
+                    </Button>
+                    <Button action="secondary" onPress={onClose}>
+                      <ButtonText>Cancel</ButtonText>
+                    </Button>
+                  </View>
+                </View>
+              </View>
+            </KeyboardAvoidingView>
+          </AlertDialogBody>
+        </AlertDialogContent>
+      </AlertDialog>
+      {/* <Modal
+        animationType="slide"
+        transparent={true}
+        visible={visible}
+        onRequestClose={onClose}
+        presentationStyle="overFullScreen"
+        statusBarTranslucent={true}
       >
-        <View className="bg-white rounded-t-3xl p-6">
-          <Text className="text-xl font-pbold text-center mb-6">
-            Change Password
-          </Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          className="flex-1 justify-end bg-black/50"
+        >
+          <View className="bg-white rounded-t-3xl p-6">
+            <Text className="text-xl font-pbold text-center mb-6">
+              Change Password
+            </Text>
 
-          <View className="gap-4">
-            <FormControl>
-              <FormControlLabel>
-                <FormControlLabelText>Current Password</FormControlLabelText>
-              </FormControlLabel>
+            <View className="gap-4">
+              <FormControl>
+                <FormControlLabel>
+                  <FormControlLabelText>Current Password</FormControlLabelText>
+                </FormControlLabel>
 
-              <PasswordEntry
-                value={formData.currentPassword}
-                setValue={(value) =>
-                  setFormData((prev) => ({ ...prev, currentPassword: value }))
-                }
-                placeholder="Enter current password"
-                showPasswordStrength={false}
-              />
-            </FormControl>
+                <PasswordEntry
+                  value={formData.currentPassword}
+                  setValue={(value) =>
+                    setFormData((prev) => ({ ...prev, currentPassword: value }))
+                  }
+                  placeholder="Enter current password"
+                  showPasswordStrength={false}
+                />
+              </FormControl>
 
-            <FormControl>
-              <FormControlLabel>
-                <FormControlLabelText>New Password</FormControlLabelText>
-              </FormControlLabel>
-              <PasswordEntry
-                value={formData.newPassword}
-                setValue={(value) =>
-                  setFormData((prev) => ({ ...prev, newPassword: value }))
-                }
-                placeholder="Enter new password"
-                showPasswordStrength={true}
-              />
-            </FormControl>
+              <FormControl>
+                <FormControlLabel>
+                  <FormControlLabelText>New Password</FormControlLabelText>
+                </FormControlLabel>
+                <PasswordEntry
+                  value={formData.newPassword}
+                  setValue={(value) =>
+                    setFormData((prev) => ({ ...prev, newPassword: value }))
+                  }
+                  placeholder="Enter new password"
+                  showPasswordStrength={true}
+                />
+              </FormControl>
 
-            <FormControl>
-              <FormControlLabel>
-                <FormControlLabelText>
-                  Confirm New Password
-                </FormControlLabelText>
-              </FormControlLabel>
-              <PasswordEntry
-                value={formData.confirmPassword}
-                setValue={(value) =>
-                  setFormData((prev) => ({ ...prev, confirmPassword: value }))
-                }
-                placeholder="Confirm new password"
-                showPasswordStrength={false}
-              />
-            </FormControl>
+              <FormControl>
+                <FormControlLabel>
+                  <FormControlLabelText>
+                    Confirm New Password
+                  </FormControlLabelText>
+                </FormControlLabel>
+                <PasswordEntry
+                  value={formData.confirmPassword}
+                  setValue={(value) =>
+                    setFormData((prev) => ({ ...prev, confirmPassword: value }))
+                  }
+                  placeholder="Confirm new password"
+                  showPasswordStrength={false}
+                />
+              </FormControl>
 
-            {error && <ErrorAlert error={error} />}
-            {successMessage && <SuccessAlert message={successMessage} />}
-            <View className="gap-4 mt-4">
-              <Button
-                className="bg-[#5386A4]"
-                isDisabled={isLoading}
-                onPress={handleSubmit}
-              >
-                <ButtonText>
-                  {isLoading ? "Changing Password..." : "Change Password"}
-                </ButtonText>
-                {isLoading && <ButtonSpinner color="white" />}
-              </Button>
-              <Button action="secondary" onPress={onClose}>
-                <ButtonText>Cancel</ButtonText>
-              </Button>
+              {error && <ErrorAlert error={error} />}
+              {successMessage && <SuccessAlert message={successMessage} />}
+              <View className="gap-4 mt-4">
+                <Button
+                  className="bg-[#5386A4]"
+                  isDisabled={isLoading}
+                  onPress={handleSubmit}
+                >
+                  <ButtonText>
+                    {isLoading ? "Changing Password..." : "Change Password"}
+                  </ButtonText>
+                  {isLoading && <ButtonSpinner color="white" />}
+                </Button>
+                <Button action="secondary" onPress={onClose}>
+                  <ButtonText>Cancel</ButtonText>
+                </Button>
+              </View>
             </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </Modal>
+        </KeyboardAvoidingView>
+      </Modal> */}
+    </>
   );
 };
 

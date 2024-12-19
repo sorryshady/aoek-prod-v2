@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Modal,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Platform, KeyboardAvoidingView } from "react-native";
 import {
   District,
   Designation,
@@ -300,7 +294,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
 
   return (
     <>
-      <AlertDialog isOpen={visible} onClose={onClose}>
+      <AlertDialog isOpen={visible} onClose={onClose} size="lg">
         <AlertDialogBackdrop />
         <AlertDialogContent>
           <AlertDialogHeader>
