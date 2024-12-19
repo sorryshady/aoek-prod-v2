@@ -79,14 +79,7 @@ const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
           </AlertText>
         </VStack>
         <Button
-          action={
-            latestRequest.status === "VERIFIED"
-              ? "positive"
-              : latestRequest.status === "REJECTED"
-                ? "negative"
-                : "default"
-          }
-          className={`p-3.5 rounded-full ${latestRequest.status === "PENDING" ? "bg-blue-200" : ""}`}
+          className={`p-3.5 rounded-full ${latestRequest.status === "PENDING" ? "bg-blue-200/60" : latestRequest.status === "VERIFIED" ? "bg-emerald-200/60" : "bg-red-200/60"}`}
           onPress={handleHideRequest}
         >
           <ButtonIcon as={EyeOff} color="black" />
