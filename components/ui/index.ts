@@ -1,4 +1,4 @@
-import { Button, ButtonText, ButtonSpinner } from "./button";
+import { Button, ButtonText, ButtonSpinner, ButtonIcon,ButtonGroup } from "./button";
 import {
   FormControl,
   FormControlLabel,
@@ -33,10 +33,14 @@ import {
   AlertDialogHeader,
   AlertDialogCloseButton,
 } from "./alert-dialog";
+import { Text } from "./text";
+import { Alert , AlertIcon, AlertText} from "./alert";
 export {
   Button,
   ButtonText,
   ButtonSpinner,
+  ButtonIcon,
+  ButtonGroup,
   FormControl,
   FormControlLabel,
   FormControlLabelText,
@@ -71,4 +75,8 @@ export {
   AlertDialogHeader,
   AlertDialogCloseButton,
   Heading,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertText,
 };

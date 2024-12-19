@@ -200,7 +200,7 @@ const InputField = React.forwardRef<
           variant: parentVariant,
           size: parentSize,
         },
-        class: className,
+        class: `h-[50px] ${className}`,
       })}
     />
   );
