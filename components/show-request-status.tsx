@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { Verification } from "@/constants/types";
 import {
   Alert,
@@ -12,6 +12,8 @@ import {
 } from "./ui";
 import { CircleCheck, Clock, EyeOff, TriangleAlert } from "lucide-react-native";
 import { queryClient } from "@/app/_layout";
+import { changeTypeToText } from "@/lib/utils";
+import { useGlobalContext } from "@/context/global-provider";
 
 interface ShowRequestStatusProps {
   latestRequest: {
@@ -27,6 +29,26 @@ const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
   latestRequest,
   hideUserRequest,
 }) => {
+  const { user } = useGlobalContext();
+
+  const handleHideRequest = async () => {
+    try {
+      if (latestRequest.status === "PENDING") {
+        queryClient.setQueryData(["latestRequest", user?.membershipId], {
+          ...latestRequest,
+          showAgain: false,
+        });
+      } else {
+        await hideUserRequest(latestRequest.id);
+        queryClient.invalidateQueries({
+          queryKey: ["latestRequest", user?.membershipId],
+        });
+      }
+    } catch (error) {
+      console.error("Error hiding request:", error);
+    }
+  };
+
   return (
     <Alert
       action={
@@ -36,6 +58,7 @@ const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
             ? "error"
             : "info"
       }
+      className="mb-[1rem]"
     >
       <AlertIcon
         as={
@@ -46,31 +69,29 @@ const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
               : Clock
         }
       />
-      <HStack className="justify-between flex-1 items-center gap-1 sm:gap-8">
-        <VStack>
-          <AlertText>{latestRequest.status} Request</AlertText>
+      <View className="justify-between flex-row flex-1">
+        <VStack className="items-center justify-center flex-1">
           {latestRequest.adminComments && (
-            <AlertText>{latestRequest.adminComments}</AlertText>
+            <AlertText>Admin Comments: {latestRequest.adminComments}</AlertText>
           )}
+          <AlertText>
+            {changeTypeToText(latestRequest.status)} Request
+          </AlertText>
         </VStack>
         <Button
-          onPress={async () => {
-            try {
-              if (latestRequest.status !== "PENDING") {
-                await hideUserRequest(latestRequest.id);
-                queryClient.invalidateQueries({
-                  queryKey: ["latestRequest"],
-                });
-              }
-            } catch (error) {
-              console.error("Error hiding request:", error);
-            }
-          }}
-          className="bg-white"
+          action={
+            latestRequest.status === "VERIFIED"
+              ? "positive"
+              : latestRequest.status === "REJECTED"
+                ? "negative"
+                : "default"
+          }
+          className={`p-3.5 rounded-full ${latestRequest.status === "PENDING" ? "bg-blue-200" : ""}`}
+          onPress={handleHideRequest}
         >
-          <ButtonIcon as={EyeOff} />
+          <ButtonIcon as={EyeOff} color="black" />
         </Button>
-      </HStack>
+      </View>
     </Alert>
   );
 };

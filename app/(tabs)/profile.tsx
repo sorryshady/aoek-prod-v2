@@ -39,6 +39,8 @@ import { hideUserRequest } from "@/api/user";
 import { changeTypeToText } from "@/lib/utils";
 import { District } from "@/constants/types";
 import ErrorAlert from "@/components/error-alert";
+import ChangePasswordModal from "@/components/change-password-modal";
+import SubmitRequestModal from "@/components/submit-request-modal";
 
 const Profile = () => {
   const { user, logout, refetchData, latestRequest, isLoading } =
@@ -161,7 +163,7 @@ const Profile = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading && !user) {
     return (
       <SafeAreaView className="flex-1">
         <GradientBackground>
@@ -247,7 +249,7 @@ const Profile = () => {
                               : "primary"
                           }
                           isDisabled={latestRequest?.status === "PENDING"}
-                          className="bg-[#5386A4] w-full px-4"
+                          className={`w-full px-4 ${latestRequest?.status !== "PENDING" ? "bg-[#5386A4]" : ""}`}
                           onPress={openRequestModal}
                         >
                           <ButtonText>
@@ -523,6 +525,7 @@ const Profile = () => {
 
             {isEditing && (
               <View className="mb-6 gap-5">
+                {error && <ErrorAlert error={error} />}
                 <Button onPress={handleSave} className="bg-[#5386A4] w-full">
                   <ButtonText>
                     {saving ? "Saving..." : "Save Changes"}
@@ -530,14 +533,16 @@ const Profile = () => {
                 </Button>
                 <Button
                   action="secondary"
-                  onPress={() => setIsEditing(false)}
+                  onPress={() => {
+                    setIsEditing(false);
+                    setError(null);
+                  }}
                   className="bg-gray-200 w-full"
                 >
                   <ButtonText className="text-gray-700 font-pmedium">
                     Cancel
                   </ButtonText>
                 </Button>
-                {error && <ErrorAlert error={error} />}
               </View>
             )}
             <Button onPress={logout} action="negative">
@@ -545,18 +550,18 @@ const Profile = () => {
             </Button>
           </View>
         </ScrollView>
-        {/* {passwordModalVisible && (
+        {passwordModalVisible && (
           <ChangePasswordModal
             visible={passwordModalVisible}
             onClose={() => setPasswordModalVisible(false)}
           />
-        )} */}
-        {/* {user && user.userStatus === "WORKING" && (
+        )}
+        {user && user.userStatus === "WORKING" && (
           <SubmitRequestModal
             visible={requestModalVisible}
             onClose={() => setRequestModalVisible(false)}
           />
-        )} */}
+        )}
       </GradientBackground>
     </SafeAreaView>
   );

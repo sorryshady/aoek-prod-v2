@@ -45,12 +45,10 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
       }
       const response = await getCompleteUser();
 
-      // Handle API error responses
       if ("error" in response) {
         throw new Error(response.error);
       }
 
-      // Handle null or undefined response
       if (!response) {
         throw new Error("Failed to fetch user data");
       }
@@ -59,9 +57,10 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     },
     retry: 1,
     staleTime: Infinity,
+    placeholderData: (previousData) => previousData,
   });
 
-  // Latest request query - depends on basic user
+  // Latest request query with similar optimizations
   const { data: latestRequest, isLoading: isLoadingRequest } = useQuery({
     queryKey: ["latestRequest", user?.membershipId],
     queryFn: async () => {
@@ -79,19 +78,34 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     },
     enabled: !!user?.membershipId && !isUserError,
     staleTime: Infinity,
+    placeholderData: (previousData) => previousData,
   });
 
   const isLoggedIn = !!user && !isUserError;
-  const isLoading = isLoadingUser || isLoadingRequest;
+  const isLoading = (!user && isLoadingUser) || (!latestRequest && isLoadingRequest);
 
   // Get error message from userError
   const error = userError instanceof Error ? userError.message : null;
 
+  // Optimized refetchData function
   const refetchData = async () => {
-    await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ["user"] }),
-      queryClient.invalidateQueries({ queryKey: ["latestRequest"] }),
-    ]);
+    try {
+      // First refetch user data
+      await queryClient.refetchQueries({
+        queryKey: ["user"],
+        exact: true
+      });
+
+      // Then refetch latest request if user exists
+      if (user?.membershipId) {
+        await queryClient.refetchQueries({
+          queryKey: ["latestRequest", user.membershipId],
+          exact: true
+        });
+      }
+    } catch (error) {
+      console.error("Refetch error:", error);
+    }
   };
 
   const logout = async () => {
