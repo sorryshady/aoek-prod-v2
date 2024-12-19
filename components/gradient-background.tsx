@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute",
     width: "100%",
-    height: SCREEN_HEIGHT,
+    height: Platform.OS === "ios" ? SCREEN_HEIGHT : SCREEN_HEIGHT + 34,
   },
   imageStyle: {
     width: "100%",
