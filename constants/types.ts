@@ -187,25 +187,6 @@ export type ProfilePhoto = {
   photoId: string | null;
 };
 
-// export type RegisterFormData = {
-//   name: string;
-//   dob: string;
-//   gender: Gender;
-//   bloodGroup: BloodGroup;
-//   userStatus: UserStatus;
-//   retiredDepartment: Department | undefined;
-//   department: Department | undefined;
-//   designation: Designation | undefined;
-//   officeAddress: string | undefined;
-//   workDistrict: District | undefined;
-//   personalAddress: string;
-//   homeDistrict: District ;
-//   email: string;
-//   phoneNumber?: string | undefined;
-//   mobileNumber: string;
-//   photoUrl?: string | undefined;
-//   photoId?: string | undefined;
-// };
 
 export type RegisterFormData = {
   // Stage 1: Personal Details
