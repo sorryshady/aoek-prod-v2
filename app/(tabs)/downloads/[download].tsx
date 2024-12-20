@@ -69,7 +69,9 @@ export default function Downloads() {
         <GradientBackground>
           <View className="flex-1 justify-center items-center">
             <Spinner size="large" color="white" />
-            <Text className="text-white text-center ">Loading...</Text>
+            <Text className="text-white text-center font-psemibold">
+              Loading...
+            </Text>
           </View>
         </GradientBackground>
       </SafeAreaView>
@@ -91,7 +93,7 @@ export default function Downloads() {
                 {categoryTitle}
               </Text>
               <View className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-                <Text className="text-center text-white text-lg">
+                <Text className="text-center text-white text-lg font-psemibold">
                   No downloads available at the moment.
                 </Text>
               </View>
@@ -119,7 +121,9 @@ export default function Downloads() {
 
             {error ? (
               <View className="bg-red-500/20 p-4 rounded-lg">
-                <Text className="text-white text-center">{error}</Text>
+                <Text className="text-white text-center font-psemibold">
+                  {error}
+                </Text>
               </View>
             ) : (
               downloads?.length && (
@@ -129,25 +133,25 @@ export default function Downloads() {
                       key={item._id}
                       className="bg-white rounded-lg p-4 shadow-lg"
                     >
-                      <Text className="text-xl font-semibold text-gray-800 mb-2">
+                      <Text className="text-xl font-psemibold text-gray-800 mb-2">
                         {item.title}
                       </Text>
 
                       {item.description && (
-                        <Text className="text-gray-600 mb-3 text-sm">
+                        <Text className="text-gray-600 font-pmedium mb-3 text-sm">
                           {item.description}
                         </Text>
                       )}
 
                       <View className="flex-row justify-between items-center mb-3">
                         {item.dateUploaded && (
-                          <Text className="text-xs text-gray-500">
+                          <Text className="text-xs text-gray-500 font-pmedium">
                             Uploaded:{" "}
                             {new Date(item.dateUploaded).toLocaleDateString()}
                           </Text>
                         )}
                         {item.fileSize && (
-                          <Text className="text-xs text-gray-500">
+                          <Text className="text-sm text-gray-500 font-pmedium">
                             Size: {Math.round(parseInt(item.fileSize) / 1024)}{" "}
                             KB
                           </Text>

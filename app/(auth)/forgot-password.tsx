@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
@@ -76,7 +75,7 @@ const ForgotPassword = () => {
                     </Text>
                     <View className="text-center gap-4">
                       {userDetails ? (
-                        <Text className="text-black text-base font-semibold">
+                        <Text className="text-black text-base font-psemibold">
                           Hi{" "}
                           <Text className="text-primary font-psemibold">
                             {userDetails.name}
@@ -85,7 +84,7 @@ const ForgotPassword = () => {
                           password.
                         </Text>
                       ) : (
-                        <Text className="text-black text-base font-semibold text-center">
+                        <Text className="text-black text-base font-psemibold text-center">
                           Loading user details, please wait...
                         </Text>
                       )}
@@ -109,5 +108,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
-const styles = StyleSheet.create({});

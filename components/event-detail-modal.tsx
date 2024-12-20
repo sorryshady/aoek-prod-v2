@@ -49,14 +49,14 @@ export default function EventDetailModal({
       <AlertDialogBackdrop />
       <AlertDialogContent>
         <AlertDialogHeader>
-          <Heading className="text-typography-950 font-semibold" size="md">
+          <Heading className="text-typography-950 font-psemibold" size="md">
             Event Details
           </Heading>
         </AlertDialogHeader>
         <AlertDialogBody>
           <View className="flex-1 justify-end mt-[1rem]">
             <View className="bg-white shadow-lg overflow-hidden">
-              <ScrollView>
+              <ScrollView showsVerticalScrollIndicator={false}>
                 {event.image ? (
                   <Image
                     source={{ uri: urlFor(event.image).url() }}
@@ -71,12 +71,12 @@ export default function EventDetailModal({
                   />
                 )}
                 <View className="py-2 gap-2">
-                  <Text className="text-2xl font-bold text-gray-900">
+                  <Text className="text-2xl font-pbold text-gray-900">
                     {event.title}
                   </Text>
 
                   <Text className="text-base text-gray-600">
-                    <Text className="font-semibold text-gray-900">Date: </Text>
+                    <Text className="font-psemibold text-gray-900">Date: </Text>
                     {formatDateRange(
                       event.dateRange.startDate,
                       event.dateRange.endDate,
@@ -84,14 +84,14 @@ export default function EventDetailModal({
                   </Text>
 
                   <Text className="text-base text-gray-600">
-                    <Text className="font-semibold text-gray-900">
+                    <Text className="font-psemibold text-gray-900">
                       Location:{" "}
                     </Text>
                     {event.location || "TBA"}
                   </Text>
 
                   {event.description && (
-                    <Text className="text-base text-gray-600">
+                    <Text className="text-base font-pmedium text-gray-600">
                       {event.description}
                     </Text>
                   )}
@@ -103,15 +103,22 @@ export default function EventDetailModal({
                       onPress={() => Linking.openURL(event.link!)}
                       className="mt-2 justify-start"
                     >
-                      <ButtonText className="text-blue-500 " size="md">
+                      <ButtonText
+                        className="text-blue-500 font-pmedium"
+                        size="md"
+                      >
                         {event.link}
                       </ButtonText>
                     </Button>
                   )}
                 </View>
               </ScrollView>
-              <Button onPress={onClose} className="mt-4">
-                <ButtonText>Close</ButtonText>
+              <Button
+                onPress={onClose}
+                className="mt-4 rounded-md"
+                action="secondary"
+              >
+                <ButtonText className="font-psemibold">Close</ButtonText>
               </Button>
             </View>
           </View>

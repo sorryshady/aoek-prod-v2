@@ -2,7 +2,6 @@ import {
   RefreshControl,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
   Image,
@@ -104,7 +103,7 @@ const Home = () => {
                 size="lg"
                 onPress={() => Linking.openURL("https://www.aoek.org/contact")}
               >
-                <ButtonText>Contact Us</ButtonText>
+                <ButtonText className="font-psemibold">Contact Us</ButtonText>
               </Button>
               <Button
                 action="default"
@@ -112,7 +111,7 @@ const Home = () => {
                 size="lg"
                 onPress={() => router.push("/about")}
               >
-                <ButtonText>About Us</ButtonText>
+                <ButtonText className="font-psemibold">About Us</ButtonText>
               </Button>
             </View>
 
@@ -151,7 +150,10 @@ const Home = () => {
                         className="items-start justify-start"
                         onPress={() => Linking.openURL(events.link)}
                       >
-                        <ButtonText className="text-blue-500" size="md">
+                        <ButtonText
+                          className="text-blue-500 font-pmedium"
+                          size="md"
+                        >
                           {events.link}
                         </ButtonText>
                       </Button>
@@ -176,7 +178,7 @@ const Home = () => {
                 </View>
               ) : (
                 <View className="bg-slate-800/50 backdrop-blur-md rounded-xl p-4">
-                  <Text className="text-base text-center text-white">
+                  <Text className="text-base text-center font-pmedium text-white">
                     No upcoming events at the moment.
                   </Text>
                 </View>
@@ -193,5 +195,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});

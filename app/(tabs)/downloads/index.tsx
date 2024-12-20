@@ -45,7 +45,7 @@ const Downloads = () => {
   const DownloadCard = ({ item }: { item: (typeof categories)[0] }) => (
     <View className="w-[48%] bg-white rounded-lg p-4 m-1 shadow-lg">
       <Text
-        className="text-black text-base font-pregular text-center mb-2"
+        className="text-black text-base font-psemibold text-center mb-2"
         numberOfLines={2}
       >
         {item.title}
@@ -55,7 +55,7 @@ const Downloads = () => {
           onPress={() => router.push(`/downloads/${item.value}`)}
           className="bg-[#5386A4] mt-[1rem] rounded-md"
         >
-          <ButtonText>View More</ButtonText>
+          <ButtonText className="font-psemibold">View More</ButtonText>
         </Button>
       </View>
     </View>
@@ -65,7 +65,7 @@ const Downloads = () => {
     <SafeAreaView className="flex-1">
       <GradientBackground>
         <View className="flex-1">
-          <Text className="text-3xl font-pbold text-center text-white pt-12 mb-4 ">
+          <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4 ">
             Downloads
           </Text>
           <ScrollView

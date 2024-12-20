@@ -6,7 +6,7 @@ const SuccessAlert = ({ message }: { message: string }) => {
   return (
     <Alert action="success" className="my-2">
       <AlertIcon as={CheckCircle} />
-      <AlertText>{message}</AlertText>
+      <AlertText className="font-pmedium">{message}</AlertText>
     </Alert>
   );
 };

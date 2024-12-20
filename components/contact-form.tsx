@@ -40,7 +40,9 @@ const ContactForm = ({
     <VStack className="gap-4">
       <FormControl isInvalid={!!errors.personalAddress}>
         <FormControlLabel>
-          <FormControlLabelText>Personal Address</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Personal Address
+          </FormControlLabelText>
         </FormControlLabel>
         <Textarea>
           <TextareaInput
@@ -51,6 +53,7 @@ const ContactForm = ({
                 setErrors({ ...errors, personalAddress: undefined });
             }}
             placeholder="Enter your home address"
+            className="font-pregular"
           />
         </Textarea>
         {errors.personalAddress && (
@@ -64,15 +67,20 @@ const ContactForm = ({
 
       <FormControl isInvalid={!!errors.homeDistrict}>
         <FormControlLabel>
-          <FormControlLabelText>Home District</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Home District
+          </FormControlLabelText>
         </FormControlLabel>
         <Select
-          selectedValue={formData.homeDistrict ? changeTypeToText(formData.homeDistrict) : ""}
+          selectedValue={
+            formData.homeDistrict ? changeTypeToText(formData.homeDistrict) : ""
+          }
           onValueChange={(value) => {
             setFormData({ ...formData, homeDistrict: value as District });
             if (errors.homeDistrict)
               setErrors({ ...errors, homeDistrict: undefined });
           }}
+          className="font-pregular"
         >
           <SelectTrigger>
             <SelectInput placeholder="Select district" />
@@ -95,14 +103,18 @@ const ContactForm = ({
         </Select>
         {errors.homeDistrict && (
           <FormControlError>
-            <FormControlErrorText>{errors.homeDistrict}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.homeDistrict}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
 
       <FormControl isInvalid={!!errors.email}>
         <FormControlLabel>
-          <FormControlLabelText>Email</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Email
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -112,18 +124,23 @@ const ContactForm = ({
               if (errors.email) setErrors({ ...errors, email: undefined });
             }}
             placeholder="Enter your email address"
+            className="font-pregular"
           />
         </Input>
         {errors.email && (
           <FormControlError>
-            <FormControlErrorText>{errors.email}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.email}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
 
       <FormControl isInvalid={!!errors.phoneNumber}>
         <FormControlLabel>
-          <FormControlLabelText>Phone Number</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Phone Number
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -134,13 +151,16 @@ const ContactForm = ({
                 setErrors({ ...errors, phoneNumber: undefined });
             }}
             placeholder="Enter your phone number"
+            className="font-pregular"
           />
         </Input>
       </FormControl>
 
       <FormControl isInvalid={!!errors.mobileNumber}>
         <FormControlLabel>
-          <FormControlLabelText>Mobile Number</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Mobile Number
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -151,11 +171,14 @@ const ContactForm = ({
                 setErrors({ ...errors, mobileNumber: undefined });
             }}
             placeholder="Enter your mobile number"
+            className="font-pregular"
           />
         </Input>
         {errors.mobileNumber && (
           <FormControlError>
-            <FormControlErrorText>{errors.mobileNumber}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.mobileNumber}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>

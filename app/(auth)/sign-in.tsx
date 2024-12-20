@@ -171,7 +171,9 @@ const SignIn = () => {
     <VStack space="md">
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
-          <FormControlLabelText>Email or Membership ID</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Email or Membership ID
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -179,6 +181,7 @@ const SignIn = () => {
             onChangeText={setValue}
             placeholder="Enter your email or membership ID"
             keyboardType="email-address"
+            className="font-pregular"
           />
         </Input>
         {error && <ErrorAlert error={error} />}
@@ -188,15 +191,15 @@ const SignIn = () => {
         action="primary"
         isDisabled={isLoading}
         onPress={handleNext}
-        className="bg-red-500"
+        className="bg-red-500 rounded-md"
       >
         {isLoading ? (
           <>
             <ButtonSpinner color={"white"} />
-            <ButtonText>Checking...</ButtonText>
+            <ButtonText className="font-psemibold">Checking...</ButtonText>
           </>
         ) : (
-          <ButtonText>Next</ButtonText>
+          <ButtonText className="font-psemibold">Next</ButtonText>
         )}
       </Button>
     </VStack>
@@ -206,7 +209,9 @@ const SignIn = () => {
     <VStack space="sm">
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
-          <FormControlLabelText>Password</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Password
+          </FormControlLabelText>
         </FormControlLabel>
         <PasswordEntry
           value={password}
@@ -227,7 +232,7 @@ const SignIn = () => {
       >
         <ButtonText
           size={Platform.OS === "ios" ? "sm" : "xs"}
-          className="text-blue-500"
+          className="text-blue-500 font-psemibold"
         >
           Forgot Password?
         </ButtonText>
@@ -239,15 +244,15 @@ const SignIn = () => {
         action="primary"
         isDisabled={isLoading}
         onPress={handleLogin}
-        className="bg-red-500"
+        className="bg-red-500 rounded-md"
       >
         {isLoading ? (
           <>
             <ButtonSpinner color={"white"} />
-            <ButtonText>Logging in...</ButtonText>
+            <ButtonText className="font-psemibold">Logging in...</ButtonText>
           </>
         ) : (
-          <ButtonText>Login</ButtonText>
+          <ButtonText className="font-psemibold">Login</ButtonText>
         )}
       </Button>
     </VStack>
@@ -257,7 +262,9 @@ const SignIn = () => {
     <VStack space="md">
       <FormControl>
         <FormControlLabel>
-          <FormControlLabelText>Security Question</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Security Question
+          </FormControlLabelText>
         </FormControlLabel>
         <Select
           selectedValue={setupFormData.securityQuestion}
@@ -272,6 +279,7 @@ const SignIn = () => {
             <SelectInput
               placeholder="Select a security question"
               value={changeTypeToText(setupFormData.securityQuestion)}
+              className="font-pregular"
             />
           </SelectTrigger>
           <SelectPortal>
@@ -285,6 +293,7 @@ const SignIn = () => {
                   key={question}
                   label={changeTypeToText(question)}
                   value={question}
+                  className="font-pregular"
                 />
               ))}
             </SelectContent>
@@ -294,7 +303,9 @@ const SignIn = () => {
 
       <FormControl>
         <FormControlLabel>
-          <FormControlLabelText>Security Answer</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Security Answer
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -306,13 +317,16 @@ const SignIn = () => {
               }))
             }
             placeholder="Enter your security answer"
+            className="font-pregular"
           />
         </Input>
       </FormControl>
 
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
-          <FormControlLabelText>Password</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Password
+          </FormControlLabelText>
         </FormControlLabel>
         <PasswordEntry
           value={setupFormData.password}
@@ -329,7 +343,9 @@ const SignIn = () => {
 
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
-          <FormControlLabelText>Confirm Password</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Confirm Password
+          </FormControlLabelText>
         </FormControlLabel>
         <PasswordEntry
           value={setupFormData.confirmPassword}
@@ -351,15 +367,15 @@ const SignIn = () => {
         action="primary"
         isDisabled={isLoading}
         onPress={handleSetup}
-        className="bg-red-500 mt-4"
+        className="bg-red-500 mt-4 rounded-md"
       >
         {isLoading ? (
           <>
             <ButtonSpinner color={"white"} />
-            <ButtonText>Setting up...</ButtonText>
+            <ButtonText className="font-psemibold">Setting up...</ButtonText>
           </>
         ) : (
-          <ButtonText>Setup</ButtonText>
+          <ButtonText className="font-psemibold">Setup</ButtonText>
         )}
       </Button>
     </VStack>
@@ -449,12 +465,14 @@ const SignIn = () => {
                         space="sm"
                         className="justify-center items-center mt-6"
                       >
-                        <Text>Don't have an account? </Text>
+                        <Text className="font-pmedium">
+                          Don't have an account?
+                        </Text>
                         <Button
                           variant="link"
                           onPress={() => router.push("/sign-up")}
                         >
-                          <ButtonText className="text-blue-500">
+                          <ButtonText className="text-blue-500 font-psemibold">
                             Register
                           </ButtonText>
                         </Button>

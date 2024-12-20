@@ -87,16 +87,21 @@ export default function NewsScreen() {
         />
       )}
       <View className="p-4">
-        <Text className="text-sm text-gray-500 mb-2">
+        <Text className="text-sm text-gray-500 mb-2 font-pmedium">
           {formatDate(item.date)}
         </Text>
-        <Text className="text-lg font-pbold mb-2 leading-6" numberOfLines={2}>
+        <Text
+          className="text-lg font-psemibold mb-2 leading-6"
+          numberOfLines={2}
+        >
           {item.title}
         </Text>
-        <Text className="text-sm text-gray-600" numberOfLines={3}>
+        <Text className="text-sm text-gray-600 font-pmedium" numberOfLines={3}>
           {item.description}
         </Text>
-        <Text className="text-blue-500 text-sm mt-2">Read More</Text>
+        <Text className="text-blue-500 text-sm mt-2 font-psemibold">
+          Read More
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -116,7 +121,7 @@ export default function NewsScreen() {
                 News
               </Text>
               <View className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-                <Text className="text-center text-white text-lg">
+                <Text className="text-center text-white text-lg font-pregular">
                   No news articles available at the moment.
                 </Text>
               </View>
@@ -138,7 +143,7 @@ export default function NewsScreen() {
             <View className="flex-row items-center bg-white/90 rounded-full mb-6 px-4 py-3 shadow-sm">
               <Search size={20} color="#4A90B9" />
               <TextInput
-                className="flex-1 ml-2 text-base"
+                className="flex-1 ml-2 text-base font-pregular"
                 placeholder="Search news..."
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -148,7 +153,7 @@ export default function NewsScreen() {
 
             {filteredNews.length === 0 ? (
               <View className="flex-1 justify-center items-center">
-                <Text className="text-white text-lg text-center">
+                <Text className="text-white text-lg font-pmedium text-center">
                   No news articles match your search.
                 </Text>
               </View>

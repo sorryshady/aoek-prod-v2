@@ -25,22 +25,26 @@ export default function App() {
             Association of Engineers Kerala
           </Text>
         </View>
-        <Text className="text-white mt-7 text-center text-base ">
+        <Text className="text-white mt-7 text-center font-pmedium text-base ">
           A non-profit politically neutral organization.
         </Text>
         <Link href="/sign-in" replace asChild>
           <Button
-            className="bg-red-500 w-full my-[3rem]"
+            className="bg-red-500 w-full my-[3rem] rounded-md"
             size="xl"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
                 <ButtonSpinner color={"white"} />
-                <ButtonText>Verifying user</ButtonText>
+                <ButtonText className="font-psemibold">
+                  Verifying user
+                </ButtonText>
               </>
             ) : (
-              <ButtonText>Continue to login</ButtonText>
+              <ButtonText className="font-psemibold">
+                Continue to login
+              </ButtonText>
             )}
           </Button>
         </Link>

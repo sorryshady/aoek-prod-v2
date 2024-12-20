@@ -43,7 +43,9 @@ const PersonalForm = ({
     <VStack className="gap-4">
       <FormControl isInvalid={!!errors.name}>
         <FormControlLabel>
-          <FormControlLabelText>Name</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Name
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -53,18 +55,23 @@ const PersonalForm = ({
               if (errors.name) setErrors({ ...errors, name: undefined });
             }}
             placeholder="Enter your name"
+            className="font-pregular"
           />
         </Input>
         {errors.name && (
           <FormControlError>
-            <FormControlErrorText>{errors.name}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.name}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
 
       <FormControl isInvalid={!!errors.dob}>
         <FormControlLabel>
-          <FormControlLabelText>Date of Birth</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Date of Birth
+          </FormControlLabelText>
         </FormControlLabel>
         <Input>
           <InputField
@@ -75,18 +82,23 @@ const PersonalForm = ({
             }}
             placeholder="Enter your date of birth"
             keyboardType="numeric"
+            className="font-pregular"
           />
         </Input>
         {errors.dob && (
           <FormControlError>
-            <FormControlErrorText>{errors.dob}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.dob}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
 
       <FormControl isInvalid={!!errors.gender}>
         <FormControlLabel>
-          <FormControlLabelText>Gender</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Gender
+          </FormControlLabelText>
         </FormControlLabel>
         <Select
           selectedValue={
@@ -96,6 +108,7 @@ const PersonalForm = ({
             setFormData({ ...formData, gender: value as Gender });
             if (errors.gender) setErrors({ ...errors, gender: undefined });
           }}
+          className="font-pregular"
         >
           <SelectTrigger>
             <SelectInput placeholder="Select gender" />
@@ -114,14 +127,18 @@ const PersonalForm = ({
         </Select>
         {errors.gender && (
           <FormControlError>
-            <FormControlErrorText>{errors.gender}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.gender}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
 
       <FormControl isInvalid={!!errors.bloodGroup}>
         <FormControlLabel>
-          <FormControlLabelText>Blood Group</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            Blood Group
+          </FormControlLabelText>
         </FormControlLabel>
         <Select
           selectedValue={
@@ -136,6 +153,7 @@ const PersonalForm = ({
             if (errors.bloodGroup)
               setErrors({ ...errors, bloodGroup: undefined });
           }}
+          className="font-pregular"
         >
           <SelectTrigger>
             <SelectInput placeholder="Select blood group" />
@@ -158,7 +176,9 @@ const PersonalForm = ({
         </Select>
         {errors.bloodGroup && (
           <FormControlError>
-            <FormControlErrorText>{errors.bloodGroup}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.bloodGroup}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>

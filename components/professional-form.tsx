@@ -44,7 +44,9 @@ const ProfessionalForm = ({
     <VStack className="gap-4">
       <FormControl isInvalid={!!errors.userStatus}>
         <FormControlLabel>
-          <FormControlLabelText>User Status</FormControlLabelText>
+          <FormControlLabelText className="font-pmedium">
+            User Status
+          </FormControlLabelText>
         </FormControlLabel>
         <Select
           selectedValue={
@@ -55,6 +57,7 @@ const ProfessionalForm = ({
             if (errors.userStatus)
               setErrors({ ...errors, userStatus: undefined });
           }}
+          className="font-pregular"
         >
           <SelectTrigger>
             <SelectInput placeholder="Select user status" />
@@ -72,7 +75,9 @@ const ProfessionalForm = ({
         </Select>
         {errors.userStatus && (
           <FormControlError>
-            <FormControlErrorText>{errors.userStatus}</FormControlErrorText>
+            <FormControlErrorText className="font-pregular">
+              {errors.userStatus}
+            </FormControlErrorText>
           </FormControlError>
         )}
       </FormControl>
@@ -80,7 +85,9 @@ const ProfessionalForm = ({
         <>
           <FormControl isInvalid={!!errors.department}>
             <FormControlLabel>
-              <FormControlLabelText>Department</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                Department
+              </FormControlLabelText>
             </FormControlLabel>
             <Select
               selectedValue={formData.department}
@@ -89,6 +96,7 @@ const ProfessionalForm = ({
                 if (errors.department)
                   setErrors({ ...errors, department: undefined });
               }}
+              className="font-pregular"
             >
               <SelectTrigger>
                 <SelectInput placeholder="Select department" />
@@ -111,14 +119,18 @@ const ProfessionalForm = ({
             </Select>
             {errors.department && (
               <FormControlError>
-                <FormControlErrorText>{errors.department}</FormControlErrorText>
+                <FormControlErrorText className="font-pregular">
+                  {errors.department}
+                </FormControlErrorText>
               </FormControlError>
             )}
           </FormControl>
 
           <FormControl isInvalid={!!errors.designation}>
             <FormControlLabel>
-              <FormControlLabelText>Designation</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                Designation
+              </FormControlLabelText>
             </FormControlLabel>
             <Select
               selectedValue={
@@ -131,6 +143,7 @@ const ProfessionalForm = ({
                 if (errors.designation)
                   setErrors({ ...errors, designation: undefined });
               }}
+              className="font-pregular"
             >
               <SelectTrigger>
                 <SelectInput placeholder="Select designation" />
@@ -153,7 +166,7 @@ const ProfessionalForm = ({
             </Select>
             {errors.designation && (
               <FormControlError>
-                <FormControlErrorText>
+                <FormControlErrorText className="font-pregular">
                   {errors.designation}
                 </FormControlErrorText>
               </FormControlError>
@@ -162,7 +175,9 @@ const ProfessionalForm = ({
 
           <FormControl isInvalid={!!errors.workDistrict}>
             <FormControlLabel>
-              <FormControlLabelText>Office District</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                Office District
+              </FormControlLabelText>
             </FormControlLabel>
             <Select
               selectedValue={
@@ -175,6 +190,7 @@ const ProfessionalForm = ({
                 if (errors.workDistrict)
                   setErrors({ ...errors, workDistrict: undefined });
               }}
+              className="font-pregular"
             >
               <SelectTrigger>
                 <SelectInput placeholder="Select district" />
@@ -197,7 +213,7 @@ const ProfessionalForm = ({
             </Select>
             {errors.workDistrict && (
               <FormControlError>
-                <FormControlErrorText>
+                <FormControlErrorText className="font-pregular">
                   {errors.workDistrict}
                 </FormControlErrorText>
               </FormControlError>
@@ -206,7 +222,9 @@ const ProfessionalForm = ({
 
           <FormControl isInvalid={!!errors.officeAddress}>
             <FormControlLabel>
-              <FormControlLabelText>Office Address</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                Office Address
+              </FormControlLabelText>
             </FormControlLabel>
             <Textarea>
               <TextareaInput
@@ -217,6 +235,7 @@ const ProfessionalForm = ({
                     setErrors({ ...errors, officeAddress: undefined });
                 }}
                 placeholder="Enter your office address"
+                className="font-pregular"
               />
             </Textarea>
           </FormControl>
@@ -225,7 +244,9 @@ const ProfessionalForm = ({
       {formData.userStatus === "RETIRED" && (
         <FormControl isInvalid={!!errors.retiredDepartment}>
           <FormControlLabel>
-            <FormControlLabelText>Retired Department</FormControlLabelText>
+            <FormControlLabelText className="font-pmedium">
+              Retired Department
+            </FormControlLabelText>
           </FormControlLabel>
           <Select
             selectedValue={formData.retiredDepartment}
@@ -237,6 +258,7 @@ const ProfessionalForm = ({
               if (errors.retiredDepartment)
                 setErrors({ ...errors, retiredDepartment: undefined });
             }}
+            className="font-pregular"
           >
             <SelectTrigger>
               <SelectInput placeholder="Select department" />
@@ -259,7 +281,7 @@ const ProfessionalForm = ({
           </Select>
           {errors.retiredDepartment && (
             <FormControlError>
-              <FormControlErrorText>
+              <FormControlErrorText className="font-pregular">
                 {errors.retiredDepartment}
               </FormControlErrorText>
             </FormControlError>

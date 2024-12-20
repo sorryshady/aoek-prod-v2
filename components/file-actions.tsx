@@ -1,11 +1,4 @@
-import {
-  Alert,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, Platform, View } from "react-native";
 import React from "react";
 import * as FileSystem from "expo-file-system";
 import * as Linking from "expo-linking";
@@ -99,7 +92,7 @@ const FileActions = ({ fileUrl, title, containerStyle }: Props) => {
         className="border-[#5386A4] rounded-md"
         onPress={() => Linking.openURL(fileUrl)}
       >
-        <ButtonText className="text-[#5386A4]">View</ButtonText>
+        <ButtonText className="text-[#5386A4] font-psemibold">View</ButtonText>
         <ButtonIcon as={Eye} color="#5386A4" />
       </Button>
       <Button
@@ -107,7 +100,7 @@ const FileActions = ({ fileUrl, title, containerStyle }: Props) => {
         onPress={handleDownload}
         className="bg-[#5386A4] rounded-md"
       >
-        <ButtonText>Download</ButtonText>
+        <ButtonText className="font-psemibold">Download</ButtonText>
         <ButtonIcon as={Download} />
       </Button>
 
@@ -117,7 +110,7 @@ const FileActions = ({ fileUrl, title, containerStyle }: Props) => {
         onPress={handleShare}
         className="border-[#5386A4] rounded-md"
       >
-        <ButtonText className="text-[#5386A4]">Share</ButtonText>
+        <ButtonText className="text-[#5386A4] font-psemibold">Share</ButtonText>
         <ButtonIcon as={Share} color="#5386A4" />
       </Button>
     </View>
@@ -125,5 +118,3 @@ const FileActions = ({ fileUrl, title, containerStyle }: Props) => {
 };
 
 export default FileActions;
-
-const styles = StyleSheet.create({});

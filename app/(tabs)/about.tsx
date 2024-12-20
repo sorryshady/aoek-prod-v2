@@ -48,7 +48,7 @@ export default function About() {
                 construction and infrastructural development.
               </Text>
 
-              <Text className="text-white text-base leading-6 text-center mt-4">
+              <Text className="text-white font-pregular text-base leading-6 text-center mt-4">
                 Formed in the <Text className="font-pbold">year 1963</Text> and
                 united by a shared vision, this organization aims to work
                 towards the welfare of engineers in these departments. The
@@ -58,7 +58,7 @@ export default function About() {
                 works of the State.
               </Text>
 
-              <Text className="text-white text-base leading-6 text-center mt-4">
+              <Text className="text-white font-pregular text-base leading-6 text-center mt-4">
                 The retired Engineers will also continue to be the life members
                 of the Association attached to a district centre where their
                 residence is located or a district of their choice. However,
@@ -73,7 +73,7 @@ export default function About() {
                 schedule.
               </Text>
 
-              <Text className="text-white text-base leading-6 text-center mt-4 mb-8">
+              <Text className="text-white font-pregular text-base leading-6 text-center mt-4 mb-8">
                 Three volumes of newsletters publishing every calendar year act
                 as an effective mode of communication to its members about the
                 activities of the Association.

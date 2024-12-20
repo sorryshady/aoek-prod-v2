@@ -171,7 +171,7 @@ const Profile = () => {
         <GradientBackground>
           <View className="flex-1 justify-center items-center">
             <Spinner color="white" size="large" />
-            <Text className="text-white text-2xl mt-4">
+            <Text className="text-white font-psemibold text-2xl mt-4">
               Loading, please wait...
             </Text>
           </View>
@@ -185,7 +185,7 @@ const Profile = () => {
         <GradientBackground>
           <View className="flex-1 justify-center items-center">
             <Spinner color="white" size="large" />
-            <Text className="text-white text-2xl mt-4">
+            <Text className="text-white font-psemibold text-2xl mt-4">
               Logging out, please wait...
             </Text>
           </View>
@@ -212,8 +212,8 @@ const Profile = () => {
             />
           }
         >
-          <View className="flex-1 my-[3rem]">
-            <Text className="text-2xl font-pbold mb-3 text-white text-center">
+          <View className="flex-1 ">
+            <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
               Your Profile
             </Text>
 
@@ -237,10 +237,10 @@ const Profile = () => {
             {/* Actions */}
             <View className="mb-5">
               <Button
-                className="bg-[#5386A4] w-full px-4"
+                className="bg-[#5386A4] w-full px-4 rounded-md"
                 onPress={() => setModalVisible(true)}
               >
-                <ButtonText>Actions</ButtonText>
+                <ButtonText className="font-psemibold">Actions</ButtonText>
               </Button>
               <Modal
                 animationType="slide"
@@ -255,10 +255,12 @@ const Profile = () => {
                     </Text>
                     <View className="gap-4">
                       <Button
-                        className="bg-[#5386A4] w-full px-4"
+                        className="bg-[#5386A4] w-full px-4 rounded-md"
                         onPress={openPasswordModal}
                       >
-                        <ButtonText>Change Password</ButtonText>
+                        <ButtonText className="font-psemibold">
+                          Change Password
+                        </ButtonText>
                       </Button>
                       {user?.userStatus === "WORKING" && (
                         <Button
@@ -268,10 +270,10 @@ const Profile = () => {
                               : "primary"
                           }
                           isDisabled={latestRequest?.status === "PENDING"}
-                          className={`w-full px-4 ${latestRequest?.status !== "PENDING" ? "bg-[#5386A4]" : ""}`}
+                          className={`w-full px-4 rounded-md ${latestRequest?.status !== "PENDING" ? "bg-[#5386A4]" : ""}`}
                           onPress={openRequestModal}
                         >
-                          <ButtonText>
+                          <ButtonText className="font-psemibold">
                             {latestRequest?.status === "PENDING"
                               ? "Pending Request"
                               : "Submit Request"}
@@ -281,8 +283,11 @@ const Profile = () => {
                       <Button
                         onPress={() => setModalVisible(false)}
                         action="secondary"
+                        className="rounded-md"
                       >
-                        <ButtonText>Cancel</ButtonText>
+                        <ButtonText className="font-psemibold">
+                          Cancel
+                        </ButtonText>
                       </Button>
                     </View>
                   </View>
@@ -401,7 +406,7 @@ const Profile = () => {
                       }
                     }}
                   >
-                    <ButtonText className="text-[#FACE30] text-lg">
+                    <ButtonText className="text-[#FACE30] text-lg font-psemibold">
                       Edit
                     </ButtonText>
                   </Button>
@@ -412,7 +417,7 @@ const Profile = () => {
                   <VStack space="md">
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText>
+                        <FormControlLabelText className="font-pmedium">
                           Permanent Address
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -426,12 +431,13 @@ const Profile = () => {
                               personalAddress: text,
                             }))
                           }
+                          className="font-pregular"
                         />
                       </Textarea>
                     </FormControl>
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText>
+                        <FormControlLabelText className="font-pmedium">
                           Home District
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -447,6 +453,7 @@ const Profile = () => {
                             homeDistrict: value as District,
                           });
                         }}
+                        className="font-pregular"
                       >
                         <SelectTrigger>
                           <SelectInput placeholder="Select district" />
@@ -494,7 +501,7 @@ const Profile = () => {
                   <VStack space="md">
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText>
+                        <FormControlLabelText className="font-pmedium">
                           Phone Number
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -509,12 +516,13 @@ const Profile = () => {
                               phoneNumber: text,
                             }))
                           }
+                          className="font-pregular"
                         />
                       </Input>
                     </FormControl>
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText>
+                        <FormControlLabelText className="font-pmedium">
                           Mobile Number
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -529,6 +537,7 @@ const Profile = () => {
                               mobileNumber: text,
                             }))
                           }
+                          className="font-pregular"
                         />
                       </Input>
                     </FormControl>
@@ -545,8 +554,11 @@ const Profile = () => {
             {isEditing && (
               <View className="mb-6 gap-5">
                 {error && <ErrorAlert error={error} />}
-                <Button onPress={handleSave} className="bg-[#5386A4] w-full">
-                  <ButtonText>
+                <Button
+                  onPress={handleSave}
+                  className="bg-[#5386A4] w-full rounded-md"
+                >
+                  <ButtonText className="font-psemibold">
                     {saving ? "Saving..." : "Save Changes"}
                   </ButtonText>
                 </Button>
@@ -556,9 +568,9 @@ const Profile = () => {
                     setIsEditing(false);
                     setError(null);
                   }}
-                  className="bg-gray-200 w-full"
+                  className="bg-gray-200 w-full rounded-md"
                 >
-                  <ButtonText className="text-gray-700 font-pmedium">
+                  <ButtonText className="text-gray-700 font-psemibold">
                     Cancel
                   </ButtonText>
                 </Button>
@@ -570,8 +582,9 @@ const Profile = () => {
                 logout();
               }}
               action="negative"
+              className="rounded-md"
             >
-              <ButtonText>Logout</ButtonText>
+              <ButtonText className="font-psemibold">Logout</ButtonText>
             </Button>
           </View>
         </ScrollView>

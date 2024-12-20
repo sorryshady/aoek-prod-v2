@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { EyeOffIcon } from "lucide-react-native";
 import { InputField, InputIcon, InputSlot } from "./ui/input";
@@ -48,6 +48,7 @@ const PasswordEntry = ({
           onChangeText={setValue}
           placeholder={placeholder}
           secureTextEntry={!showPassword}
+          className="font-pregular"
         />
         <InputSlot className="pr-3" onPress={handleState}>
           <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
@@ -60,27 +61,27 @@ const PasswordEntry = ({
           </Text>
           <View className="flex-row flex-wrap gap-2">
             <Text
-              className={`text-xs ${checks.length ? "text-green-600" : "text-red-500"}`}
+              className={`text-xs font-pmedium ${checks.length ? "text-green-600" : "text-red-500"}`}
             >
               • At least 8 characters
             </Text>
             <Text
-              className={`text-xs ${checks.uppercase ? "text-green-600" : "text-red-500"}`}
+              className={`text-xs font-pmedium ${checks.uppercase ? "text-green-600" : "text-red-500"}`}
             >
               • One uppercase letter
             </Text>
             <Text
-              className={`text-xs ${checks.lowercase ? "text-green-600" : "text-red-500"}`}
+              className={`text-xs font-pmedium ${checks.lowercase ? "text-green-600" : "text-red-500"}`}
             >
               • One lowercase letter
             </Text>
             <Text
-              className={`text-xs ${checks.number ? "text-green-600" : "text-red-500"}`}
+              className={`text-xs font-pmedium ${checks.number ? "text-green-600" : "text-red-500"}`}
             >
               • One number
             </Text>
             <Text
-              className={`text-xs ${checks.special ? "text-green-600" : "text-red-500"}`}
+              className={`text-xs font-pmedium ${checks.special ? "text-green-600" : "text-red-500"}`}
             >
               • One special character
             </Text>
@@ -92,5 +93,3 @@ const PasswordEntry = ({
 };
 
 export default PasswordEntry;
-
-const styles = StyleSheet.create({});

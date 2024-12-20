@@ -78,7 +78,7 @@ const SecurityAnswerForm = ({
       <VStack>
         <FormControl isInvalid={!!formError}>
           <FormControlLabel>
-            <FormControlLabelText>
+            <FormControlLabelText className="font-pmedium">
               {changeTypeToText(userDetails.securityQuestion)}
             </FormControlLabelText>
           </FormControlLabel>
@@ -87,14 +87,18 @@ const SecurityAnswerForm = ({
               value={answer}
               onChangeText={setAnswer}
               placeholder="Enter your answer"
+              className="font-pregular"
             />
           </Input>
           <Button
             variant="link"
-            className="justify-end w-fit"
+            className="justify-end w-fit rounded-md"
             onPress={() => setShowModal(true)}
           >
-            <ButtonText size={Platform.OS === "ios" ? "sm" : "xs"}>
+            <ButtonText
+              className="font-psemibold"
+              size={Platform.OS === "ios" ? "sm" : "xs"}
+            >
               Forgot Security Question?
             </ButtonText>
           </Button>
@@ -104,26 +108,28 @@ const SecurityAnswerForm = ({
         <Button
           isDisabled={isLoading}
           onPress={continueHandler}
-          className="bg-[#5386A4] w-full"
+          className="bg-[#5386A4] w-full rounded-md"
         >
           {isLoading ? (
             <>
               <ButtonSpinner color="#fff" />
-              <ButtonText>Verifying...</ButtonText>
+              <ButtonText className="font-psemibold">Verifying...</ButtonText>
             </>
           ) : (
-            <ButtonText>Continue</ButtonText>
+            <ButtonText className="font-psemibold">Continue</ButtonText>
           )}
         </Button>
         <Button variant="link" onPress={onBack}>
-          <ButtonText>Back to Sign In</ButtonText>
+          <ButtonText className="font-psemibold">Back to Sign In</ButtonText>
         </Button>
       </VStack>
       <AlertDialog isOpen={showModal} onClose={() => setShowModal(false)}>
         <AlertDialogBackdrop />
         <AlertDialogContent>
           <AlertDialogHeader>
-            <Heading size="lg">Password Reset Instructions</Heading>
+            <Heading size="lg" className="font-psemibold">
+              Password Reset Instructions
+            </Heading>
             <AlertDialogCloseButton />
           </AlertDialogHeader>
           <AlertDialogBody>
@@ -132,42 +138,56 @@ const SecurityAnswerForm = ({
               showsVerticalScrollIndicator={false}
             >
               <VStack space="sm">
-                <Text className="font-semibold">
+                <Text className="font-psemibold">
                   Please follow these steps:
                 </Text>
 
                 <VStack space="xs">
-                  <Text>1. Send an email to: aoekerala@gmail.com</Text>
-                  <Text>2. Include the following information:</Text>
+                  <Text className="font-pregular">
+                    1. Send an email to: aoekerala@gmail.com
+                  </Text>
+                  <Text className="font-pregular">
+                    2. Include the following information:
+                  </Text>
                   <VStack space="xs">
-                    <Text>• Full Name</Text>
-                    <Text>• Registered Email Address</Text>
-                    <Text>• Membership ID</Text>
-                    <Text>• Reason for password reset</Text>
-                    <Text>• Any additional verification information</Text>
+                    <Text className="font-pregular">• Full Name</Text>
+                    <Text className="font-pregular">
+                      • Registered Email Address
+                    </Text>
+                    <Text className="font-pregular">• Membership ID</Text>
+                    <Text className="font-pregular">
+                      • Reason for password reset
+                    </Text>
+                    <Text className="font-pregular">
+                      • Any additional verification information
+                    </Text>
                   </VStack>
-                  <Text>3. Subject line: "AOEK Password Reset Request"</Text>
-                  <Text>4. The admin team will verify your identity</Text>
-                  <Text>
+                  <Text className="font-pregular">
+                    3. Subject line: "AOEK Password Reset Request"
+                  </Text>
+                  <Text className="font-pregular">
+                    4. The admin team will verify your identity
+                  </Text>
+                  <Text className="font-pregular">
                     5. Once verified, your password and security question will
                     be reset
                   </Text>
-                  <Text>
+                  <Text className="font-pregular">
                     6. You will receive an email after your request is processed
                   </Text>
                 </VStack>
 
                 <View className="bg-yellow-50 p-4 rounded-lg mt-4">
-                  <Text className="font-semibold mb-2">Important Notes:</Text>
+                  <Text className="font-psemibold mb-2">Important Notes:</Text>
                   <VStack space="xs">
-                    <Text>
+                    <Text className="font-pregular">
                       • Password reset requests are typically processed within
                       24-48 hours
                     </Text>
-                    <Text>
+                    <Text className="font-pregular">
                       • Make sure to check your spam folder for responses
                     </Text>
-                    <Text>
+                    <Text className="font-pregular">
                       • Always use a strong password and remember your security
                       answer
                     </Text>
@@ -178,11 +198,11 @@ const SecurityAnswerForm = ({
           </AlertDialogBody>
           <AlertDialogFooter>
             <Button
-              className="mt-4"
+              className="mt-4 rounded-md"
               variant="outline"
               onPress={() => setShowModal(false)}
             >
-              <ButtonText>Close</ButtonText>
+              <ButtonText className="font-psemibold">Close</ButtonText>
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -245,7 +265,9 @@ const ResetPasswordForm = ({
         <>
           <FormControl isInvalid={!!formError}>
             <FormControlLabel>
-              <FormControlLabelText>New Password</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                New Password
+              </FormControlLabelText>
             </FormControlLabel>
             <PasswordEntry
               placeholder="Enter your new password"
@@ -257,7 +279,9 @@ const ResetPasswordForm = ({
 
           <FormControl isInvalid={!!formError}>
             <FormControlLabel>
-              <FormControlLabelText>Confirm Password</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                Confirm Password
+              </FormControlLabelText>
             </FormControlLabel>
             <PasswordEntry
               placeholder="Confirm your new password"
@@ -270,15 +294,15 @@ const ResetPasswordForm = ({
           <Button
             isDisabled={isLoading}
             onPress={resetPasswordHandler}
-            className="bg-[#5386A4] w-full"
+            className="bg-[#5386A4] w-full rounded-md"
           >
             {isLoading ? (
               <>
                 <ButtonSpinner color="#fff" />
-                <ButtonText>Confirming...</ButtonText>
+                <ButtonText className="font-psemibold">Confirming...</ButtonText>
               </>
             ) : (
-              <ButtonText>Reset Password</ButtonText>
+              <ButtonText className="font-psemibold">Reset Password</ButtonText>
             )}
           </Button>
         </>

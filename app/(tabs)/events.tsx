@@ -103,14 +103,16 @@ export default function EventsScreen() {
     emptyMessage: string;
   }) => (
     <View className="mb-6">
-      <Text className="text-xl font-semibold text-center mb-4 text-white">
+      <Text className="text-xl font-psemibold text-center mb-4 text-white">
         {title}
       </Text>
       {events.length > 0 ? (
         events.map((event) => <EventCard key={event._id} event={event} />)
       ) : (
         <View className="bg-white/30 backdrop-blur-md rounded-lg p-6">
-          <Text className="text-center text-white text-lg">{emptyMessage}</Text>
+          <Text className="text-center text-white text-lg font-psemibold">
+            {emptyMessage}
+          </Text>
         </View>
       )}
     </View>

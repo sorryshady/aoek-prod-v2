@@ -38,10 +38,7 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
     try {
       setIsLoading(true);
       if (selectedImage) {
-        const response = await uploadProfilePhoto(
-          selectedImage,
-          formData.fullName,
-        );
+        const response = await uploadProfilePhoto(selectedImage, formData.name);
         setFormData({
           ...formData,
           photoUrl: response.photoUrl,
@@ -66,7 +63,9 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
   };
   return (
     <View className="gap-4">
-      <Text className="mb-[1rem]">Upload your photo (optional)</Text>
+      <Text className="mb-[1rem] font-pregular">
+        Upload your photo (optional)
+      </Text>
       {selectedImage ? (
         <View className="items-center gap-4">
           <Image
@@ -76,11 +75,19 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
           />
           {!formData.photoUrl && (
             <View className="flex-row gap-4 w-full justify-center">
-              <Button action="negative" onPress={handleCancel}>
-                <ButtonText>Cancel</ButtonText>
+              <Button
+                action="negative"
+                onPress={handleCancel}
+                className="rounded-md"
+              >
+                <ButtonText className="font-psemibold">Cancel</ButtonText>
               </Button>
-              <Button action="positive" onPress={handleConfirm}>
-                <ButtonText>
+              <Button
+                action="positive"
+                onPress={handleConfirm}
+                className="rounded-md"
+              >
+                <ButtonText className="font-psemibold">
                   {isLoading ? "Uploading..." : "Confirm"}
                 </ButtonText>
                 {isLoading && <ButtonSpinner color="#fff" />}
@@ -91,10 +98,10 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
       ) : (
         <View className="w-full items-center justify-center">
           <Button
-            className="bg-[#5386A4] w-full"
+            className="bg-[#5386A4] w-full rounded-md"
             onPress={() => setImageModalVisible(true)}
           >
-            <ButtonText>Upload Photo</ButtonText>
+            <ButtonText className="font-psemibold">Upload Photo</ButtonText>
           </Button>
         </View>
       )}
@@ -113,7 +120,7 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
             </Text>
             <View className="gap-4">
               <Button
-                className="bg-[#5386A4] w-full"
+                className="bg-[#5386A4] w-full rounded-md"
                 onPress={() =>
                   handleImageSelect(async () => {
                     let uri = null;
@@ -124,10 +131,10 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
                   })
                 }
               >
-                <ButtonText>Take Photo</ButtonText>
+                <ButtonText className="font-psemibold">Take Photo</ButtonText>
               </Button>
               <Button
-                className="bg-[#5386A4] w-full"
+                className="bg-[#5386A4] w-full rounded-md"
                 onPress={() =>
                   handleImageSelect(async () => {
                     let uri = null;
@@ -138,13 +145,16 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
                   })
                 }
               >
-                <ButtonText>Select from Gallery</ButtonText>
+                <ButtonText className="font-psemibold">
+                  Select from Gallery
+                </ButtonText>
               </Button>
               <Button
                 action="secondary"
+                className="rounded-md"
                 onPress={() => setImageModalVisible(false)}
               >
-                <ButtonText>Cancel</ButtonText>
+                <ButtonText className="font-psemibold">Cancel</ButtonText>
               </Button>
             </View>
           </View>

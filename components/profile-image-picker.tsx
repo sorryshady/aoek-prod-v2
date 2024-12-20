@@ -76,7 +76,7 @@ const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
         </TouchableOpacity>
       </View>
       <Text className="text-xl text-white font-pbold mt-3">{name}</Text>
-      <Text className="text-white mt-1">
+      <Text className="text-white mt-1 font-pmedium">
         Member since {new Date(createdAt).getFullYear()}
       </Text>
 
@@ -94,30 +94,36 @@ const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
             </Text>
             <View className="gap-4">
               <Button
-                className="bg-[#5386A4] w-full"
+                className="bg-[#5386A4] w-full rounded-md"
                 onPress={() => takePhoto(setSelectedImage)}
               >
-                <ButtonText>Take Photo</ButtonText>
+                <ButtonText className="font-psemibold">Take Photo</ButtonText>
               </Button>
               <Button
-                className="bg-[#5386A4] w-full"
+                className="bg-[#5386A4] w-full rounded-md"
                 onPress={() => pickImage(setSelectedImage)}
               >
-                <ButtonText>Select from Gallery</ButtonText>
+                <ButtonText className="font-psemibold">
+                  Select from Gallery
+                </ButtonText>
               </Button>
               {selectedImage && (
                 <Button
                   isDisabled={isLoading}
-                  className="bg-green-500 w-full"
+                  className="bg-green-500 w-full rounded-md"
                   onPress={confirmImage}
                 >
-                  <ButtonText>
+                  <ButtonText className="font-psemibold">
                     {isLoading ? "Updating..." : "Confirm"}
                   </ButtonText>
                 </Button>
               )}
-              <Button action="secondary" onPress={closeModal}>
-                <ButtonText>Cancel</ButtonText>
+              <Button
+                className="rounded-md"
+                action="secondary"
+                onPress={closeModal}
+              >
+                <ButtonText className="font-psemibold">Cancel</ButtonText>
               </Button>
             </View>
           </View>

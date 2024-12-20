@@ -72,9 +72,11 @@ const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
       <View className="justify-between flex-row flex-1">
         <VStack className="items-center justify-center flex-1">
           {latestRequest.adminComments && (
-            <AlertText>Admin Comments: {latestRequest.adminComments}</AlertText>
+            <AlertText className="font-pmedium">
+              Admin Comments: {latestRequest.adminComments}
+            </AlertText>
           )}
-          <AlertText>
+          <AlertText className="font-pmedium">
             {changeTypeToText(latestRequest.status)} Request
           </AlertText>
         </VStack>

@@ -54,7 +54,9 @@ export default function NewsDetailScreen() {
       <SafeAreaView className="flex-1">
         <GradientBackground>
           <View className="flex-1 items-center justify-center">
-            <Text className="text-white text-lg">Loading...</Text>
+            <Text className="text-white text-lg font-psemibold">
+              Loading...
+            </Text>
           </View>
         </GradientBackground>
       </SafeAreaView>
@@ -80,16 +82,16 @@ export default function NewsDetailScreen() {
               />
             )}
             <View className="p-4">
-              <Text className="text-3xl font-pbold">{news.title}</Text>
+              <Text className="text-2xl font-psemibold">{news.title}</Text>
 
               {news.description && (
-                <Text className="text-base font-medium text-gray-600 mt-2">
+                <Text className="text-base font-pmedium text-gray-600 mt-2">
                   {news.description}
                 </Text>
               )}
 
               {news.date && (
-                <Text className="text-base font-medium text-gray-500 mt-2">
+                <Text className="text-base font-pmedium text-gray-500 mt-2">
                   {formatDate(news.date)}
                 </Text>
               )}

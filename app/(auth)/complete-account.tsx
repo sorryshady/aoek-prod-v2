@@ -14,7 +14,6 @@ import {
   CompleteUser,
   RegisterFormData,
   RegisterFormErrors,
-  RegistrationStep,
 } from "@/constants/types";
 import {
   isValidDate,
@@ -203,9 +202,9 @@ const CompleteAccount = () => {
                   : "bg-gray-300"
             }`}
           >
-            <Text className="text-white">{index + 1}</Text>
+            <Text className="text-white font-psemibold">{index + 1}</Text>
           </View>
-          <Text className="text-xs mt-1">{stage}</Text>
+          <Text className="text-xs mt-1 font-pregular">{stage}</Text>
         </View>
       ))}
     </HStack>
@@ -293,9 +292,11 @@ const CompleteAccount = () => {
                             <Button
                               variant="outline"
                               onPress={handlePrevious}
-                              className="flex-1 mx-2"
+                              className="flex-1 mx-2 rounded-md"
                             >
-                              <ButtonText>Previous</ButtonText>
+                              <ButtonText className="font-psemibold">
+                                Previous
+                              </ButtonText>
                             </Button>
                           )}
 
@@ -303,18 +304,20 @@ const CompleteAccount = () => {
                             <Button
                               action="primary"
                               onPress={handleNext}
-                              className="flex-1 mx-2"
+                              className="flex-1 mx-2 rounded-md"
                             >
-                              <ButtonText>Next</ButtonText>
+                              <ButtonText className="font-psemibold">
+                                Next
+                              </ButtonText>
                             </Button>
                           ) : (
                             <Button
                               action="primary"
                               onPress={handleSubmit}
                               isDisabled={isLoading}
-                              className="flex-1 mx-2"
+                              className="flex-1 mx-2 rounded-md"
                             >
-                              <ButtonText>
+                              <ButtonText className="font-psemibold">
                                 {isLoading ? "Updating..." : "Update"}
                               </ButtonText>
                               {isLoading && <ButtonSpinner color="#fff" />}

@@ -165,9 +165,9 @@ const SignUp = () => {
                   : "bg-gray-300"
             }`}
           >
-            <Text className="text-white">{index + 1}</Text>
+            <Text className="text-white font-psemibold">{index + 1}</Text>
           </View>
-          <Text className="text-xs mt-1">{stage}</Text>
+          <Text className="text-xs mt-1 font-pregular">{stage}</Text>
         </View>
       ))}
     </HStack>
@@ -255,9 +255,11 @@ const SignUp = () => {
                             <Button
                               variant="outline"
                               onPress={handlePrevious}
-                              className="flex-1 mx-2"
+                              className="flex-1 mx-2 rounded-md"
                             >
-                              <ButtonText>Previous</ButtonText>
+                              <ButtonText className="font-psemibold">
+                                Previous
+                              </ButtonText>
                             </Button>
                           )}
 
@@ -265,18 +267,20 @@ const SignUp = () => {
                             <Button
                               action="primary"
                               onPress={handleNext}
-                              className="flex-1 mx-2"
+                              className="flex-1 mx-2 rounded-md"
                             >
-                              <ButtonText>Next</ButtonText>
+                              <ButtonText className="font-psemibold">
+                                Next
+                              </ButtonText>
                             </Button>
                           ) : (
                             <Button
                               action="primary"
                               onPress={handleSubmit}
                               isDisabled={isLoading}
-                              className="flex-1 mx-2"
+                              className="flex-1 mx-2 rounded-md"
                             >
-                              <ButtonText>
+                              <ButtonText className="font-psemibold">
                                 {isLoading ? "Submitting..." : "Submit"}
                               </ButtonText>
                               {isLoading && <ButtonSpinner color="#fff" />}
@@ -289,12 +293,14 @@ const SignUp = () => {
                       space="sm"
                       className="justify-center items-center mt-6"
                     >
-                      <Text>Already have an account? </Text>
+                      <Text className="font-pregular">
+                        Already have an account?
+                      </Text>
                       <Button
                         variant="link"
                         onPress={() => router.push("/sign-in")}
                       >
-                        <ButtonText className="text-blue-500">
+                        <ButtonText className="text-blue-500 font-psemibold">
                           Sign in
                         </ButtonText>
                       </Button>

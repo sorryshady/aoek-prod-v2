@@ -173,7 +173,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
           <View className="gap-4">
             <FormControl>
               <FormControlLabel>
-                <FormControlLabelText>New Work District</FormControlLabelText>
+                <FormControlLabelText className="font-pmedium">
+                  New Work District
+                </FormControlLabelText>
               </FormControlLabel>
               <Select
                 selectedValue={
@@ -187,6 +189,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                     newWorkDistrict: value as District,
                   });
                 }}
+                className="font-pregular"
               >
                 <SelectTrigger>
                   <SelectInput placeholder="Select district" />
@@ -210,7 +213,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
             </FormControl>
             <FormControl>
               <FormControlLabel>
-                <FormControlLabelText>New Office Address</FormControlLabelText>
+                <FormControlLabelText className="font-pmedium">
+                  New Office Address
+                </FormControlLabelText>
               </FormControlLabel>
               <Input>
                 <InputField
@@ -222,6 +227,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                     }))
                   }
                   placeholder="Enter new office address"
+                  className="font-pregular"
                 />
               </Input>
             </FormControl>
@@ -232,7 +238,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
         return (
           <FormControl>
             <FormControlLabel>
-              <FormControlLabelText>New Position</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                New Position
+              </FormControlLabelText>
             </FormControlLabel>
             <Select
               selectedValue={
@@ -246,6 +254,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                   newPosition: value as Designation,
                 });
               }}
+              className="font-pregular"
             >
               <SelectTrigger>
                 <SelectInput placeholder="Select position" />
@@ -273,7 +282,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
         return (
           <FormControl>
             <FormControlLabel>
-              <FormControlLabelText>Retirement Date</FormControlLabelText>
+              <FormControlLabelText className="font-pmedium">
+                Retirement Date
+              </FormControlLabelText>
             </FormControlLabel>
             <Input>
               <InputField
@@ -282,6 +293,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                   setRetirementData({ retirementDate: text })
                 }
                 placeholder="Enter retirement date in DD/MM/YYYY format"
+                className="font-pregular"
               />
             </Input>
           </FormControl>
@@ -298,7 +310,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
         <AlertDialogBackdrop />
         <AlertDialogContent>
           <AlertDialogHeader>
-            <Heading className="text-typography-950 font-semibold" size="md">
+            <Heading className="text-typography-950 font-psemibold" size="md">
               Submit Request
             </Heading>
           </AlertDialogHeader>
@@ -311,13 +323,16 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                 <View className="gap-4">
                   <FormControl>
                     <FormControlLabel>
-                      <FormControlLabelText>Request Type</FormControlLabelText>
+                      <FormControlLabelText className="font-pmedium">
+                        Request Type
+                      </FormControlLabelText>
                     </FormControlLabel>
                     <Select
                       selectedValue={changeTypeToText(requestType)}
                       onValueChange={(value) => {
                         setRequestType(value as RequestType);
                       }}
+                      className="font-pregular"
                     >
                       <SelectTrigger>
                         <SelectInput placeholder="Select request type" />
@@ -343,17 +358,21 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
 
                   <View className="gap-4 mt-4">
                     <Button
-                      className="bg-[#5386A4]"
+                      className="bg-[#5386A4] rounded-md"
                       isDisabled={isLoading}
                       onPress={handleSubmit}
                     >
-                      <ButtonText>
+                      <ButtonText className="font-psemibold">
                         {isLoading ? "Submitting..." : "Submit Request"}
                       </ButtonText>
                       {isLoading && <ButtonSpinner color="white" />}
                     </Button>
-                    <Button onPress={onClose} action="secondary">
-                      <ButtonText>Cancel</ButtonText>
+                    <Button
+                      className="rounded-md"
+                      onPress={onClose}
+                      action="secondary"
+                    >
+                      <ButtonText className="font-psemibold">Cancel</ButtonText>
                     </Button>
                   </View>
                 </View>
