@@ -15,7 +15,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
+    "@emailjs/react-native": "^4.2.2",
     "@expo/html-elements": "0.4.2",
     "@expo/vector-icons": "^14.0.2",
     "@gluestack-ui/actionsheet": "^0.2.46",

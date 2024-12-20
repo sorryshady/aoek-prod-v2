@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@emailjs/browser':
-        specifier: ^4.4.1
-        version: 4.4.1
+      '@emailjs/react-native':
+        specifier: ^4.2.2
+        version: 4.2.2(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))
       '@expo/html-elements':
         specifier: 0.4.2
         version: 0.4.2
@@ -970,6 +970,12 @@ packages:
   '@emailjs/browser@4.4.1':
     resolution: {integrity: sha512-DGSlP9sPvyFba3to2A50kDtZ+pXVp/0rhmqs2LmbMS3I5J8FSOgLwzY2Xb4qfKlOVHh29EAutLYwe5yuEZmEFg==}
     engines: {node: '>=14.0.0'}
+
+  '@emailjs/react-native@4.2.2':
+    resolution: {integrity: sha512-jXjEliE8zMWsOkOfbCA/jA16usjV0SdhQvZ6Cw3PDBxsFbInIMPKhxexHG4/bXxX7cjAhdBK4lfDHL4P+dZfNw==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react-native: '>=0.60 <1.0'
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
@@ -6402,6 +6408,12 @@ snapshots:
       '@types/hammerjs': 2.0.46
 
   '@emailjs/browser@4.4.1': {}
+
+  '@emailjs/react-native@4.2.2(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))':
+    dependencies:
+      '@emailjs/browser': 4.4.1
+      '@react-native-async-storage/async-storage': 1.23.1(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))
+      react-native: 0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1)
 
   '@expo/bunyan@4.0.1':
     dependencies:

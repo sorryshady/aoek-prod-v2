@@ -1,6 +1,6 @@
 import { ScrollView, Text, View, Platform, Linking } from "react-native";
 import GradientBackground from "@/components/gradient-background";
-import emailjs from "@emailjs/browser";
+import { send } from "@emailjs/react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Button,
@@ -77,12 +77,9 @@ export default function Contact() {
           user_email: email,
           user_message: message,
         };
-        const result = await emailjs.send(
-          serviceId!,
-          templateId!,
-          params,
-          userId,
-        );
+        const result = await send(serviceId!, templateId!, params, {
+          publicKey: userId,
+        });
         if (result.status === 200) {
           setSuccess("Message has been sent successfully");
           setFormData({ name: "", email: "", message: "" });
