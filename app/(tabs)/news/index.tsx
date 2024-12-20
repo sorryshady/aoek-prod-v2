@@ -136,10 +136,10 @@ export default function NewsScreen() {
     <SafeAreaView className="flex-1">
       <GradientBackground>
         <View className="flex-1 px-3">
+          <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
+            News
+          </Text>
           <View className="flex-1 bg-transparent p-4">
-            <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
-              News
-            </Text>
             <View className="flex-row items-center bg-white/90 rounded-full mb-6 px-4 py-3 shadow-sm">
               <Search size={20} color="#4A90B9" />
               <TextInput
