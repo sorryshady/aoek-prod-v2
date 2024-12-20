@@ -234,7 +234,7 @@ const Home = () => {
                 <>
                   <Carousel
                     loop
-                    width={width - 40}
+                    width={width - 28}
                     height={width / 1.5}
                     autoPlay={true}
                     data={filteredCommittee}
