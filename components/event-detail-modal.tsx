@@ -61,13 +61,13 @@ export default function EventDetailModal({
                   <Image
                     source={{ uri: urlFor(event.image).url() }}
                     className="w-full h-64"
-                    resizeMode="cover"
+                    resizeMode="contain"
                   />
                 ) : (
                   <Image
                     source={{ uri: "https://via.placeholder.com/400x300" }}
                     className="w-full h-64"
-                    resizeMode="cover"
+                    resizeMode="contain"
                   />
                 )}
                 <View className="py-2 gap-2">

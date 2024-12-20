@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 import { Search } from "lucide-react-native";
 import { sanityClient, urlFor } from "@/sanity";
@@ -103,9 +105,14 @@ export default function NewsScreen() {
     return (
       <SafeAreaView className="flex-1">
         <GradientBackground>
-          <View className="flex-1 px-3">
+          <ScrollView
+            className="flex-1 px-3"
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          >
             <View className="flex-1 bg-transparent ">
-              <Text className="text-3xl font-pbold text-center text-white pt-12 mb-4">
+              <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
                 News
               </Text>
               <View className="bg-white/10 backdrop-blur-md rounded-lg p-6">
@@ -114,7 +121,7 @@ export default function NewsScreen() {
                 </Text>
               </View>
             </View>
-          </View>
+          </ScrollView>
         </GradientBackground>
       </SafeAreaView>
     );
@@ -125,8 +132,8 @@ export default function NewsScreen() {
       <GradientBackground>
         <View className="flex-1 px-3">
           <View className="flex-1 bg-transparent p-4">
-            <Text className="text-2xl font-pbold text-center text-white pt-12 mb-4">
-              NEWS
+            <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
+              News
             </Text>
             <View className="flex-row items-center bg-white/90 rounded-full mb-6 px-4 py-3 shadow-sm">
               <Search size={20} color="#4A90B9" />

@@ -59,11 +59,13 @@ export default function EventsScreen() {
             <Image
               source={{ uri: urlFor(event.image).url() }}
               className="w-28 h-28 rounded-lg"
+              resizeMode="contain"
             />
           ) : (
             <Image
               source={{ uri: "https://via.placeholder.com/400x300" }}
               className="w-28 h-28 rounded-lg"
+              resizeMode="contain"
             />
           )}
           <View className="flex-1 ml-3">

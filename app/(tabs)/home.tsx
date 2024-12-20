@@ -117,7 +117,7 @@ const Home = () => {
             </View>
 
             <View className="mt-10">
-              <Text className="text-center text-white text-3xl font-pbold mb-6">
+              <Text className="text-center text-white text-3xl font-psemibold mb-6">
                 Upcoming Event
               </Text>
 
@@ -131,7 +131,7 @@ const Home = () => {
                     <Image
                       source={{ uri: urlFor(events.image).url() }}
                       className="w-full h-48 rounded-t-xl mb-2"
-                      resizeMode="cover"
+                      resizeMode="contain"
                     />
                   ) : (
                     <Image

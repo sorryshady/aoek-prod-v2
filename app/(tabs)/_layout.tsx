@@ -52,16 +52,14 @@ const TabsLayout = () => {
             tabBarIcon: ({ color }) => <CalendarDays color={color} />,
           }}
         />
-        {/* <Tabs.Screen
+        <Tabs.Screen
           name="downloads"
           options={{
             title: "Downloads",
             headerShown: false,
-            // tabBarIcon: ({ color }) => (
-            //   <TabIcon icon={icons.downloads} color={color} />
-            // ),
+            tabBarIcon: ({ color }) => <Download color={color} />,
           }}
-        /> */}
+        />
         <Tabs.Screen
           name="profile"
           options={{
