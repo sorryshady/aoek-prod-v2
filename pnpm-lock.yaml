@@ -59,6 +59,9 @@ importers:
       '@legendapp/motion':
         specifier: ^2.4.0
         version: 2.4.0(nativewind@4.1.23(react-native-reanimated@3.16.5(@babel/core@7.26.0)(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1))(react-native-safe-area-context@5.0.0(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1))(react-native-svg@15.2.0(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.17))(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1)
+      '@portabletext/react-native':
+        specifier: ^1.1.13
+        version: 1.1.13(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1)
       '@react-native-async-storage/async-storage':
         specifier: 1.23.1
         version: 1.23.1(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))
@@ -1321,6 +1324,26 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@portabletext/react-native@1.1.13':
+    resolution: {integrity: sha512-2xUbOsr9VP2GQdtcgJs7cGbrMBSWTBC/SBp0h+SbjMj/yeWRc3oqpeU0PAJxius+40Qw5BIKtUkTZDgUmpAghw==}
+    peerDependencies:
+      react: ^17 || ^18
+      react-native: ^0.66 || ^0.67 || ^0.68 || ^0.69 || ^0.70 || ^0.71 || ^0.72 || ^0.73.0 || ^0.74.0 || ^0.75.0
+
+  '@portabletext/react@3.2.0':
+    resolution: {integrity: sha512-BA216Z8yhb/eP24bfb09uiT0SVnQHTVZMPXf4MRBEZ+G8cMzZM/ab3tcp8owyp91+3kTKR0qSIpzYSKdm1Pakw==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      react: ^17 || ^18 || >=19.0.0-0
+
+  '@portabletext/toolkit@2.0.16':
+    resolution: {integrity: sha512-aBvnD8MscoAlEIuZBn0Aksd+oCuoMGFOT3CtHIgRBaac0Vu4YnnMUF45xo/B/T5vmwWcnDXoJEJdn+SKDg1m+A==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+
+  '@portabletext/types@2.0.13':
+    resolution: {integrity: sha512-5xk5MSyQU9CrDho3Rsguj38jhijhD36Mk8S6mZo3huv6PM+t4M/5kJN2KFIxgvt4ONpvOEs1pVIZAV0cL0Vi+Q==}
+    engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
 
   '@radix-ui/react-compose-refs@1.0.0':
     resolution: {integrity: sha512-0KaSv6sx787/hK3eF53iOkiSLwAGlFMx5lotrqD2pTjB18KbybKoEIgkNZTKC60YECDQTKGTRcDBILwZVqVKvA==}
@@ -7116,6 +7139,25 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@portabletext/react-native@1.1.13(react-native@0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@portabletext/react': 3.2.0(react@18.3.1)
+      '@portabletext/types': 2.0.13
+      react: 18.3.1
+      react-native: 0.76.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.17)(react@18.3.1)
+
+  '@portabletext/react@3.2.0(react@18.3.1)':
+    dependencies:
+      '@portabletext/toolkit': 2.0.16
+      '@portabletext/types': 2.0.13
+      react: 18.3.1
+
+  '@portabletext/toolkit@2.0.16':
+    dependencies:
+      '@portabletext/types': 2.0.13
+
+  '@portabletext/types@2.0.13': {}
 
   '@radix-ui/react-compose-refs@1.0.0(react@18.3.1)':
     dependencies:

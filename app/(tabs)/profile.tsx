@@ -47,7 +47,7 @@ const Profile = () => {
   const { user, logout, refetchData, latestRequest, isLoading } =
     useGlobalContext();
   const [error, setError] = useState<string | null>(null);
-  const [logginOut, setLogginOut] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordModalVisible, setPasswordModalVisible] = useState(false);
@@ -179,7 +179,7 @@ const Profile = () => {
       </SafeAreaView>
     );
   }
-  if (logginOut) {
+  if (loggingOut) {
     return (
       <SafeAreaView className="flex-1">
         <GradientBackground>
@@ -566,7 +566,7 @@ const Profile = () => {
             )}
             <Button
               onPress={() => {
-                setLogginOut(true);
+                setLoggingOut(true);
                 logout();
               }}
               action="negative"
