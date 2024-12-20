@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   Modal,
   Platform,
   RefreshControl,
@@ -29,6 +28,7 @@ import {
   VStack,
   Textarea,
   TextareaInput,
+  Spinner,
 } from "@/components/ui";
 import { useGlobalContext } from "@/context/global-provider";
 import { router } from "expo-router";
@@ -47,6 +47,7 @@ const Profile = () => {
   const { user, logout, refetchData, latestRequest, isLoading } =
     useGlobalContext();
   const [error, setError] = useState<string | null>(null);
+  const [logginOut, setLogginOut] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordModalVisible, setPasswordModalVisible] = useState(false);
@@ -169,7 +170,24 @@ const Profile = () => {
       <SafeAreaView className="flex-1">
         <GradientBackground>
           <View className="flex-1 justify-center items-center">
-            <ActivityIndicator size="large" />
+            <Spinner color="white" size="large" />
+            <Text className="text-white text-2xl mt-4">
+              Loading, please wait...
+            </Text>
+          </View>
+        </GradientBackground>
+      </SafeAreaView>
+    );
+  }
+  if (logginOut) {
+    return (
+      <SafeAreaView className="flex-1">
+        <GradientBackground>
+          <View className="flex-1 justify-center items-center">
+            <Spinner color="white" size="large" />
+            <Text className="text-white text-2xl mt-4">
+              Logging out, please wait...
+            </Text>
           </View>
         </GradientBackground>
       </SafeAreaView>
@@ -546,7 +564,13 @@ const Profile = () => {
                 </Button>
               </View>
             )}
-            <Button onPress={logout} action="negative">
+            <Button
+              onPress={() => {
+                setLogginOut(true);
+                logout();
+              }}
+              action="negative"
+            >
               <ButtonText>Logout</ButtonText>
             </Button>
           </View>
@@ -578,7 +602,7 @@ const InfoRow = ({
   value?: string | null;
 }) => (
   <View className="flex-1 gap-1 my-1">
-    <Text className="text-gray-500 text-sm font-psemibold">{label}</Text>
+    <Text className="text-gray-500 text-sm font-pmedium">{label}</Text>
     <Text className="font-pmedium text-wrap">{value || "N/A"}</Text>
   </View>
 );

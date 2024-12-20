@@ -82,7 +82,8 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const isLoggedIn = !!user && !isUserError;
-  const isLoading = (!user && isLoadingUser) || (!latestRequest && isLoadingRequest);
+  const isLoading =
+    (!user && isLoadingUser) || (!latestRequest && isLoadingRequest);
 
   // Get error message from userError
   const error = userError instanceof Error ? userError.message : null;
@@ -93,14 +94,14 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
       // First refetch user data
       await queryClient.refetchQueries({
         queryKey: ["user"],
-        exact: true
+        exact: true,
       });
 
       // Then refetch latest request if user exists
       if (user?.membershipId) {
         await queryClient.refetchQueries({
           queryKey: ["latestRequest", user.membershipId],
-          exact: true
+          exact: true,
         });
       }
     } catch (error) {

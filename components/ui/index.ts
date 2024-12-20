@@ -23,6 +23,7 @@ import { Heading } from "./heading";
 import { Link, LinkText } from "./link";
 import { HStack } from "./hstack";
 import { VStack } from "./vstack";
+import { Spinner } from "./spinner";
 import { Toast, ToastTitle, ToastDescription, useToast } from "./toast";
 import {
   AlertDialog,
@@ -79,4 +80,5 @@ export {
   Alert,
   AlertIcon,
   AlertText,
+  Spinner
 };
