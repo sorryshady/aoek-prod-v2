@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Button,
   ButtonIcon,
+  ButtonSpinner,
   ButtonText,
   FormControl,
   FormControlError,
@@ -69,6 +70,7 @@ export default function Contact() {
   };
   const handleSubmit = async () => {
     try {
+      setIsSending(true);
       if (validateForm()) {
         console.log("Form is valid: ", formData);
         const { name, email, message } = formData;
@@ -225,6 +227,7 @@ export default function Contact() {
                 <ButtonText className="font-psemibold">
                   {isSending ? "Sending..." : "Send Message"}
                 </ButtonText>
+                {isSending && <ButtonSpinner size="small" color="white" />}
               </Button>
             </View>
             <View className="mb-6">
