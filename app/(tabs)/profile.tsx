@@ -200,7 +200,7 @@ const Profile = () => {
           className="flex-1 px-4 pt-6 pb-0"
           contentContainerStyle={{
             flexGrow: 1,
-            paddingBottom: Platform.OS === "ios" ? 90 : 0,
+            paddingBottom: Platform.OS === "ios" ? 30 : 0,
           }}
           showsVerticalScrollIndicator={false}
           refreshControl={

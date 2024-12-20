@@ -13,7 +13,6 @@ export default function About() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             flexGrow: 1,
-            paddingBottom: Platform.OS === "ios" ? 90 : 0,
           }}
         >
           <View className="px-4 py-10">

@@ -67,7 +67,6 @@ const Home = () => {
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
-            paddingBottom: Platform.OS === "ios" ? 90 : 0,
           }}
           showsVerticalScrollIndicator={false}
           refreshControl={
@@ -101,7 +100,7 @@ const Home = () => {
                 action="negative"
                 className="flex-1 rounded-md shadow-lg"
                 size="lg"
-                onPress={() => Linking.openURL("https://www.aoek.org/contact")}
+                onPress={() => router.push("/contact")}
               >
                 <ButtonText className="font-psemibold">Contact Us</ButtonText>
               </Button>
