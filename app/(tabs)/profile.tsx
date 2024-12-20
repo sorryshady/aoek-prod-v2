@@ -27,6 +27,8 @@ import {
   SelectDragIndicator,
   SelectItem,
   VStack,
+  Textarea,
+  TextareaInput,
 } from "@/components/ui";
 import { useGlobalContext } from "@/context/global-provider";
 import { router } from "expo-router";
@@ -396,8 +398,8 @@ const Profile = () => {
                           Permanent Address
                         </FormControlLabelText>
                       </FormControlLabel>
-                      <Input>
-                        <InputField
+                      <Textarea>
+                        <TextareaInput
                           placeholder="Enter your address"
                           value={formData.personalAddress}
                           onChangeText={(text) =>
@@ -407,7 +409,7 @@ const Profile = () => {
                             }))
                           }
                         />
-                      </Input>
+                      </Textarea>
                     </FormControl>
                     <FormControl>
                       <FormControlLabel>
@@ -576,7 +578,7 @@ const InfoRow = ({
   value?: string | null;
 }) => (
   <View className="flex-1 gap-1 my-1">
-    <Text className="text-gray-500 text-sm">{label}</Text>
+    <Text className="text-gray-500 text-sm font-psemibold">{label}</Text>
     <Text className="font-pmedium text-wrap">{value || "N/A"}</Text>
   </View>
 );
