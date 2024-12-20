@@ -76,6 +76,10 @@ const TabsLayout = () => {
           name="contact"
           options={{ href: null, headerShown: false }}
         />
+        <Tabs.Screen
+          name="committee"
+          options={{ href: null, headerShown: false }}
+        />
       </Tabs>
       <StatusBar
         style={Platform.OS === "ios" ? "dark" : "light"}

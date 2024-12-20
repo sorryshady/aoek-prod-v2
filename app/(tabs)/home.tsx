@@ -1,20 +1,22 @@
 import {
   RefreshControl,
-  Platform,
   ScrollView,
   Text,
   View,
   Image,
   Linking,
+  Dimensions,
 } from "react-native";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { sanityClient, urlFor } from "@/sanity";
 import { images } from "@/constants";
 import GradientBackground from "@/components/gradient-background";
 import { Button, ButtonText, Spinner } from "@/components/ui";
 import { router } from "expo-router";
-import { formatDateRange } from "@/lib/utils";
+import { changeTypeToText, formatDateRange } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import Carousel from "react-native-reanimated-carousel";
 
 type EventItem = {
   title: string;
@@ -27,12 +29,32 @@ type EventItem = {
   location: string;
   link: string;
 };
+
+type CommitteeData = {
+  stateCommittee: any[]; // replace 'any' with proper type
+  districtCommittee: any[]; // replace 'any' with proper type
+};
+
+const fetchCommitteeData = async (): Promise<CommitteeData> => {
+  const response = await fetch(
+    `${process.env.EXPO_PUBLIC_API_URL}/mobile/committee`,
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
+
 const Home = () => {
+  const width = Dimensions.get("window").width;
   const [events, setEvents] = useState<EventItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const scrollViewRef = useRef<ScrollView>(null);
 
-  const getData = async () => {
+  const getEventData = async () => {
     try {
       const query = `*[_type == "upcomingEvent" && dateRange.startDate >= now()]{
           _id,
@@ -52,15 +74,28 @@ const Home = () => {
     }
   };
 
+  const { data: committeeData, isLoading: fetchingCommittee } = useQuery({
+    queryKey: ["committee"],
+    queryFn: fetchCommitteeData,
+  });
+
+  const { stateCommittee, districtCommittee } = committeeData || {};
+
   useEffect(() => {
-    getData();
+    getEventData();
   }, []);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    await getData();
+    await getEventData();
     setRefreshing(false);
   }, []);
+
+  const filteredCommittee =
+    stateCommittee?.filter(
+      (member) => member.positionState !== "EXECUTIVE_COMMITTEE_MEMBER",
+    ) || [];
+
   return (
     <SafeAreaView className="flex-1">
       <GradientBackground>
@@ -78,7 +113,7 @@ const Home = () => {
             />
           }
         >
-          <View className="flex-1 bg-transparent px-10 py-8">
+          <View className="flex-1 bg-transparent px-4 py-8">
             <Image
               source={images.logo}
               className="rounded-lg mb-3 w-1/2 h-28 mx-auto"
@@ -185,6 +220,66 @@ const Home = () => {
               <Text className="text-center text-white mt-4 font-pregular">
                 See more events in the Events tab
               </Text>
+            </View>
+
+            <View className="mt-10">
+              <Text className="text-center text-white text-3xl font-psemibold mb-6">
+                State Committee
+              </Text>
+              {fetchingCommittee ? (
+                <View className="backdrop-blur-md rounded-xl p-4 shadow-lg items-center justify-center">
+                  <Spinner color="white" size="small" />
+                </View>
+              ) : filteredCommittee.length > 0 ? (
+                <>
+                  <Carousel
+                    loop
+                    width={width - 40}
+                    height={width / 1.5}
+                    autoPlay={true}
+                    data={filteredCommittee}
+                    scrollAnimationDuration={1000}
+                    renderItem={({ item }) => (
+                      <View className="bg-white rounded-md p-4 mx-2">
+                        <View className="w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto">
+                          <Image
+                            source={
+                              item.photoUrl
+                                ? { uri: item.photoUrl }
+                                : images.member
+                            }
+                            className="w-full h-full"
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <Text className="font-pbold text-xl text-center mb-2">
+                          {item.name}
+                        </Text>
+                        <Text className="text-gray-700 text-center text-lg mb-1">
+                          {changeTypeToText(item.positionState)}
+                        </Text>
+                        <Text className="text-gray-700 text-center">
+                          {changeTypeToText(item.designation)}
+                        </Text>
+                      </View>
+                    )}
+                  />
+                  <Button
+                    className="bg-[#5386A4] rounded-md shadow-lg mx-2"
+                    onPress={() => router.push("/committee")}
+                  >
+                    <ButtonText className="text-white font-pmedium">
+                      View All
+                    </ButtonText>
+                  </Button>
+                </>
+              ) : (
+                <View className="bg-slate-800/50 backdrop-blur-md rounded-xl p-4">
+                  <Text className="text-base text-center font-pmedium text-white">
+                    No state committee members at the moment.
+                  </Text>
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
