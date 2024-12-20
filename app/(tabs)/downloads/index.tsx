@@ -65,7 +65,7 @@ const Downloads = () => {
     <SafeAreaView className="flex-1">
       <GradientBackground>
         <View className="flex-1">
-          <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4 ">
+          <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
             Downloads
           </Text>
           <ScrollView
@@ -76,7 +76,7 @@ const Downloads = () => {
               paddingBottom: 20,
             }}
           >
-            <View className="px-2 flex-row flex-wrap justify-between gap-y-1 mt-10">
+            <View className="px-2 flex-row flex-wrap justify-between gap-y-1 mt-5">
               {categories.map((item) => (
                 <DownloadCard key={item.title} item={item} />
               ))}
