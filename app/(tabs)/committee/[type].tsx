@@ -5,6 +5,7 @@ import GradientBackground from "@/components/gradient-background";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
 import StateCommittee from "@/components/state-committee";
+import DistrictCommittee from "@/components/district-committee";
 type CommitteeData = {
   stateCommittee: any[];
   districtCommittee: any[];
@@ -43,10 +44,11 @@ const CommitteeType = () => {
       <GradientBackground>
         <View className="flex-1">
           <Text className="text-3xl font-psemibold text-center text-white pt-12 ">
-            Committee Page
+            {type.type === "state" ? "State" : "District"} Committee Page
           </Text>
           <Text className="text-base text-gray-200 font-pregular text-center mt-2">
-            Learn more about our committee members
+            Learn more about our {type.type === "state" ? "State" : "District"}{" "}
+            committee members
           </Text>
           {type.type === "state" ? (
             <View>
@@ -54,7 +56,7 @@ const CommitteeType = () => {
             </View>
           ) : (
             <View>
-              <Text>District Committee Members</Text>
+              <DistrictCommittee members={districtCommittee || []} />
             </View>
           )}
         </View>

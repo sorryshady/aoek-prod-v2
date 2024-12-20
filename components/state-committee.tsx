@@ -1,5 +1,5 @@
 import { ScrollView, View, Image, Text } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { images } from "@/constants";
 import {
   AlertDialogBody,
