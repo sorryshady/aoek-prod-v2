@@ -4,7 +4,7 @@ import { send } from "@emailjs/react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Button,
-  ButtonIcon,
+  //   ButtonIcon,
   ButtonSpinner,
   ButtonText,
   FormControl,
@@ -21,8 +21,8 @@ import { useState } from "react";
 import { isValidEmail } from "@/lib/utils";
 import ErrorAlert from "@/components/error-alert";
 import SuccessAlert from "@/components/success-alert";
-import MapView, { Marker } from "react-native-maps";
-import { MapPin } from "lucide-react-native";
+// import MapView, { Marker } from "react-native-maps";
+// import { MapPin } from "lucide-react-native";
 
 type FormData = {
   name: string;
@@ -230,7 +230,7 @@ export default function Contact() {
                 {isSending && <ButtonSpinner size="small" color="white" />}
               </Button>
             </View>
-            <View className="mb-6">
+            {/* <View className="mb-6">
               <View className="h-96 w-full rounded-lg overflow-hidden">
                 <MapView
                   style={{ flex: 1 }}
@@ -269,7 +269,7 @@ export default function Contact() {
                   Open in Maps
                 </ButtonText>
               </Button>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </GradientBackground>
