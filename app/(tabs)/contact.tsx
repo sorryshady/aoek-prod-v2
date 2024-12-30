@@ -4,7 +4,7 @@ import { send } from "@emailjs/react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Button,
-  //   ButtonIcon,
+  ButtonIcon,
   ButtonSpinner,
   ButtonText,
   FormControl,
@@ -21,8 +21,7 @@ import { useState } from "react";
 import { isValidEmail } from "@/lib/utils";
 import ErrorAlert from "@/components/error-alert";
 import SuccessAlert from "@/components/success-alert";
-// import MapView, { Marker } from "react-native-maps";
-// import { MapPin } from "lucide-react-native";
+import { MapPin } from "lucide-react-native";
 
 type FormData = {
   name: string;
@@ -230,36 +229,10 @@ export default function Contact() {
                 {isSending && <ButtonSpinner size="small" color="white" />}
               </Button>
             </View>
-            {/* <View className="mb-6">
-              <View className="h-96 w-full rounded-lg overflow-hidden">
-                <MapView
-                  style={{ flex: 1 }}
-                  region={{
-                    latitude: 8.508888512667932,
-                    longitude: 76.94919831630524,
-                    latitudeDelta: 0.002,
-                    longitudeDelta: 0.002,
-                  }}
-                  scrollEnabled={false}
-                  pitchEnabled={false}
-                  rotateEnabled={false}
-                  zoomEnabled={true}
-                  zoomControlEnabled={true}
-                  loadingEnabled={true}
-                  showsUserLocation={false}
-                  toolbarEnabled={false}
-                  moveOnMarkerPress={false}
-                >
-                  <Marker
-                    coordinate={{
-                      latitude: 8.508888512667932,
-                      longitude: 76.94919831630524,
-                    }}
-                    title="Association of Engineers"
-                    description="Association of Engineers Kerala"
-                  />
-                </MapView>
-              </View>
+            <View className="mb-6">
+              <Text className="text-white text-center text-base font-psemibold">
+                Get Directions
+              </Text>
               <Button
                 onPress={openInMaps}
                 className="mt-4 rounded-md bg-[#5386A4] w-full"
@@ -269,7 +242,7 @@ export default function Contact() {
                   Open in Maps
                 </ButtonText>
               </Button>
-            </View> */}
+            </View>
           </View>
         </ScrollView>
       </GradientBackground>

@@ -2,7 +2,6 @@ import {
   View,
   Text,
   ScrollView,
-  ActivityIndicator,
   SafeAreaView,
   RefreshControl,
 } from "react-native";
@@ -88,8 +87,8 @@ export default function Downloads() {
               <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
             }
           >
-            <View className="flex-1 bg-transparent ">
-              <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
+            <View className="flex-1 bg-transparent pt-20">
+              <Text className="text-3xl font-psemibold text-center text-white mb-4">
                 {categoryTitle}
               </Text>
               <View className="bg-white/10 backdrop-blur-md rounded-lg p-6">
@@ -114,7 +113,7 @@ export default function Downloads() {
             <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
           }
         >
-          <View className="px-4 pt-12 bg-transparent">
+          <View className="px-4 bg-transparent pt-20">
             <Text className="text-3xl font-psemibold text-center mb-6 text-white">
               {categoryTitle}
             </Text>

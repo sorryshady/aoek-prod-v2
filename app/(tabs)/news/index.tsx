@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Search } from "lucide-react-native";
 import { sanityClient, urlFor } from "@/sanity";
-import { Link, router } from "expo-router";
+import {  router } from "expo-router";
 import { formatDate } from "@/lib/utils";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GradientBackground from "@/components/gradient-background";

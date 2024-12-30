@@ -32,7 +32,7 @@ const StateCommittee = ({ members }: { members: any[] }) => {
           {members.map((member, index) => (
             <View
               key={index}
-              className="w-[48%] bg-white rounded-lg shadow-md p-4 mb-4"
+              className="w-[48%] bg-white rounded-lg shadow-md p-4 mb-4 justify-between"
             >
               {/* Avatar Container */}
               <View className="items-center">
@@ -60,18 +60,18 @@ const StateCommittee = ({ members }: { members: any[] }) => {
                     ? changeTypeToText(member.designation)
                     : "N/A"}
                 </Text>
-                <Button
-                  className="bg-[#5386A4] rounded-md w-full"
-                  onPress={() => {
-                    setMember(member);
-                    setVisible(true);
-                  }}
-                >
-                  <ButtonText className="text-white text-center text-sm">
-                    Details
-                  </ButtonText>
-                </Button>
               </View>
+              <Button
+                className="bg-[#5386A4] rounded-md w-full"
+                onPress={() => {
+                  setMember(member);
+                  setVisible(true);
+                }}
+              >
+                <ButtonText className="text-white text-center text-sm">
+                  Details
+                </ButtonText>
+              </Button>
             </View>
           ))}
         </View>

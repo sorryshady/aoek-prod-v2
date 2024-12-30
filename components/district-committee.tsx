@@ -37,6 +37,9 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
 
   return (
     <View className="p-4 mt-4">
+      <Text className="text-base font-psemibold text-white">
+        Select District
+      </Text>
       <Select
         selectedValue={district ? changeTypeToText(district) : ""}
         onValueChange={(value) => {
@@ -45,7 +48,7 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
             members.filter((member) => member.workDistrict === value),
           );
         }}
-        className="font-pregular my-4"
+        className="font-pregular mb-4 mt-2"
       >
         <SelectTrigger>
           <SelectInput placeholder="Select district" />
@@ -70,7 +73,7 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
         {filteredMembers.map((member, index) => (
           <View
             key={index}
-            className="w-[48%] bg-white rounded-lg shadow-md p-4 mb-4"
+            className="w-[48%] bg-white rounded-lg shadow-md p-4 mb-4 justify-between"
           >
             {/* Avatar Container */}
             <View className="items-center">
@@ -98,18 +101,18 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
                   ? changeTypeToText(member.designation)
                   : "N/A"}
               </Text>
-              <Button
-                className="bg-[#5386A4] rounded-md w-full"
-                onPress={() => {
-                  setMember(member);
-                  setVisible(true);
-                }}
-              >
-                <ButtonText className="text-white text-center text-sm">
-                  Details
-                </ButtonText>
-              </Button>
             </View>
+            <Button
+              className="bg-[#5386A4] rounded-md w-full"
+              onPress={() => {
+                setMember(member);
+                setVisible(true);
+              }}
+            >
+              <ButtonText className="text-white text-center text-sm">
+                Details
+              </ButtonText>
+            </Button>
           </View>
         ))}
       </View>
