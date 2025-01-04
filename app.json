@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "aoek",
-    "slug": "gluestack-trial",
+    "slug": "aoek",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -45,7 +45,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "f2fb4dae-6b7b-4e95-84e4-d109810e4207"
+        "projectId": "7b7a15c3-77b3-4dc8-ac0f-7a0112fe3849"
       }
     },
     "owner": "sorry_shady"

@@ -1,4 +1,5 @@
 import {
+    Linking,
   Modal,
   Platform,
   RefreshControl,
@@ -585,6 +586,13 @@ const Profile = () => {
               className="rounded-md"
             >
               <ButtonText className="font-psemibold">Logout</ButtonText>
+            </Button>
+            <Button
+              onPress={() => Linking.openURL('https://aoek.org/privacy-policy')}
+              variant="link"
+              className="mt-4"
+            >
+              <ButtonText className="text-[#5386A4] font-psemibold">Privacy Policy</ButtonText>
             </Button>
           </View>
         </ScrollView>
