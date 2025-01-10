@@ -111,6 +111,17 @@ export default function EventDetailModal({
                       </ButtonText>
                     </Button>
                   )}
+                  {event.fileUrl && (
+                    <Button
+                       variant="link"
+                      size="xs"
+                      className="mt-2 justify-start"
+                      onPress={() => Linking.openURL(event.fileUrl!)}
+                    >
+                      <ButtonText className="text-blue-500 font-pmedium"
+                        size="md">Open File</ButtonText>
+                    </Button>
+                  )}
                 </View>
               </ScrollView>
               <Button

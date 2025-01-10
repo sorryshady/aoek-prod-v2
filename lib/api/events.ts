@@ -10,6 +10,7 @@ export type EventItem = {
     endDate?: string;
   };
   location: string;
+  fileUrl?: string;
   link?: string;
 };
 
@@ -27,6 +28,7 @@ export async function getEvents() {
         dateRange,
         location,
         link,
+        "fileUrl": file.asset->url,
         description,
         image,
       }`,

@@ -1,7 +1,7 @@
-import { setUpPassword, submitIdentifier, submitPassword } from "@/api/login";
+import { resendOTP, sendOTP, setUpPassword, submitIdentifier, submitPassword, verifyOTP } from "@/api/login";
 import GradientBackground from "@/components/gradient-background";
 import { images } from "@/constants";
-import { SecurityQuestionType } from "@/constants/types";
+import { SecurityQuestionType, UserRole } from "@/constants/types";
 import { useGlobalContext } from "@/context/global-provider";
 import { setToken } from "@/lib/handle-session-tokens";
 import { changeTypeToText } from "@/lib/utils";
@@ -42,11 +42,18 @@ import {
   Text,
 } from "@/components/ui";
 import PasswordEntry from "@/components/password-entry";
+import IdentifierForm from '@/components/auth/identifier-form'
+import PasswordForm from '@/components/auth/password-form'
+import OTPForm from '@/components/auth/otp-form'
+import ContactAdmin from '@/components/auth/contact-admin'
+import SetupForm from '@/components/auth/setup-form'
 
 interface UserDetails {
-  id: string;
+   id: string;
   name: string;
   photoUrl: string | null;
+  mobileNumber: string | null;
+  userRole: UserRole;
   verificationStatus: "PENDING" | "VERIFIED" | "REJECTED";
   hasPassword: boolean;
 }
@@ -60,30 +67,27 @@ const SignIn = () => {
   const { refetchData } = useGlobalContext();
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [value, setValue] = useState<string>("");
-  const [step, setStep] = useState<"identifier" | "password" | "setup">(
-    "identifier",
-  );
+  const [step, setStep] = useState<
+    "identifier" | "password" | "setup" | "otp" | "contact-admin"
+  >("identifier");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const [password, setPassword] = useState<string>("");
-  const [setupFormData, setSetupFormData] = useState<SetupFormData>({
-    securityQuestion: SecurityQuestionType.MOTHERS_MAIDEN_NAME,
-    securityAnswer: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const handleNext = async () => {
+  const [identifier, setIdentifier] = useState<string>("");
+
+  const handleIdentifierSubmit = async (value: string) => {
     try {
       setIsLoading(true);
       setError("");
-      if (value === "") {
+       if (value === "") {
         return;
       }
+      setIdentifier(value);
+
       const response = await submitIdentifier(value);
       if (response?.error) {
         setError(response.error);
         return;
       }
+
       if (response.user.verificationStatus === "REJECTED") {
         setError("Your account has been rejected");
         return;
@@ -91,8 +95,21 @@ const SignIn = () => {
         setError("Your account is pending verification");
         return;
       }
+
       setUserDetails(response.user);
-      setStep(response.user.hasPassword ? "password" : "setup");
+
+      // New flow logic
+      if (!response.user.hasPassword) {
+        if (response.user.phoneNumber) {
+          // Send OTP and show OTP form
+          await sendOTP(response.user.phoneNumber);
+          setStep("otp");
+        } else {
+          setStep("contact-admin");
+        }
+      } else {
+        setStep("password");
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : "Something went wrong");
     } finally {
@@ -100,7 +117,7 @@ const SignIn = () => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (password: string, value: string) => {
     try {
       setIsLoading(true);
       setError("");
@@ -127,7 +144,7 @@ const SignIn = () => {
     }
   };
 
-  const handleSetup = async () => {
+  const handleSetup = async (setupFormData: SetupFormData) => {
     try {
       setIsLoading(true);
       setError("");
@@ -167,320 +184,84 @@ const SignIn = () => {
     }
   };
 
-  const renderIdentifierStep = () => (
-    <VStack space="md">
-      <FormControl isInvalid={!!error}>
-        <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
-            Email or Membership ID
-          </FormControlLabelText>
-        </FormControlLabel>
-        <Input>
-          <InputField
-            value={value}
-            onChangeText={setValue}
-            placeholder="Enter your email or membership ID"
-            keyboardType="email-address"
-            className="font-pregular"
-          />
-        </Input>
-        {error && <ErrorAlert error={error} />}
-      </FormControl>
-      <Button
-        size="lg"
-        action="primary"
-        isDisabled={isLoading}
-        onPress={handleNext}
-        className="bg-red-500 rounded-md"
-      >
-        {isLoading ? (
-          <>
-            <ButtonSpinner color={"white"} />
-            <ButtonText className="font-psemibold">Checking...</ButtonText>
-          </>
-        ) : (
-          <ButtonText className="font-psemibold">Next</ButtonText>
-        )}
-      </Button>
-    </VStack>
-  );
+  const handleOTPSubmit = async (otp: string) => {
+    try {
+      setIsLoading(true);
+      setError("");
+      const response = await verifyOTP(userDetails?.mobileNumber ?? "", otp);
+      if (response) {
+        setStep("setup");
+      } else {
+        setError("Invalid OTP");
+      }
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-  const renderPasswordStep = () => (
-    <VStack space="sm">
-      <FormControl isInvalid={!!error}>
-        <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
-            Password
-          </FormControlLabelText>
-        </FormControlLabel>
-        <PasswordEntry
-          value={password}
-          setValue={setPassword}
-          placeholder="Enter your password"
-          showPasswordStrength={false}
-        />
-        {error && <ErrorAlert error={error} />}
-      </FormControl>
-
-      <Button
-        variant="link"
-        size="xs"
-        onPress={() =>
-          router.replace(`/forgot-password?userId=${userDetails?.id}`)
-        }
-        className="self-end"
-      >
-        <ButtonText
-          size={Platform.OS === "ios" ? "sm" : "xs"}
-          className="text-blue-500 font-psemibold"
-        >
-          Forgot Password?
-        </ButtonText>
-      </Button>
-
-      <Button
-        size="lg"
-        variant="solid"
-        action="primary"
-        isDisabled={isLoading}
-        onPress={handleLogin}
-        className="bg-red-500 rounded-md"
-      >
-        {isLoading ? (
-          <>
-            <ButtonSpinner color={"white"} />
-            <ButtonText className="font-psemibold">Logging in...</ButtonText>
-          </>
-        ) : (
-          <ButtonText className="font-psemibold">Login</ButtonText>
-        )}
-      </Button>
-    </VStack>
-  );
-
-  const renderSetupStep = () => (
-    <VStack space="md">
-      <FormControl>
-        <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
-            Security Question
-          </FormControlLabelText>
-        </FormControlLabel>
-        <Select
-          selectedValue={setupFormData.securityQuestion}
-          onValueChange={(value) =>
-            setSetupFormData((prev) => ({
-              ...prev,
-              securityQuestion: value as SecurityQuestionType,
-            }))
-          }
-        >
-          <SelectTrigger>
-            <SelectInput
-              placeholder="Select a security question"
-              value={changeTypeToText(setupFormData.securityQuestion)}
-              className="font-pregular"
-            />
-          </SelectTrigger>
-          <SelectPortal>
-            <SelectBackdrop />
-            <SelectContent>
-              <SelectDragIndicatorWrapper>
-                <SelectDragIndicator />
-              </SelectDragIndicatorWrapper>
-              {Object.values(SecurityQuestionType).map((question) => (
-                <SelectItem
-                  key={question}
-                  label={changeTypeToText(question)}
-                  value={question}
-                  className="font-pregular"
-                />
-              ))}
-            </SelectContent>
-          </SelectPortal>
-        </Select>
-      </FormControl>
-
-      <FormControl>
-        <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
-            Security Answer
-          </FormControlLabelText>
-        </FormControlLabel>
-        <Input>
-          <InputField
-            value={setupFormData.securityAnswer}
-            onChangeText={(value) =>
-              setSetupFormData((prev) => ({
-                ...prev,
-                securityAnswer: value,
-              }))
-            }
-            placeholder="Enter your security answer"
-            className="font-pregular"
-          />
-        </Input>
-      </FormControl>
-
-      <FormControl isInvalid={!!error}>
-        <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
-            Password
-          </FormControlLabelText>
-        </FormControlLabel>
-        <PasswordEntry
-          value={setupFormData.password}
-          setValue={(value) =>
-            setSetupFormData((prev) => ({
-              ...prev,
-              password: value,
-            }))
-          }
-          placeholder="Enter your password"
-          showPasswordStrength={true}
-        />
-      </FormControl>
-
-      <FormControl isInvalid={!!error}>
-        <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
-            Confirm Password
-          </FormControlLabelText>
-        </FormControlLabel>
-        <PasswordEntry
-          value={setupFormData.confirmPassword}
-          setValue={(value) =>
-            setSetupFormData((prev) => ({
-              ...prev,
-              confirmPassword: value,
-            }))
-          }
-          placeholder="Confirm your password"
-          showPasswordStrength={false}
-        />
-        {error && <ErrorAlert error={error} />}
-      </FormControl>
-
-      <Button
-        size="lg"
-        variant="solid"
-        action="primary"
-        isDisabled={isLoading}
-        onPress={handleSetup}
-        className="bg-red-500 mt-4 rounded-md"
-      >
-        {isLoading ? (
-          <>
-            <ButtonSpinner color={"white"} />
-            <ButtonText className="font-psemibold">Setting up...</ButtonText>
-          </>
-        ) : (
-          <ButtonText className="font-psemibold">Setup</ButtonText>
-        )}
-      </Button>
-    </VStack>
-  );
+  // ... other handlers ...
 
   return (
     <SafeAreaView className="flex-1">
       <GradientBackground>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 47 : 0}
           className="flex-1"
-          style={{ position: "relative" }}
         >
           <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: "center",
-            }}
-            showsVerticalScrollIndicator={false}
+            contentContainerClassName="flex-1 justify-center px-4"
             keyboardShouldPersistTaps="handled"
           >
-            <View className="flex-1 px-4 items-center justify-center mt-10">
-              <View className="w-full max-w-[400px]">
-                <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
-                  <Image
-                    source={images.background}
-                    className="w-full h-full absolute opacity-10"
-                    resizeMode="cover"
-                  />
-                  <View className="p-6">
-                    <Text className="text-black text-center font-psemibold text-2xl mb-6">
-                      Sign In
-                    </Text>
+            <View className="w-full max-w-sm mx-auto bg-cover bg-center" style={{ backgroundImage: `url(${images.background})` }}>
+              <Image
+                source={images.logo}
+                className="w-32 h-32 mx-auto mb-8"
+                resizeMode="contain"
+              />
 
-                    {step === "identifier" ? (
-                      renderIdentifierStep()
-                    ) : (
-                      <VStack space="md">
-                        <Button
-                          variant="link"
-                          size="sm"
-                          className="justify-start"
-                          onPress={() => {
-                            setStep("identifier");
-                            setError("");
-                            setUserDetails(null);
-                          }}
-                        >
-                          <ButtonIcon as={ArrowLeft} />
+              {step === "identifier" && (
+                <IdentifierForm
+                  onSubmit={handleIdentifierSubmit}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              )}
 
-                          <ButtonText className="text-black font-psemibold">
-                            Back
-                          </ButtonText>
-                        </Button>
+              {step === "password" && (
+                <PasswordForm
+                  onSubmit={handleLogin}
+                  identifier={identifier}
+                  onForgotPassword={() => router.replace(`/forgot-password?userId=${userDetails?.id}`)}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              )}
 
-                        {userDetails && (
-                          <VStack space="sm" className="items-center mb-4">
-                            <View className="text-center gap-4">
-                              <View className="relative h-28 w-28 mx-auto rounded-full overflow-hidden bg-muted border border-black flex items-center justify-center">
-                                {userDetails.photoUrl ? (
-                                  <Image
-                                    source={{ uri: userDetails.photoUrl }}
-                                    className="w-full h-full"
-                                    resizeMode="cover"
-                                  />
-                                ) : (
-                                  <Text className="text-black text-2xl font-semibold">
-                                    {userDetails.name[0].toUpperCase()}
-                                  </Text>
-                                )}
-                              </View>
-                              <Text className="font-psemibold text-lg text-center">
-                                {userDetails.name}
-                              </Text>
-                            </View>
-                          </VStack>
-                        )}
+              {step === "otp" && (
+                <OTPForm
+                  onSubmit={handleOTPSubmit}
+                  onResendOTP={() => resendOTP(userDetails?.mobileNumber ?? "")}
+                  onContactAdmin={() => setStep("contact-admin")}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              )}
 
-                        {step === "password"
-                          ? renderPasswordStep()
-                          : renderSetupStep()}
-                      </VStack>
-                    )}
-                    {step === "identifier" && (
-                      <HStack
-                        space="sm"
-                        className="justify-center items-center mt-6"
-                      >
-                        <Text className="font-pmedium">
-                          Don't have an account?
-                        </Text>
-                        <Button
-                          variant="link"
-                          onPress={() => router.push("/sign-up")}
-                        >
-                          <ButtonText className="text-blue-500 font-psemibold">
-                            Register
-                          </ButtonText>
-                        </Button>
-                      </HStack>
-                    )}
-                  </View>
-                </View>
-              </View>
+              {step === "contact-admin" && (
+                <ContactAdmin
+                  onBack={() => setStep("identifier")}
+                />
+              )}
+
+              {step === "setup" && (
+                <SetupForm
+                  onSubmit={handleSetup}
+                  isLoading={isLoading}
+                  error={error}
+                />
+              )}
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -490,3 +271,98 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+//   const handleNext = async () => {
+//     try {
+//       setIsLoading(true);
+//       setError("");
+//       if (value === "") {
+//         return;
+//       }
+//       const response = await submitIdentifier(value);
+//       if (response?.error) {
+//         setError(response.error);
+//         return;
+//       }
+//       if (response.user.verificationStatus === "REJECTED") {
+//         setError("Your account has been rejected");
+//         return;
+//       } else if (response.user.verificationStatus === "PENDING") {
+//         setError("Your account is pending verification");
+//         return;
+//       }
+//       setUserDetails(response.user);
+//       setStep(response.user.hasPassword ? "password" : "setup");
+//     } catch (error) {
+//       setError(error instanceof Error ? error.message : "Something went wrong");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   const handleLogin = async () => {
+//     try {
+//       setIsLoading(true);
+//       setError("");
+//       if (password === "") {
+//         return;
+//       }
+//       const response = await submitPassword(value, password);
+//       if (response?.error) {
+//         setError(response.error);
+//         return;
+//       }
+//       if (response?.token) {
+//         await setToken({
+//           key: "session",
+//           value: response.token,
+//         });
+//         await refetchData();
+//         router.replace("/home");
+//       }
+//     } catch (error) {
+//       setError(error instanceof Error ? error.message : "Something went wrong");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   const handleSetup = async () => {
+//     try {
+//       setIsLoading(true);
+//       setError("");
+//       if (
+//         setupFormData.password === "" ||
+//         setupFormData.confirmPassword === ""
+//       ) {
+//         return;
+//       }
+//       if (setupFormData.password !== setupFormData.confirmPassword) {
+//         setError("Passwords do not match");
+//         return;
+//       }
+//       const submitForm = {
+//         userId: userDetails?.id ?? "",
+//         securityQuestion: setupFormData.securityQuestion,
+//         securityAnswer: setupFormData.securityAnswer,
+//         password: setupFormData.password,
+//       };
+//       const response = await setUpPassword(submitForm);
+//       if (response?.error) {
+//         setError(response.error);
+//         return;
+//       }
+//       if (response?.token) {
+//         await setToken({
+//           key: "session",
+//           value: response.token,
+//         });
+//         // await refetchData();
+//         router.replace("/home");
+//       }
+//     } catch (error) {
+//       setError(error instanceof Error ? error.message : "Something went wrong");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };

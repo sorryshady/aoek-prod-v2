@@ -81,11 +81,13 @@ export enum StatePositionTitle {
   EXECUTIVE_COMMITTEE_MEMBER = "EXECUTIVE_COMMITTEE_MEMBER",
   IMMEDIATE_PAST_PRESIDENT = "IMMEDIATE_PAST_PRESIDENT",
   IMMEDIATE_PAST_SECRETARY = "IMMEDIATE_PAST_SECRETARY",
+  DISTRICT_NOMINEE = "DISTRICT_NOMINEE",
 }
 
 export enum DistrictPositionTitle {
   DISTRICT_PRESIDENT = "DISTRICT_PRESIDENT",
   DISTRICT_SECRETARY = "DISTRICT_SECRETARY",
+  DISTRICT_TREASURER = "DISTRICT_TREASURER",
 }
 
 export type CompleteUser = {
@@ -112,6 +114,7 @@ export type CompleteUser = {
   // Other Info
   photoUrl?: string;
   membershipId?: number;
+  razorpayId?: string;
   photoId?: string;
   committeeType?: CommitteeType;
   positionState?: StatePositionTitle;
@@ -215,3 +218,4 @@ export type RegisterFormData = {
 export type RegisterFormErrors = {
   [K in keyof RegisterFormData]?: string;
 };
+
