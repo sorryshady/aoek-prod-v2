@@ -142,13 +142,16 @@ export const sendOTP = async (phoneNumber: string) => {
 
 export const resendOTP = async (mobileNumber: string) => {
   try {
-    const response = await fetch("/api/auth/send-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        mobileNumber: mobileNumber,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_API_URL}/auth/send-otp`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mobileNumber: mobileNumber,
+        }),
+      },
+    );
     const { sent } = await response.json();
     if (!response.ok || !sent) {
       return {
@@ -157,26 +160,28 @@ export const resendOTP = async (mobileNumber: string) => {
     }
     return { sent };
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
 export const verifyOTP = async (mobileNumber: string, otp: string) => {
   try {
-    const response = await fetch("/api/auth/verify-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        mobileNumber: mobileNumber,
-        otp: otp,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_API_URL}/auth/verify-otp`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mobileNumber: mobileNumber,
+          otp: otp,
+        }),
+      },
+    );
 
     const { verified } = await response.json();
     if (!response.ok || !verified) throw new Error("Invalid OTP");
     return verified;
   } catch (error) {
-    console.error("Error verifying OTP:", error);
-    throw error; // rethrow the error for further handling if needed
+    console.log("Error verifying OTP:", error);
   }
 };
