@@ -151,6 +151,14 @@ const SignIn = () => {
     }
   };
 
+  const handleResendOTP = async () => {
+    const data = await resendOTP(userDetails?.mobileNumber ?? "");
+    if (data?.error) {
+      setError(data.error);
+      return;
+    }
+  };
+
   const handleLogin = async (password: string, value: string) => {
     try {
       setIsLoading(true);
@@ -269,14 +277,9 @@ const SignIn = () => {
                         variant="link"
                         size="sm"
                         className="justify-start"
-                        onPress={() => {
-                          setStep("identifier");
-                          setError("");
-                          setUserDetails(null);
-                        }}
+                        onPress={handleBack}
                       >
                         <ButtonIcon as={ArrowLeft} />
-
                         <ButtonText className="text-black font-psemibold">
                           Back
                         </ButtonText>
@@ -311,9 +314,8 @@ const SignIn = () => {
                     {step === "otp" && (
                       <OTPForm
                         onSubmit={handleOTPSubmit}
-                        onResendOTP={() =>
-                          resendOTP(userDetails?.mobileNumber ?? "")
-                        }
+                        onResendOTP={handleResendOTP}
+                        mobileNumber={userDetails?.mobileNumber ?? ""}
                         onContactAdmin={() => setStep("contact-admin")}
                         isLoading={isLoading}
                         error={error}

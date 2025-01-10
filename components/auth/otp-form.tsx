@@ -1,6 +1,19 @@
 import { useState, useEffect } from "react";
-import { ButtonSpinner, ButtonText, Button, HStack, InputField, Input, FormControlLabelText, FormControlLabel, FormControl, VStack } from '../ui'
-import ErrorAlert from '../error-alert'
+import {
+  ButtonSpinner,
+  ButtonText,
+  Button,
+  HStack,
+  InputField,
+  Input,
+  FormControlLabelText,
+  FormControlLabel,
+  FormControl,
+  VStack,
+  Text,
+} from "../ui";
+import ErrorAlert from "../error-alert";
+import { View } from "react-native";
 
 interface OTPFormProps {
   onSubmit: (otp: string) => Promise<void>;
@@ -9,6 +22,7 @@ interface OTPFormProps {
   isLoading: boolean;
   error: string;
   resendTimeout?: number;
+  mobileNumber: string;
 }
 
 export default function OTPForm({
@@ -17,7 +31,8 @@ export default function OTPForm({
   onContactAdmin,
   isLoading,
   error,
-  resendTimeout = 30
+  resendTimeout = 30,
+  mobileNumber,
 }: OTPFormProps) {
   const [otp, setOtp] = useState("");
   const [countdown, setCountdown] = useState(resendTimeout);
@@ -32,6 +47,12 @@ export default function OTPForm({
 
   return (
     <VStack space="md">
+      <View className="items-center space-y-2">
+        <Text className="text-sm text-gray-500 font-pregular">
+          Enter the verification code sent to
+        </Text>
+        <Text className="font-pmedium text-gray-800">{mobileNumber}</Text>
+      </View>
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
           <FormControlLabelText className="font-pmedium">
@@ -52,11 +73,7 @@ export default function OTPForm({
       </FormControl>
 
       <HStack space="sm">
-        <Button
-          variant="link"
-          size="xs"
-          onPress={onContactAdmin}
-        >
+        <Button variant="link" size="xs" onPress={onContactAdmin}>
           <ButtonText className="text-blue-500 font-psemibold">
             Haven't received OTP?
           </ButtonText>
