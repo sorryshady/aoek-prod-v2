@@ -1,4 +1,11 @@
-import { resendOTP, sendOTP, setUpPassword, submitIdentifier, submitPassword, verifyOTP } from "@/api/login";
+import {
+  resendOTP,
+  sendOTP,
+  setUpPassword,
+  submitIdentifier,
+  submitPassword,
+  verifyOTP,
+} from "@/api/login";
 import GradientBackground from "@/components/gradient-background";
 import { images } from "@/constants";
 import { SecurityQuestionType, UserRole } from "@/constants/types";
@@ -42,15 +49,15 @@ import {
   Text,
 } from "@/components/ui";
 import PasswordEntry from "@/components/password-entry";
-import IdentifierForm from '@/components/auth/identifier-form'
-import PasswordForm from '@/components/auth/password-form'
-import OTPForm from '@/components/auth/otp-form'
-import ContactAdmin from '@/components/auth/contact-admin'
-import SetupForm from '@/components/auth/setup-form'
-import UserProfile from '@/components/auth/user-profile'
+import IdentifierForm from "@/components/auth/identifier-form";
+import PasswordForm from "@/components/auth/password-form";
+import OTPForm from "@/components/auth/otp-form";
+import ContactAdmin from "@/components/auth/contact-admin";
+import SetupForm from "@/components/auth/setup-form";
+import UserProfile from "@/components/auth/user-profile";
 
 export interface UserDetails {
-   id: string;
+  id: string;
   name: string;
   photoUrl: string | null;
   mobileNumber: string | null;
@@ -74,7 +81,7 @@ const SignIn = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [identifier, setIdentifier] = useState<string>("");
 
-   const handleBack = () => {
+  const handleBack = () => {
     switch (step) {
       case "otp":
         setStep("identifier");
@@ -95,13 +102,11 @@ const SignIn = () => {
     }
   };
 
-
-
   const handleIdentifierSubmit = async (value: string) => {
     try {
       setIsLoading(true);
       setError("");
-       if (value === "") {
+      if (value === "") {
         return;
       }
       setIdentifier(value);
@@ -228,7 +233,7 @@ const SignIn = () => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   // ... other handlers ...
 
@@ -259,64 +264,76 @@ const SignIn = () => {
                     <Text className="text-black text-center font-psemibold text-2xl mb-6">
                       Sign In
                     </Text>
-{step !== "identifier" && step !== 'setup' && (
-          <Button
-            variant="link"
-            className="p-0 h-auto mb-6"
-            onPress={handleBack}
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
-        )}
-                       {userDetails && step !== "identifier" && (
-          <UserProfile user={userDetails} />
-        )}
+                    {step !== "identifier" && step !== "setup" && (
+                      <Button
+                        variant="link"
+                        size="sm"
+                        className="justify-start"
+                        onPress={() => {
+                          setStep("identifier");
+                          setError("");
+                          setUserDetails(null);
+                        }}
+                      >
+                        <ButtonIcon as={ArrowLeft} />
 
-              {step === "identifier" && (
-                <IdentifierForm
-                  onSubmit={handleIdentifierSubmit}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              )}
+                        <ButtonText className="text-black font-psemibold">
+                          Back
+                        </ButtonText>
+                      </Button>
+                    )}
+                    {userDetails && step !== "identifier" && (
+                      <UserProfile user={userDetails} />
+                    )}
 
-              {step === "password" && (
-                <PasswordForm
-                  onSubmit={handleLogin}
-                  identifier={identifier}
-                  onForgotPassword={() => router.replace(`/forgot-password?userId=${userDetails?.id}`)}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              )}
+                    {step === "identifier" && (
+                      <IdentifierForm
+                        onSubmit={handleIdentifierSubmit}
+                        isLoading={isLoading}
+                        error={error}
+                      />
+                    )}
 
-              {step === "otp" && (
-                <OTPForm
-                  onSubmit={handleOTPSubmit}
-                  onResendOTP={() => resendOTP(userDetails?.mobileNumber ?? "")}
-                  onContactAdmin={() => setStep("contact-admin")}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              )}
+                    {step === "password" && (
+                      <PasswordForm
+                        onSubmit={handleLogin}
+                        identifier={identifier}
+                        onForgotPassword={() =>
+                          router.replace(
+                            `/forgot-password?userId=${userDetails?.id}`,
+                          )
+                        }
+                        isLoading={isLoading}
+                        error={error}
+                      />
+                    )}
 
-              {step === "contact-admin" && (
-                <ContactAdmin
-                  onBack={() => setStep("identifier")}
-                />
-              )}
+                    {step === "otp" && (
+                      <OTPForm
+                        onSubmit={handleOTPSubmit}
+                        onResendOTP={() =>
+                          resendOTP(userDetails?.mobileNumber ?? "")
+                        }
+                        onContactAdmin={() => setStep("contact-admin")}
+                        isLoading={isLoading}
+                        error={error}
+                      />
+                    )}
 
-              {step === "setup" && (
-                <SetupForm
-                  onSubmit={handleSetup}
-                  isLoading={isLoading}
-                  error={error}
-                />
-              )}
-            </View>
-            </View>
-            </View>
+                    {step === "contact-admin" && (
+                      <ContactAdmin onBack={() => setStep("identifier")} />
+                    )}
+
+                    {step === "setup" && (
+                      <SetupForm
+                        onSubmit={handleSetup}
+                        isLoading={isLoading}
+                        error={error}
+                      />
+                    )}
+                  </View>
+                </View>
+              </View>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
