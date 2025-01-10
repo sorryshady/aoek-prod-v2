@@ -208,7 +208,7 @@ const SignIn = () => {
           key: "session",
           value: response.token,
         });
-        // await refetchData();
+        await refetchData();
         router.replace("/home");
       }
     } catch (error) {
@@ -330,6 +330,25 @@ const SignIn = () => {
                         isLoading={isLoading}
                         error={error}
                       />
+                    )}
+
+                    {step === "identifier" && (
+                      <HStack
+                        space="sm"
+                        className="justify-center items-center mt-6"
+                      >
+                        <Text className="font-pmedium">
+                          Don't have an account?
+                        </Text>
+                        <Button
+                          variant="link"
+                          onPress={() => router.push("/sign-up")}
+                        >
+                          <ButtonText className="text-blue-500 font-psemibold">
+                            Register
+                          </ButtonText>
+                        </Button>
+                      </HStack>
                     )}
                   </View>
                 </View>

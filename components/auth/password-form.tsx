@@ -1,11 +1,16 @@
 import { useState } from "react";
 import PasswordEntry from "@/components/password-entry";
 import { Platform } from "react-native";
-import { ButtonSpinner } from '../ui'
-import { ButtonText } from '../ui'
-import { Button, FormControl, FormControlLabel, FormControlLabelText } from '../ui'
-import { VStack } from '../ui'
-import ErrorAlert from '../error-alert'
+import { ButtonSpinner } from "../ui";
+import { ButtonText } from "../ui";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+} from "../ui";
+import { VStack } from "../ui";
+import ErrorAlert from "../error-alert";
 
 interface PasswordFormProps {
   onSubmit: (password: string, identifier: string) => Promise<void>;
@@ -15,7 +20,13 @@ interface PasswordFormProps {
   identifier: string;
 }
 
-export default function PasswordForm({ onSubmit, onForgotPassword, isLoading, error, identifier }: PasswordFormProps) {
+export default function PasswordForm({
+  onSubmit,
+  onForgotPassword,
+  isLoading,
+  error,
+  identifier,
+}: PasswordFormProps) {
   const [password, setPassword] = useState("");
 
   return (
@@ -32,7 +43,6 @@ export default function PasswordForm({ onSubmit, onForgotPassword, isLoading, er
           placeholder="Enter your password"
           showPasswordStrength={false}
         />
-        {error && <ErrorAlert error={error} />}
       </FormControl>
 
       <Button
@@ -48,7 +58,7 @@ export default function PasswordForm({ onSubmit, onForgotPassword, isLoading, er
           Forgot Password?
         </ButtonText>
       </Button>
-
+      {error && <ErrorAlert error={error} />}
       <Button
         size="lg"
         variant="solid"
