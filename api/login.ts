@@ -129,7 +129,7 @@ export const sendOTP = async (phoneNumber: string) => {
       },
     );
     const { sent } = await response.json();
-    if (!response.ok || !sent) {
+    if (!response.ok) {
       return {
         error: "Failed to send OTP",
       };
