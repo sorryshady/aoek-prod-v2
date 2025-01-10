@@ -47,8 +47,9 @@ import PasswordForm from '@/components/auth/password-form'
 import OTPForm from '@/components/auth/otp-form'
 import ContactAdmin from '@/components/auth/contact-admin'
 import SetupForm from '@/components/auth/setup-form'
+import UserProfile from '@/components/auth/user-profile'
 
-interface UserDetails {
+export interface UserDetails {
    id: string;
   name: string;
   photoUrl: string | null;
@@ -72,6 +73,29 @@ const SignIn = () => {
   >("identifier");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [identifier, setIdentifier] = useState<string>("");
+
+   const handleBack = () => {
+    switch (step) {
+      case "otp":
+        setStep("identifier");
+        setError("");
+        break;
+      case "password":
+        setStep("identifier");
+        setError("");
+        break;
+      case "setup":
+        setStep("identifier");
+        setError("");
+        break;
+      case "contact-admin":
+        setStep("identifier");
+        setError("");
+        break;
+    }
+  };
+
+
 
   const handleIdentifierSubmit = async (value: string) => {
     try {
@@ -100,10 +124,15 @@ const SignIn = () => {
 
       // New flow logic
       if (!response.user.hasPassword) {
-        if (response.user.phoneNumber) {
+        if (response.user.mobileNumber) {
           // Send OTP and show OTP form
-          await sendOTP(response.user.phoneNumber);
-          setStep("otp");
+          const data = await sendOTP(response.user.mobileNumber);
+          if (data?.error) {
+            setError(data.error);
+            return;
+          } else if (data?.sent) {
+            setStep("otp");
+          }
         } else {
           setStep("contact-admin");
         }
@@ -230,6 +259,19 @@ const SignIn = () => {
                     <Text className="text-black text-center font-psemibold text-2xl mb-6">
                       Sign In
                     </Text>
+{step !== "identifier" && step !== 'setup' && (
+          <Button
+            variant="link"
+            className="p-0 h-auto mb-6"
+            onPress={handleBack}
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Button>
+        )}
+                       {userDetails && step !== "identifier" && (
+          <UserProfile user={userDetails} />
+        )}
 
               {step === "identifier" && (
                 <IdentifierForm

@@ -123,11 +123,13 @@ export const sendOTP = async (phoneNumber: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phoneNumber }),
+      body: JSON.stringify({ mobileNumber: phoneNumber }),
     });
     const { sent } = await response.json();
     if (!response.ok || !sent) {
-        throw new Error("Failed to send OTP");
+        return {
+            error: "Failed to send OTP",
+        };
     }
     return sent;
   } catch (error) {
