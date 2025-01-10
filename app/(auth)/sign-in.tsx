@@ -211,15 +211,25 @@ const SignIn = () => {
           className="flex-1"
         >
           <ScrollView
-            contentContainerClassName="flex-1 justify-center px-4"
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: "center",
+            }}
+            showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View className="w-full max-w-sm mx-auto bg-cover bg-center" style={{ backgroundImage: `url(${images.background})` }}>
-              <Image
-                source={images.logo}
-                className="w-32 h-32 mx-auto mb-8"
-                resizeMode="contain"
-              />
+            <View className="flex-1 px-4 items-center justify-center mt-10">
+              <View className="w-full max-w-[400px]">
+                <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
+                  <Image
+                    source={images.background}
+                    className="w-full h-full absolute opacity-10"
+                    resizeMode="cover"
+                  />
+                  <View className="p-6">
+                    <Text className="text-black text-center font-psemibold text-2xl mb-6">
+                      Sign In
+                    </Text>
 
               {step === "identifier" && (
                 <IdentifierForm
@@ -262,6 +272,9 @@ const SignIn = () => {
                   error={error}
                 />
               )}
+            </View>
+            </View>
+            </View>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
