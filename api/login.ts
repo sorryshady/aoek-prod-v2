@@ -176,7 +176,7 @@ export const verifyOTP = async (mobileNumber: string, otp: string) => {
   } catch (error) {
     console.log("Error verifying OTP:", error);
     return {
-      error: "Failed to verify OTP",
+      error: error instanceof Error ? error.message : "Failed to verify OTP",
     };
   }
 };
