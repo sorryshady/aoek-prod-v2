@@ -205,7 +205,11 @@ const SignIn = () => {
       setIsLoading(true);
       setError("");
       const response = await verifyOTP(userDetails?.mobileNumber ?? "", otp);
-      if (response) {
+      if (response?.error) {
+        setError(response.error);
+        return;
+      }
+      if (response?.verified) {
         setStep("setup");
       } else {
         setError("Invalid OTP");
