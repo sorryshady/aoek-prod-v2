@@ -130,7 +130,7 @@ export default function Downloads() {
                   {downloads.map((item) => (
                     <View
                       key={item._id}
-                      className="bg-white rounded-lg p-4 shadow-lg"
+                      className="bg-white rounded-lg p-4 shadow-lg mb-5"
                     >
                       <Text className="text-xl font-psemibold text-gray-800 mb-2">
                         {item.title}
