@@ -30,6 +30,10 @@ const Downloads = () => {
       value: "handbooks",
     },
     {
+      title: "Draft Electoral Roll",
+      value: "draft-electoral-roll",
+    },
+    {
       title: "Others",
       value: "others",
     },

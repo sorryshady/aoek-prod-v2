@@ -1,46 +1,52 @@
 {
-    "cli": {
-      "version": ">= 5.9.1"
+  "cli": {
+    "version": ">= 5.9.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://www.aoek.org/api",
+        "EXPO_PUBLIC_RAZORPAY_KEY_ID": "rzp_test_BDATflkkH5evSe",
+        "EXPO_PUBLIC_SERVICE_ID": "service_2xebuwh",
+        "EXPO_PUBLIC_TEMPLATE_ID": "template_7sv63b8",
+        "EXPO_PUBLIC_EMAIL_ID": "3S0dtrynTJWp2EDeW",
+        "EXPO_PUBLIC_TWO_FA_API_KEY": "4864e11c-d7ca-11ef-8b17-0200cd936042",
+        "EXPO_PUBLIC_TWO_FA_TEMPLATE": "OTP1"
+      }
     },
-    "build": {
-      "development": {
-        "developmentClient": true,
-        "distribution": "internal",
-        "android": {
-          "gradleCommand": ":app:assembleDebug"
-        },
-        "env": {
-            "EXPO_PUBLIC_API_URL":"https://www.aoek.org/api",
-            "EXPO_PUBLIC_RAZORPAY_KEY_ID":"rzp_test_BDATflkkH5evSe",
-            "EXPO_PUBLIC_SERVICE_ID":"service_2xebuwh",
-            "EXPO_PUBLIC_TEMPLATE_ID":"template_7sv63b8",
-            "EXPO_PUBLIC_EMAIL_ID":"3S0dtrynTJWp2EDeW"
-        }
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
       },
-      "preview": {
-        "distribution": "internal",
-        "android": {
-          "buildType": "apk"
-        },
-        "env": {
-            "EXPO_PUBLIC_API_URL":"https://www.aoek.org/api",
-            "EXPO_PUBLIC_RAZORPAY_KEY_ID":"rzp_test_BDATflkkH5evSe",
-            "EXPO_PUBLIC_SERVICE_ID":"service_2xebuwh",
-            "EXPO_PUBLIC_TEMPLATE_ID":"template_7sv63b8",
-            "EXPO_PUBLIC_EMAIL_ID":"3S0dtrynTJWp2EDeW"
-        }
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://www.aoek.org/api",
+        "EXPO_PUBLIC_RAZORPAY_KEY_ID": "rzp_test_BDATflkkH5evSe",
+        "EXPO_PUBLIC_SERVICE_ID": "service_2xebuwh",
+        "EXPO_PUBLIC_TEMPLATE_ID": "template_7sv63b8",
+        "EXPO_PUBLIC_EMAIL_ID": "3S0dtrynTJWp2EDeW",
+        "EXPO_PUBLIC_TWO_FA_API_KEY": "4864e11c-d7ca-11ef-8b17-0200cd936042",
+        "EXPO_PUBLIC_TWO_FA_TEMPLATE": "OTP1"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
       },
-      "production": {
-        "android": {
-          "buildType": "app-bundle"
-        },
-        "env": {
-            "EXPO_PUBLIC_API_URL":"https://www.aoek.org/api",
-            "EXPO_PUBLIC_RAZORPAY_KEY_ID":"rzp_test_BDATflkkH5evSe",
-            "EXPO_PUBLIC_SERVICE_ID":"service_2xebuwh",
-            "EXPO_PUBLIC_TEMPLATE_ID":"template_7sv63b8",
-            "EXPO_PUBLIC_EMAIL_ID":"3S0dtrynTJWp2EDeW"
-        }
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://www.aoek.org/api",
+        "EXPO_PUBLIC_RAZORPAY_KEY_ID": "rzp_test_BDATflkkH5evSe",
+        "EXPO_PUBLIC_SERVICE_ID": "service_2xebuwh",
+        "EXPO_PUBLIC_TEMPLATE_ID": "template_7sv63b8",
+        "EXPO_PUBLIC_EMAIL_ID": "3S0dtrynTJWp2EDeW",
+        "EXPO_PUBLIC_TWO_FA_API_KEY": "4864e11c-d7ca-11ef-8b17-0200cd936042",
+        "EXPO_PUBLIC_TWO_FA_TEMPLATE": "OTP1"
       }
     }
   }
+}
