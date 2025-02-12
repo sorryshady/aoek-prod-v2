@@ -1,5 +1,5 @@
 import {
-    Dimensions,
+  Dimensions,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -64,8 +64,10 @@ const ForgotPassword = () => {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View className="flex-1 px-4 items-center mt-10">
-              <View className="w-full max-w-[400px]">
+            <View className="flex-1 px-4 items-center justify-center mt-10">
+              <View
+                className={`w-full ${isTablet ? "max-w-[500px]" : "max-w-[400px]"}`}
+              >
                 <View className="bg-white rounded-2xl w-full gap-5 relative mb-[5rem]">
                   <Image
                     source={images.background}
@@ -73,29 +75,38 @@ const ForgotPassword = () => {
                     resizeMode="cover"
                   />
                   <View className="p-6">
-                    <Text className="text-black text-center font-psemibold text-2xl mb-6">
+                    <Text
+                      className={`text-black text-center font-psemibold ${isTablet ? "text-4xl" : "text-xl"} mb-6`}
+                    >
                       Forgot Password
                     </Text>
                     <View className="text-center gap-4">
                       {userDetails ? (
-                        <Text className="text-black text-base font-psemibold">
+                        <Text
+                          className={`text-black text-base font-psemibold ${isTablet ? "text-xl" : "text-base"}`}
+                        >
                           Hi{" "}
-                          <Text className="text-primary font-psemibold">
+                          <Text
+                            className={`text-primary font-psemibold ${isTablet ? "text-xl" : "text-base"}`}
+                          >
                             {userDetails.name}
                           </Text>
                           , please answer your security question to reset your
                           password.
                         </Text>
                       ) : (
-                        <Text className="text-black text-base font-psemibold text-center">
+                        <Text
+                          className={`text-black text-base font-psemibold text-center ${isTablet ? "text-xl" : "text-base"}`}
+                        >
                           Loading user details, please wait...
                         </Text>
                       )}
-                      {error && <ErrorAlert error={error} />}
+                      {error && <ErrorAlert error={error} isTablet={isTablet} />}
                       {userDetails && (
                         <SecurityQuestionForm
                           userDetails={userDetails}
                           onBack={() => router.push("/sign-in")}
+                          isTablet={isTablet}
                         />
                       )}
                     </View>

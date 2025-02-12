@@ -35,16 +35,19 @@ interface SecurityQuestionFormProps {
     securityQuestion: string;
   };
   onBack: () => void;
+  isTablet: boolean;
 }
 
 const SecurityAnswerForm = ({
   userDetails,
   onBack,
   onSuccess,
+  isTablet,
 }: {
   userDetails: { id: string; name: string; securityQuestion: string };
   onBack: () => void;
   onSuccess: () => void;
+  isTablet: boolean;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState("");
@@ -78,11 +81,13 @@ const SecurityAnswerForm = ({
       <VStack>
         <FormControl isInvalid={!!formError}>
           <FormControlLabel>
-            <FormControlLabelText className="font-pmedium">
+            <FormControlLabelText
+              className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
+            >
               {changeTypeToText(userDetails.securityQuestion)}
             </FormControlLabelText>
           </FormControlLabel>
-          <Input>
+          <Input size={isTablet ? "xl" : "md"}>
             <InputField
               value={answer}
               onChangeText={setAnswer}
@@ -93,10 +98,11 @@ const SecurityAnswerForm = ({
           <Button
             variant="link"
             className="justify-end w-fit rounded-md"
+            size={isTablet ? "lg" : "md"}
             onPress={() => setShowModal(true)}
           >
             <ButtonText
-              className="font-psemibold"
+              className="font-psemibold text-blue-500"
               size={Platform.OS === "ios" ? "sm" : "xs"}
             >
               Forgot Security Question?
@@ -120,14 +126,16 @@ const SecurityAnswerForm = ({
           )}
         </Button>
         <Button variant="link" onPress={onBack}>
-          <ButtonText className="font-psemibold">Back to Sign In</ButtonText>
+          <ButtonText className="font-psemibold text-blue-500">
+            Back to Sign In
+          </ButtonText>
         </Button>
       </VStack>
       <AlertDialog isOpen={showModal} onClose={() => setShowModal(false)}>
         <AlertDialogBackdrop />
         <AlertDialogContent>
           <AlertDialogHeader>
-            <Heading size="lg" className="font-psemibold">
+            <Heading size={isTablet ? "xl" : "md"} className="font-psemibold">
               Password Reset Instructions
             </Heading>
             <AlertDialogCloseButton />
@@ -138,41 +146,69 @@ const SecurityAnswerForm = ({
               showsVerticalScrollIndicator={false}
             >
               <VStack space="sm">
-                <Text className="font-psemibold">
+                <Text
+                  className={`font-psemibold ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   Please follow these steps:
                 </Text>
 
                 <VStack space="xs">
-                  <Text className="font-pregular">
+                  <Text
+                    className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                  >
                     1. Send an email to: aoekerala@gmail.com
                   </Text>
-                  <Text className="font-pregular">
+                  <Text
+                    className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                  >
                     2. Include the following information:
                   </Text>
                   <VStack space="xs">
-                    <Text className="font-pregular">• Full Name</Text>
-                    <Text className="font-pregular">
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
+                      • Full Name
+                    </Text>
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
                       • Registered Email Address
                     </Text>
-                    <Text className="font-pregular">• Membership ID</Text>
-                    <Text className="font-pregular">
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
+                      • Membership ID
+                    </Text>
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
                       • Reason for password reset
                     </Text>
-                    <Text className="font-pregular">
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
                       • Any additional verification information
                     </Text>
                   </VStack>
-                  <Text className="font-pregular">
+                  <Text
+                    className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                  >
                     3. Subject line: "AOEK Password Reset Request"
                   </Text>
-                  <Text className="font-pregular">
+                  <Text
+                    className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                  >
                     4. The admin team will verify your identity
                   </Text>
-                  <Text className="font-pregular">
+                  <Text
+                    className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                  >
                     5. Once verified, your password and security question will
                     be reset
                   </Text>
-                  <Text className="font-pregular">
+                  <Text
+                    className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                  >
                     6. You will receive an email after your request is processed
                   </Text>
                 </VStack>
@@ -180,14 +216,20 @@ const SecurityAnswerForm = ({
                 <View className="bg-yellow-50 p-4 rounded-lg mt-4">
                   <Text className="font-psemibold mb-2">Important Notes:</Text>
                   <VStack space="xs">
-                    <Text className="font-pregular">
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
                       • Password reset requests are typically processed within
                       24-48 hours
                     </Text>
-                    <Text className="font-pregular">
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
                       • Make sure to check your spam folder for responses
                     </Text>
-                    <Text className="font-pregular">
+                    <Text
+                      className={`font-pregular ${isTablet ? "text-lg" : "text-base"}`}
+                    >
                       • Always use a strong password and remember your security
                       answer
                     </Text>
@@ -213,8 +255,10 @@ const SecurityAnswerForm = ({
 
 const ResetPasswordForm = ({
   userDetails,
+  isTablet,
 }: {
   userDetails: { id: string };
+  isTablet: boolean;
 }) => {
   const { refetchData } = useGlobalContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -265,7 +309,9 @@ const ResetPasswordForm = ({
         <>
           <FormControl isInvalid={!!formError}>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
+              >
                 New Password
               </FormControlLabelText>
             </FormControlLabel>
@@ -274,13 +320,15 @@ const ResetPasswordForm = ({
               value={password}
               setValue={setPassword}
               showPasswordStrength={true}
-              
+              isTablet={isTablet}
             />
           </FormControl>
 
           <FormControl isInvalid={!!formError}>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
+              >
                 Confirm Password
               </FormControlLabelText>
             </FormControlLabel>
@@ -289,18 +337,22 @@ const ResetPasswordForm = ({
               value={confirmPassword}
               setValue={setConfirmPassword}
               showPasswordStrength={false}
+              isTablet={isTablet}
             />
-            {formError && <ErrorAlert error={formError} />}
+            {formError && <ErrorAlert error={formError} isTablet={isTablet} />}
           </FormControl>
           <Button
             isDisabled={isLoading}
             onPress={resetPasswordHandler}
             className="bg-[#5386A4] w-full rounded-md"
+            size={isTablet ? "xl" : "lg"}
           >
             {isLoading ? (
               <>
                 <ButtonSpinner color="#fff" />
-                <ButtonText className="font-psemibold">Confirming...</ButtonText>
+                <ButtonText className="font-psemibold">
+                  Confirming...
+                </ButtonText>
               </>
             ) : (
               <ButtonText className="font-psemibold">Reset Password</ButtonText>
@@ -308,7 +360,10 @@ const ResetPasswordForm = ({
           </Button>
         </>
       ) : (
-        <SuccessAlert message="Password reset successful. Logging you in..." />
+        <SuccessAlert
+          message="Password reset successful. Logging you in..."
+          isTablet={isTablet}
+        />
       )}
     </VStack>
   );
@@ -317,6 +372,7 @@ const ResetPasswordForm = ({
 const SecurityQuestionForm = ({
   userDetails,
   onBack,
+  isTablet,
 }: SecurityQuestionFormProps) => {
   const [step, setStep] = useState<"answer" | "reset">("answer");
 
@@ -326,10 +382,11 @@ const SecurityQuestionForm = ({
         userDetails={userDetails}
         onBack={onBack}
         onSuccess={() => setStep("reset")}
+        isTablet={isTablet}
       />
     );
   }
-  return <ResetPasswordForm userDetails={userDetails} />;
+  return <ResetPasswordForm userDetails={userDetails} isTablet={isTablet} />;
 };
 
 export default SecurityQuestionForm;

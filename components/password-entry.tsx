@@ -44,7 +44,7 @@ const PasswordEntry = ({
   };
   return (
     <View>
-      <Input className="text-center">
+      <Input className="text-center" size={isTablet ? "xl" : "md"}>
         <InputField
           value={value}
           onChangeText={setValue}

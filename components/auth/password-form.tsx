@@ -32,10 +32,12 @@ export default function PasswordForm({
   const [password, setPassword] = useState("");
 
   return (
-    <VStack space="sm">
+    <VStack space={isTablet ? "md" : "sm"}>
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
+          >
             Password
           </FormControlLabelText>
         </FormControlLabel>
@@ -50,7 +52,7 @@ export default function PasswordForm({
 
       <Button
         variant="link"
-        size="xs"
+        size={isTablet ? "lg" : "md"}
         onPress={onForgotPassword}
         className="self-end"
       >
@@ -61,9 +63,9 @@ export default function PasswordForm({
           Forgot Password?
         </ButtonText>
       </Button>
-      {error && <ErrorAlert error={error} />}
+      {error && <ErrorAlert error={error} isTablet={isTablet} />}
       <Button
-        size="lg"
+        size={isTablet ? "xl" : "lg"}
         variant="solid"
         action="primary"
         isDisabled={isLoading}
