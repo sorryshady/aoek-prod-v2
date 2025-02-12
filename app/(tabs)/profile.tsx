@@ -1,5 +1,6 @@
 import {
-    Linking,
+  Dimensions,
+  Linking,
   Modal,
   Platform,
   RefreshControl,
@@ -47,6 +48,9 @@ import SubmitRequestModal from "@/components/submit-request-modal";
 const Profile = () => {
   const { user, logout, refetchData, latestRequest, isLoading } =
     useGlobalContext();
+
+  const width = Dimensions.get("window").width;
+  const isTablet = width > 768;
   const [error, setError] = useState<string | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -213,8 +217,12 @@ const Profile = () => {
             />
           }
         >
-          <View className="flex-1 ">
-            <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
+          <View
+            className={`flex-1 ${isTablet ? "max-w-4xl mx-auto w-full" : ""}`}
+          >
+            <Text
+              className={`font-psemibold text-center text-white pt-12 mb-4 ${isTablet ? "text-5xl" : "text-3xl"}`}
+            >
               Your Profile
             </Text>
 
@@ -226,6 +234,7 @@ const Profile = () => {
               createdAt={
                 user?.createdAt ? new Date(user.createdAt).toISOString() : ""
               }
+              isTablet={isTablet}
             />
 
             {latestRequest && latestRequest.showAgain && (
@@ -240,6 +249,7 @@ const Profile = () => {
               <Button
                 className="bg-[#5386A4] w-full px-4 rounded-md"
                 onPress={() => setModalVisible(true)}
+                size={isTablet ? "xl" : "md"}
               >
                 <ButtonText className="font-psemibold">Actions</ButtonText>
               </Button>
@@ -251,13 +261,16 @@ const Profile = () => {
               >
                 <View className="flex-1 justify-end bg-black/50">
                   <View className="bg-white rounded-t-3xl p-6">
-                    <Text className="text-xl font-pbold text-center mb-6">
+                    <Text
+                      className={`${isTablet ? "text-3xl" : "text-xl"} font-pbold text-center mb-6`}
+                    >
                       Actions
                     </Text>
                     <View className="gap-4">
                       <Button
                         className="bg-[#5386A4] w-full px-4 rounded-md"
                         onPress={openPasswordModal}
+                        size={isTablet ? "xl" : "md"}
                       >
                         <ButtonText className="font-psemibold">
                           Change Password
@@ -273,6 +286,7 @@ const Profile = () => {
                           isDisabled={latestRequest?.status === "PENDING"}
                           className={`w-full px-4 rounded-md ${latestRequest?.status !== "PENDING" ? "bg-[#5386A4]" : ""}`}
                           onPress={openRequestModal}
+                          size={isTablet ? "xl" : "md"}
                         >
                           <ButtonText className="font-psemibold">
                             {latestRequest?.status === "PENDING"
@@ -285,6 +299,7 @@ const Profile = () => {
                         onPress={() => setModalVisible(false)}
                         action="secondary"
                         className="rounded-md"
+                        size={isTablet ? "xl" : "md"}
                       >
                         <ButtonText className="font-psemibold">
                           Cancel
@@ -298,7 +313,9 @@ const Profile = () => {
             {/* Personal Info Section */}
             <View className="mb-6">
               <View className="flex-row justify-between items-center mb-4">
-                <Text className="text-lg font-pbold text-white">
+                <Text
+                  className={`${isTablet ? "text-3xl" : "text-lg"} font-pbold text-white`}
+                >
                   Personal Info
                 </Text>
               </View>
@@ -333,7 +350,9 @@ const Profile = () => {
             {/* Work Info Section */}
             <View className="mb-6">
               <View className="flex-row justify-between items-center mb-4">
-                <Text className="text-lg font-pbold text-white">
+                <Text
+                  className={`${isTablet ? "text-3xl" : "text-lg"} font-pbold text-white`}
+                >
                   Employment Information
                 </Text>
               </View>
@@ -370,7 +389,9 @@ const Profile = () => {
             {/* Other Information */}
             <View className="mb-6">
               <View className="flex-row justify-between items-center mb-4">
-                <Text className="text-lg font-pbold text-white">
+                <Text
+                  className={`${isTablet ? "text-3xl" : "text-lg"} font-pbold text-white`}
+                >
                   Other Information
                 </Text>
               </View>
@@ -392,12 +413,15 @@ const Profile = () => {
             {/* Permanent Address Section */}
             <View className="mb-6">
               <View className="flex-row justify-between items-center mb-4">
-                <Text className="text-lg font-pbold text-white">
+                <Text
+                  className={`${isTablet ? "text-3xl" : "text-lg"} font-pbold text-white`}
+                >
                   Permanent Address
                 </Text>
                 {!isEditing && (
                   <Button
                     variant="link"
+                    size={isTablet ? "xl" : "md"}
                     className="mr-2"
                     onPress={() => {
                       if (isEditing) {
@@ -418,7 +442,9 @@ const Profile = () => {
                   <VStack space="md">
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText className="font-pmedium">
+                        <FormControlLabelText
+                          className={`font-pmedium ${isTablet ? "text-lg" : "text-sm"} text-gray-500`}
+                        >
                           Permanent Address
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -438,7 +464,9 @@ const Profile = () => {
                     </FormControl>
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText className="font-pmedium">
+                        <FormControlLabelText
+                          className={`font-pmedium ${isTablet ? "text-lg" : "text-sm"} text-gray-500`}
+                        >
                           Home District
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -493,7 +521,9 @@ const Profile = () => {
             </View>
             {/* Contact Information Section */}
             <View className="mb-6">
-              <Text className="text-lg font-pbold text-white mb-4">
+              <Text
+                className={`${isTablet ? "text-3xl" : "text-lg"} font-pbold text-white mb-4`}
+              >
                 Contact Information
               </Text>
               <View className="bg-gray-50 rounded-xl p-4 space-y-4">
@@ -502,7 +532,9 @@ const Profile = () => {
                   <VStack space="md">
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText className="font-pmedium">
+                        <FormControlLabelText
+                          className={`font-pmedium ${isTablet ? "text-lg" : "text-sm"} text-gray-500`}
+                        >
                           Phone Number
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -523,7 +555,9 @@ const Profile = () => {
                     </FormControl>
                     <FormControl>
                       <FormControlLabel>
-                        <FormControlLabelText className="font-pmedium">
+                        <FormControlLabelText
+                          className={`font-pmedium ${isTablet ? "text-lg" : "text-sm"} text-gray-500`}
+                        >
                           Mobile Number
                         </FormControlLabelText>
                       </FormControlLabel>
@@ -558,6 +592,7 @@ const Profile = () => {
                 <Button
                   onPress={handleSave}
                   className="bg-[#5386A4] w-full rounded-md"
+                  size={isTablet ? "xl" : "md"}
                 >
                   <ButtonText className="font-psemibold">
                     {saving ? "Saving..." : "Save Changes"}
@@ -570,6 +605,7 @@ const Profile = () => {
                     setError(null);
                   }}
                   className="bg-gray-200 w-full rounded-md"
+                  size={isTablet ? "xl" : "md"}
                 >
                   <ButtonText className="text-gray-700 font-psemibold">
                     Cancel
@@ -584,15 +620,18 @@ const Profile = () => {
               }}
               action="negative"
               className="rounded-md"
+              size={isTablet ? "xl" : "md"}
             >
               <ButtonText className="font-psemibold">Logout</ButtonText>
             </Button>
             <Button
-              onPress={() => Linking.openURL('https://aoek.org/privacy-policy')}
+              onPress={() => Linking.openURL("https://aoek.org/privacy-policy")}
               variant="link"
               className="mt-4"
             >
-              <ButtonText className="text-[#5386A4] font-psemibold">Privacy Policy</ButtonText>
+              <ButtonText className="text-[#5386A4] font-psemibold">
+                Privacy Policy
+              </ButtonText>
             </Button>
           </View>
         </ScrollView>
@@ -621,9 +660,21 @@ const InfoRow = ({
 }: {
   label: string;
   value?: string | null;
-}) => (
-  <View className="flex-1 gap-1 my-1">
-    <Text className="text-gray-500 text-sm font-pmedium">{label}</Text>
-    <Text className="font-pmedium text-wrap">{value || "N/A"}</Text>
-  </View>
-);
+}) => {
+  const width = Dimensions.get("window").width;
+  const isTablet = width > 768;
+  return (
+    <View className="flex-1 gap-1 my-1">
+      <Text
+        className={`${isTablet ? "text-lg" : "text-sm"} text-gray-500 font-pmedium`}
+      >
+        {label}
+      </Text>
+      <Text
+        className={`${isTablet ? "text-lg" : "text-sm"} font-pmedium text-wrap`}
+      >
+        {value || "N/A"}
+      </Text>
+    </View>
+  );
+};

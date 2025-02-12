@@ -98,19 +98,23 @@ const ProfileImagePicker = ({
       >
         <View className="flex-1 justify-end bg-black/50">
           <View className="bg-white rounded-t-3xl p-6">
-            <Text className="text-xl font-pbold text-center mb-6">
+            <Text
+              className={`${isTablet ? "text-3xl" : "text-xl"} font-pbold text-center mb-6`}
+            >
               Select Image
             </Text>
             <View className="gap-4">
               <Button
                 className="bg-[#5386A4] w-full rounded-md"
                 onPress={() => takePhoto(setSelectedImage)}
+                size={isTablet ? "xl" : "md"}
               >
                 <ButtonText className="font-psemibold">Take Photo</ButtonText>
               </Button>
               <Button
                 className="bg-[#5386A4] w-full rounded-md"
                 onPress={() => pickImage(setSelectedImage)}
+                size={isTablet ? "xl" : "md"}
               >
                 <ButtonText className="font-psemibold">
                   Select from Gallery
@@ -121,6 +125,7 @@ const ProfileImagePicker = ({
                   isDisabled={isLoading}
                   className="bg-green-500 w-full rounded-md"
                   onPress={confirmImage}
+                  size={isTablet ? "xl" : "md"}
                 >
                   <ButtonText className="font-psemibold">
                     {isLoading ? "Updating..." : "Confirm"}
@@ -131,6 +136,7 @@ const ProfileImagePicker = ({
                 className="rounded-md"
                 action="secondary"
                 onPress={closeModal}
+                size={isTablet ? "xl" : "md"}
               >
                 <ButtonText className="font-psemibold">Cancel</ButtonText>
               </Button>
