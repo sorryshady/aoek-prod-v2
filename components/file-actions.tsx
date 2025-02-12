@@ -10,9 +10,10 @@ interface Props {
   fileUrl: string;
   title: string;
   containerStyle?: string;
+  isTablet?: boolean;
 }
 
-const FileActions = ({ fileUrl, title, containerStyle }: Props) => {
+const FileActions = ({ fileUrl, title, containerStyle, isTablet }: Props) => {
   const handleDownload = async () => {
     try {
       const result = await FileSystem.downloadAsync(
@@ -88,30 +89,30 @@ const FileActions = ({ fileUrl, title, containerStyle }: Props) => {
     <View className={`flex-row justify-between gap-2 ${containerStyle}`}>
       <Button
         variant="outline"
-        size="sm"
+        size={isTablet ? "xl" : "sm"}
         className="border-[#5386A4] rounded-md"
         onPress={() => Linking.openURL(fileUrl)}
       >
         <ButtonText className="text-[#5386A4] font-psemibold">View</ButtonText>
-        <ButtonIcon as={Eye} color="#5386A4" />
+        <ButtonIcon as={Eye} color="#5386A4" size={isTablet ? "xl" : "sm"} />
       </Button>
       <Button
-        size="sm"
+        size={isTablet ? "xl" : "sm"}
         onPress={handleDownload}
         className="bg-[#5386A4] rounded-md"
       >
         <ButtonText className="font-psemibold">Download</ButtonText>
-        <ButtonIcon as={Download} />
+        <ButtonIcon as={Download} size={isTablet ? "xl" : "sm"} />
       </Button>
 
       <Button
         variant="outline"
-        size="sm"
+        size={isTablet ? "xl" : "sm"}
         onPress={handleShare}
         className="border-[#5386A4] rounded-md"
       >
         <ButtonText className="text-[#5386A4] font-psemibold">Share</ButtonText>
-        <ButtonIcon as={Share} color="#5386A4" />
+        <ButtonIcon as={Share} color="#5386A4" size={isTablet ? "xl" : "sm"} />
       </Button>
     </View>
   );

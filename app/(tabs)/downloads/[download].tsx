@@ -4,6 +4,7 @@ import {
   ScrollView,
   SafeAreaView,
   RefreshControl,
+  Dimensions,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState, useCallback } from "react";
@@ -26,6 +27,8 @@ export default function Downloads() {
   const [downloads, setDownloads] = useState<DownloadItem[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const width = Dimensions.get("window").width;
+  const isTablet = width >= 768;
 
   // Convert route param to title case for display
   const categoryTitle = download
@@ -67,8 +70,10 @@ export default function Downloads() {
       <SafeAreaView className="flex-1">
         <GradientBackground>
           <View className="flex-1 justify-center items-center">
-            <Spinner size="large" color="white" />
-            <Text className="text-white text-center font-psemibold">
+            <Spinner size={isTablet ? "large" : "small"} color="white" />
+            <Text
+              className={`text-white text-center font-psemibold ${isTablet ? "text-2xl" : "text-base"}`}
+            >
               Loading...
             </Text>
           </View>
@@ -87,12 +92,18 @@ export default function Downloads() {
               <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
             }
           >
-            <View className="flex-1 bg-transparent pt-20">
-              <Text className="text-3xl font-psemibold text-center text-white mb-4">
+            <View
+              className={`flex-1 bg-transparent pt-20 ${isTablet ? "max-w-4xl mx-auto" : ""}`}
+            >
+              <Text
+                className={`font-psemibold text-center text-white mb-4 ${isTablet ? "text-5xl" : "text-3xl"}`}
+              >
                 {categoryTitle}
               </Text>
               <View className="bg-white/10 backdrop-blur-md rounded-lg p-6">
-                <Text className="text-center text-white text-lg font-psemibold">
+                <Text
+                  className={`text-center text-white font-psemibold ${isTablet ? "text-2xl" : "text-lg"}`}
+                >
                   No downloads available at the moment.
                 </Text>
               </View>
@@ -113,14 +124,20 @@ export default function Downloads() {
             <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
           }
         >
-          <View className="px-4 bg-transparent pt-20">
-            <Text className="text-3xl font-psemibold text-center mb-6 text-white">
+          <View
+            className={`px-4 bg-transparent pt-20 ${isTablet ? "max-w-4xl mx-auto" : ""}`}
+          >
+            <Text
+              className={`font-psemibold text-center mb-6 text-white ${isTablet ? "text-5xl" : "text-3xl"}`}
+            >
               {categoryTitle}
             </Text>
 
             {error ? (
               <View className="bg-red-500/20 p-4 rounded-lg">
-                <Text className="text-white text-center font-psemibold">
+                <Text
+                  className={`text-white text-center font-psemibold ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   {error}
                 </Text>
               </View>
@@ -132,25 +149,33 @@ export default function Downloads() {
                       key={item._id}
                       className="bg-white rounded-lg p-4 shadow-lg mb-5"
                     >
-                      <Text className="text-xl font-psemibold text-gray-800 mb-2">
+                      <Text
+                        className={`font-psemibold text-gray-800 mb-2 ${isTablet ? "text-2xl" : "text-xl"}`}
+                      >
                         {item.title}
                       </Text>
 
                       {item.description && (
-                        <Text className="text-gray-600 font-pmedium mb-3 text-sm">
+                        <Text
+                          className={`text-gray-600 font-pmedium mb-3 ${isTablet ? "text-lg" : "text-sm"}`}
+                        >
                           {item.description}
                         </Text>
                       )}
 
                       <View className="flex-row justify-between items-center mb-3">
                         {item.dateUploaded && (
-                          <Text className="text-xs text-gray-500 font-pmedium">
+                          <Text
+                            className={`text-gray-500 font-pmedium ${isTablet ? "text-base" : "text-xs"}`}
+                          >
                             Uploaded:{" "}
                             {new Date(item.dateUploaded).toLocaleDateString()}
                           </Text>
                         )}
                         {item.fileSize && (
-                          <Text className="text-sm text-gray-500 font-pmedium">
+                          <Text
+                            className={`text-gray-500 font-pmedium ${isTablet ? "text-base" : "text-sm"}`}
+                          >
                             Size: {Math.round(parseInt(item.fileSize) / 1024)}{" "}
                             KB
                           </Text>
@@ -160,7 +185,8 @@ export default function Downloads() {
                       <FileActions
                         fileUrl={item.fileUrl}
                         title={item.title}
-                        containerStyle="bg-primary/10 p-3 rounded-lg"
+                        containerStyle={`bg-primary/10 p-3 rounded-lg ${isTablet ? "p-4" : ""}`}
+                        isTablet={isTablet}
                       />
                     </View>
                   ))}
