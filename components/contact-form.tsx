@@ -28,6 +28,7 @@ interface IContactFormProps {
   setFormData: any;
   errors: any;
   setErrors: any;
+  isTablet: boolean;
 }
 
 const ContactForm = ({
@@ -35,16 +36,19 @@ const ContactForm = ({
   setFormData,
   errors,
   setErrors,
+  isTablet,
 }: IContactFormProps) => {
   return (
     <VStack className="gap-4">
       <FormControl isInvalid={!!errors.personalAddress}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Personal Address
           </FormControlLabelText>
         </FormControlLabel>
-        <Textarea>
+        <Textarea size={isTablet ? "xl" : "md"}>
           <TextareaInput
             value={formData.personalAddress}
             onChangeText={(value) => {
@@ -67,7 +71,9 @@ const ContactForm = ({
 
       <FormControl isInvalid={!!errors.homeDistrict}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Home District
           </FormControlLabelText>
         </FormControlLabel>
@@ -82,7 +88,7 @@ const ContactForm = ({
           }}
           className="font-pregular"
         >
-          <SelectTrigger>
+          <SelectTrigger size={isTablet ? "xl" : "md"}>
             <SelectInput placeholder="Select district" />
           </SelectTrigger>
           <SelectPortal>
@@ -112,11 +118,13 @@ const ContactForm = ({
 
       <FormControl isInvalid={!!errors.email}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Email
           </FormControlLabelText>
         </FormControlLabel>
-        <Input>
+        <Input size={isTablet ? "xl" : "md"}>
           <InputField
             value={formData.email}
             onChangeText={(value) => {
@@ -138,11 +146,13 @@ const ContactForm = ({
 
       <FormControl isInvalid={!!errors.phoneNumber}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Phone Number
           </FormControlLabelText>
         </FormControlLabel>
-        <Input>
+        <Input size={isTablet ? "xl" : "md"}>
           <InputField
             value={formData.phoneNumber}
             onChangeText={(value) => {
@@ -158,11 +168,13 @@ const ContactForm = ({
 
       <FormControl isInvalid={!!errors.mobileNumber}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Mobile Number
           </FormControlLabelText>
         </FormControlLabel>
-        <Input>
+        <Input size={isTablet ? "xl" : "md"}>
           <InputField
             value={formData.mobileNumber}
             onChangeText={(value) => {

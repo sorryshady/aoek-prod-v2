@@ -207,6 +207,7 @@ const SignUp = () => {
             setFormData={setFormData}
             errors={errors}
             setErrors={setErrors}
+            isTablet={isTablet}
           />
         );
       case 2:
@@ -216,6 +217,7 @@ const SignUp = () => {
             setFormData={setFormData}
             errors={errors}
             setErrors={setErrors}
+            isTablet={isTablet}
           />
         );
       case 3:

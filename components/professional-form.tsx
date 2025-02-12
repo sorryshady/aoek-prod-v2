@@ -33,18 +33,22 @@ interface ProfessionalFormProps {
   setFormData: (data: RegisterFormData) => void;
   errors: RegisterFormErrors;
   setErrors: (errors: RegisterFormErrors) => void;
+  isTablet: boolean;
 }
 const ProfessionalForm = ({
   formData,
   setFormData,
   errors,
   setErrors,
+  isTablet,
 }: ProfessionalFormProps) => {
   return (
     <VStack className="gap-4">
       <FormControl isInvalid={!!errors.userStatus}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             User Status
           </FormControlLabelText>
         </FormControlLabel>
@@ -59,7 +63,7 @@ const ProfessionalForm = ({
           }}
           className="font-pregular"
         >
-          <SelectTrigger>
+          <SelectTrigger size={isTablet ? "xl" : "md"}>
             <SelectInput placeholder="Select user status" />
           </SelectTrigger>
           <SelectPortal>
@@ -85,7 +89,9 @@ const ProfessionalForm = ({
         <>
           <FormControl isInvalid={!!errors.department}>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+              >
                 Department
               </FormControlLabelText>
             </FormControlLabel>
@@ -98,7 +104,7 @@ const ProfessionalForm = ({
               }}
               className="font-pregular"
             >
-              <SelectTrigger>
+              <SelectTrigger size={isTablet ? "xl" : "md"}>
                 <SelectInput placeholder="Select department" />
               </SelectTrigger>
               <SelectPortal>
@@ -128,7 +134,9 @@ const ProfessionalForm = ({
 
           <FormControl isInvalid={!!errors.designation}>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+              >
                 Designation
               </FormControlLabelText>
             </FormControlLabel>
@@ -145,7 +153,7 @@ const ProfessionalForm = ({
               }}
               className="font-pregular"
             >
-              <SelectTrigger>
+              <SelectTrigger size={isTablet ? "xl" : "md"}>
                 <SelectInput placeholder="Select designation" />
               </SelectTrigger>
               <SelectPortal>
@@ -175,7 +183,9 @@ const ProfessionalForm = ({
 
           <FormControl isInvalid={!!errors.workDistrict}>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+              >
                 Office District
               </FormControlLabelText>
             </FormControlLabel>
@@ -192,7 +202,7 @@ const ProfessionalForm = ({
               }}
               className="font-pregular"
             >
-              <SelectTrigger>
+              <SelectTrigger size={isTablet ? "xl" : "md"}>
                 <SelectInput placeholder="Select district" />
               </SelectTrigger>
               <SelectPortal>
@@ -222,11 +232,13 @@ const ProfessionalForm = ({
 
           <FormControl isInvalid={!!errors.officeAddress}>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+              >
                 Office Address
               </FormControlLabelText>
             </FormControlLabel>
-            <Textarea>
+            <Textarea size={isTablet ? "xl" : "md"}>
               <TextareaInput
                 value={formData.officeAddress}
                 onChangeText={(value) => {
@@ -260,7 +272,7 @@ const ProfessionalForm = ({
             }}
             className="font-pregular"
           >
-            <SelectTrigger>
+            <SelectTrigger size={isTablet ? "xl" : "md"}>
               <SelectInput placeholder="Select department" />
             </SelectTrigger>
             <SelectPortal>
