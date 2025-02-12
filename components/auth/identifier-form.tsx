@@ -1,25 +1,43 @@
 import { useState } from "react";
-import { FormControl, FormControlLabel, FormControlLabelText, Input, InputField, Button, ButtonText, ButtonSpinner, VStack } from "@/components/ui";
+import {
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+  Input,
+  InputField,
+  Button,
+  ButtonText,
+  ButtonSpinner,
+  VStack,
+} from "@/components/ui";
 import ErrorAlert from "@/components/error-alert";
 
 interface IdentifierFormProps {
   onSubmit: (identifier: string) => Promise<void>;
   isLoading: boolean;
   error: string;
+  isTablet: boolean;
 }
 
-export default function IdentifierForm({ onSubmit, isLoading, error }: IdentifierFormProps) {
+export default function IdentifierForm({
+  onSubmit,
+  isLoading,
+  error,
+  isTablet,
+}: IdentifierFormProps) {
   const [value, setValue] = useState("");
 
   return (
-    <VStack space="md">
+    <VStack space={isTablet ? "lg" : "md"}>
       <FormControl isInvalid={!!error}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
+          >
             Email or Membership ID
           </FormControlLabelText>
         </FormControlLabel>
-        <Input>
+        <Input size={isTablet ? "xl" : "md"}>
           <InputField
             value={value}
             onChangeText={setValue}
@@ -28,10 +46,10 @@ export default function IdentifierForm({ onSubmit, isLoading, error }: Identifie
             className="font-pregular"
           />
         </Input>
-        {error && <ErrorAlert error={error} />}
+        {error && <ErrorAlert error={error} isTablet={isTablet} />}
       </FormControl>
       <Button
-        size="lg"
+        size={isTablet ? "xl" : "lg"}
         action="primary"
         isDisabled={isLoading}
         onPress={() => onSubmit(value)}

@@ -240,7 +240,9 @@ const SignIn = () => {
             keyboardShouldPersistTaps="handled"
           >
             <View className="flex-1 px-4 items-center justify-center mt-10">
-              <View className="w-full max-w-[400px]">
+              <View
+                className={`w-full ${isTablet ? "max-w-[500px]" : "max-w-[400px]"}`}
+              >
                 <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
                   <Image
                     source={images.background}
@@ -248,13 +250,15 @@ const SignIn = () => {
                     resizeMode="cover"
                   />
                   <View className="p-6">
-                    <Text className="text-black text-center font-psemibold text-2xl mb-6">
+                    <Text
+                      className={`text-black text-center font-psemibold ${isTablet ? "text-4xl" : "text-xl"} mb-6`}
+                    >
                       Sign In
                     </Text>
                     {step !== "identifier" && step !== "setup" && (
                       <Button
                         variant="link"
-                        size="sm"
+                        size={isTablet ? "lg" : "md"}
                         className="justify-start"
                         onPress={handleBack}
                       >
@@ -265,7 +269,7 @@ const SignIn = () => {
                       </Button>
                     )}
                     {userDetails && step !== "identifier" && (
-                      <UserProfile user={userDetails} />
+                      <UserProfile user={userDetails} isTablet={isTablet} />
                     )}
 
                     {step === "identifier" && (
@@ -273,6 +277,7 @@ const SignIn = () => {
                         onSubmit={handleIdentifierSubmit}
                         isLoading={isLoading}
                         error={error}
+                        isTablet={isTablet}
                       />
                     )}
 
@@ -319,12 +324,15 @@ const SignIn = () => {
                         space="sm"
                         className="justify-center items-center mt-6"
                       >
-                        <Text className="font-pmedium">
+                        <Text
+                          className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
+                        >
                           Don't have an account?
                         </Text>
                         <Button
                           variant="link"
                           onPress={() => router.push("/sign-up")}
+                          size={isTablet ? "lg" : "md"}
                         >
                           <ButtonText className="text-blue-500 font-psemibold">
                             Register
