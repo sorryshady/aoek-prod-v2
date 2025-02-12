@@ -123,7 +123,7 @@ const Home = () => {
               resizeMode="contain"
             />
             <Text
-              className={`text-center font-pbold mb-6 text-white ${isTablet ? "text-5xl" : "text-4xl"}`}
+              className={`text-center font-pbold mb-6 text-white ${isTablet ? "text-5xl" : "text-4xl"} px-2 pt-2`}
             >
               Welcome to AOEK
             </Text>
@@ -166,7 +166,7 @@ const Home = () => {
 
             <View className="mt-16">
               <Text
-                className={`text-center text-white font-psemibold mb-6 ${isTablet ? "text-5xl" : "text-3xl"}`}
+                className={`text-center text-white font-psemibold mb-8 ${isTablet ? "text-5xl" : "text-3xl"} px-2`}
               >
                 Upcoming Event
               </Text>
@@ -239,9 +239,9 @@ const Home = () => {
               </Text>
             </View>
 
-            <View className="mt-16">
+            <View className="mt-16 pt-4">
               <Text
-                className={`text-center text-white font-psemibold mb-8 ${isTablet ? "text-5xl" : "text-3xl"}`}
+                className={`text-center text-white font-psemibold mb-8 ${isTablet ? "text-5xl" : "text-3xl"} px-2`}
               >
                 State Committee
               </Text>
@@ -296,7 +296,9 @@ const Home = () => {
                       )}
                     />
                   </View>
-                  <View className="w-full flex items-center justify-center mt-3">
+                  <View
+                    className={`w-full flex items-center justify-center ${isTablet ? "-mt-16" : "mt-2"}`}
+                  >
                     <Button
                       className="bg-[#5386A4] rounded-md shadow-lg w-[200px]"
                       onPress={() => router.push("/committee")}
