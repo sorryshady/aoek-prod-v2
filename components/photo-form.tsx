@@ -12,8 +12,14 @@ interface PhotoFormProps {
   formData: RegisterFormData;
   setFormData: (data: RegisterFormData) => void;
   error: string;
+  isTablet: boolean;
 }
-const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
+const PhotoForm = ({
+  formData,
+  setFormData,
+  error,
+  isTablet,
+}: PhotoFormProps) => {
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,14 +69,20 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
   };
   return (
     <View className="gap-4">
-      <Text className="mb-[1rem] font-pregular">
+      <Text
+        className={`mb-[1rem] font-pregular ${
+          isTablet ? "text-lg" : "text-base"
+        }`}
+      >
         Upload your photo (optional)
       </Text>
       {selectedImage ? (
         <View className="items-center gap-4">
           <Image
             source={{ uri: selectedImage }}
-            className="w-32 h-32 rounded-full mb-[1rem]"
+            className={`w-32 h-32 rounded-full mb-[1rem] ${
+              isTablet ? "w-40 h-40" : ""
+            }`}
             resizeMode="cover"
           />
           {!formData.photoUrl && (
@@ -100,13 +112,19 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
           <Button
             className="bg-[#5386A4] w-full rounded-md"
             onPress={() => setImageModalVisible(true)}
+            size={isTablet ? "xl" : "md"}
           >
             <ButtonText className="font-psemibold">Upload Photo</ButtonText>
           </Button>
         </View>
       )}
-      {error && <ErrorAlert error={error} />}
-      {success && <SuccessAlert message={"Photo uploaded successfully"} />}
+      {error && <ErrorAlert error={error} isTablet={isTablet} />}
+      {success && (
+        <SuccessAlert
+          message={"Photo uploaded successfully"}
+          isTablet={isTablet}
+        />
+      )}
       <Modal
         animationType="slide"
         transparent={true}
@@ -115,12 +133,17 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
       >
         <View className="flex-1 justify-end bg-black/50">
           <View className="bg-white rounded-t-3xl p-6">
-            <Text className="text-xl font-pbold text-center mb-6">
+            <Text
+              className={`text-xl font-pbold text-center mb-6 ${
+                isTablet ? "text-2xl" : ""
+              }`}
+            >
               Select Image
             </Text>
             <View className="gap-4">
               <Button
                 className="bg-[#5386A4] w-full rounded-md"
+                size={isTablet ? "xl" : "md"}
                 onPress={() =>
                   handleImageSelect(async () => {
                     let uri = null;
@@ -135,6 +158,7 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
               </Button>
               <Button
                 className="bg-[#5386A4] w-full rounded-md"
+                size={isTablet ? "xl" : "md"}
                 onPress={() =>
                   handleImageSelect(async () => {
                     let uri = null;
@@ -152,6 +176,7 @@ const PhotoForm = ({ formData, setFormData, error }: PhotoFormProps) => {
               <Button
                 action="secondary"
                 className="rounded-md"
+                size={isTablet ? "xl" : "md"}
                 onPress={() => setImageModalVisible(false)}
               >
                 <ButtonText className="font-psemibold">Cancel</ButtonText>

@@ -222,6 +222,7 @@ const CompleteAccount = () => {
             setFormData={setFormData}
             errors={errors}
             setErrors={setErrors}
+            isTablet={isTablet}
           />
         );
       case 1:
@@ -231,6 +232,7 @@ const CompleteAccount = () => {
             setFormData={setFormData}
             errors={errors}
             setErrors={setErrors}
+            isTablet={isTablet}
           />
         );
       case 2:
@@ -240,6 +242,7 @@ const CompleteAccount = () => {
             setFormData={setFormData}
             errors={errors}
             setErrors={setErrors}
+            isTablet={isTablet}
           />
         );
       case 3:
@@ -248,6 +251,7 @@ const CompleteAccount = () => {
             formData={formData}
             setFormData={setFormData}
             error={error}
+            isTablet={isTablet}
           />
         );
     }

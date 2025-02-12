@@ -226,6 +226,7 @@ const SignUp = () => {
             formData={formData}
             setFormData={setFormData}
             error={error}
+            isTablet={isTablet}
           />
         );
     }

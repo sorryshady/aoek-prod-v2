@@ -149,7 +149,7 @@ const ContactForm = ({
           <FormControlLabelText
             className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
           >
-            Phone Number
+            Phone Number (optional)
           </FormControlLabelText>
         </FormControlLabel>
         <Input size={isTablet ? "xl" : "md"}>
