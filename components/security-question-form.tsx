@@ -274,6 +274,7 @@ const ResetPasswordForm = ({
               value={password}
               setValue={setPassword}
               showPasswordStrength={true}
+              
             />
           </FormControl>
 

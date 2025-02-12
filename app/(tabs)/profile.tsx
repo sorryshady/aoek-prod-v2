@@ -639,12 +639,14 @@ const Profile = () => {
           <ChangePasswordModal
             visible={passwordModalVisible}
             onClose={() => setPasswordModalVisible(false)}
+            isTablet={isTablet}
           />
         )}
         {user && user.userStatus === "WORKING" && (
           <SubmitRequestModal
             visible={requestModalVisible}
             onClose={() => setRequestModalVisible(false)}
+            isTablet={isTablet}
           />
         )}
       </GradientBackground>

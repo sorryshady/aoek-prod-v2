@@ -10,11 +10,13 @@ const PasswordEntry = ({
   setValue,
   placeholder,
   showPasswordStrength,
+  isTablet,
 }: {
   value: string;
   setValue: (value: string) => void;
   placeholder: string;
   showPasswordStrength: boolean;
+  isTablet: boolean;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [checks, setChecks] = useState({
@@ -56,32 +58,34 @@ const PasswordEntry = ({
       </Input>
       {showPasswordStrength && (
         <View className="mt-2 gap-1">
-          <Text className="text-xs font-pmedium text-gray-500">
+          <Text
+            className={` font-pmedium text-gray-500 ${isTablet ? "text-lg" : "text-sm"}`}
+          >
             Password must contain:
           </Text>
           <View className="flex-row flex-wrap gap-2">
             <Text
-              className={`text-xs font-pmedium ${checks.length ? "text-green-600" : "text-red-500"}`}
+              className={`font-pmedium ${checks.length ? "text-green-600" : "text-red-500"} ${isTablet ? "text-lg" : "text-xs"}`}
             >
               • At least 8 characters
             </Text>
             <Text
-              className={`text-xs font-pmedium ${checks.uppercase ? "text-green-600" : "text-red-500"}`}
+              className={`font-pmedium ${checks.uppercase ? "text-green-600" : "text-red-500"} ${isTablet ? "text-lg" : "text-xs"}`}
             >
               • One uppercase letter
             </Text>
             <Text
-              className={`text-xs font-pmedium ${checks.lowercase ? "text-green-600" : "text-red-500"}`}
+              className={`font-pmedium ${checks.lowercase ? "text-green-600" : "text-red-500"} ${isTablet ? "text-lg" : "text-xs"}`}
             >
               • One lowercase letter
             </Text>
             <Text
-              className={`text-xs font-pmedium ${checks.number ? "text-green-600" : "text-red-500"}`}
+              className={`font-pmedium ${checks.number ? "text-green-600" : "text-red-500"} ${isTablet ? "text-lg" : "text-xs"}`}
             >
               • One number
             </Text>
             <Text
-              className={`text-xs font-pmedium ${checks.special ? "text-green-600" : "text-red-500"}`}
+              className={`font-pmedium ${checks.special ? "text-green-600" : "text-red-500"} ${isTablet ? "text-lg" : "text-xs"}`}
             >
               • One special character
             </Text>

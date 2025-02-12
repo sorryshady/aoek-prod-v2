@@ -43,11 +43,12 @@ import { queryClient } from "@/app/_layout";
 interface Props {
   visible: boolean;
   onClose: () => void;
+  isTablet: boolean;
 }
 
 type RequestType = "PROMOTION" | "TRANSFER" | "RETIREMENT";
 
-const SubmitRequestModal = ({ visible, onClose }: Props) => {
+const SubmitRequestModal = ({ visible, onClose, isTablet }: Props) => {
   const { user } = useGlobalContext();
   const [requestType, setRequestType] = useState<RequestType>("PROMOTION");
   const [error, setError] = useState<string | null>(null);
@@ -173,7 +174,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
           <View className="gap-4">
             <FormControl>
               <FormControlLabel>
-                <FormControlLabelText className="font-pmedium">
+                <FormControlLabelText
+                  className={`font-pmedium ${isTablet ? "text-lg" : ""}`}
+                >
                   New Work District
                 </FormControlLabelText>
               </FormControlLabel>
@@ -213,7 +216,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
             </FormControl>
             <FormControl>
               <FormControlLabel>
-                <FormControlLabelText className="font-pmedium">
+                <FormControlLabelText
+                  className={`font-pmedium ${isTablet ? "text-lg" : ""}`}
+                >
                   New Office Address
                 </FormControlLabelText>
               </FormControlLabel>
@@ -238,7 +243,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
         return (
           <FormControl>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-lg" : ""}`}
+              >
                 New Position
               </FormControlLabelText>
             </FormControlLabel>
@@ -282,7 +289,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
         return (
           <FormControl>
             <FormControlLabel>
-              <FormControlLabelText className="font-pmedium">
+              <FormControlLabelText
+                className={`font-pmedium ${isTablet ? "text-lg" : ""}`}
+              >
                 Retirement Date
               </FormControlLabelText>
             </FormControlLabel>
@@ -310,7 +319,10 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
         <AlertDialogBackdrop />
         <AlertDialogContent>
           <AlertDialogHeader>
-            <Heading className="text-typography-950 font-psemibold" size="md">
+            <Heading
+              className="text-typography-950 font-psemibold"
+              size={isTablet ? "xl" : "md"}
+            >
               Submit Request
             </Heading>
           </AlertDialogHeader>
@@ -323,7 +335,9 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                 <View className="gap-4">
                   <FormControl>
                     <FormControlLabel>
-                      <FormControlLabelText className="font-pmedium">
+                      <FormControlLabelText
+                        className={`font-pmedium ${isTablet ? "text-lg" : ""}`}
+                      >
                         Request Type
                       </FormControlLabelText>
                     </FormControlLabel>
@@ -353,14 +367,20 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
 
                   {renderForm()}
 
-                  {error && <ErrorAlert error={error} />}
-                  {successMessage && <SuccessAlert message={successMessage} />}
+                  {error && <ErrorAlert error={error} isTablet={isTablet} />}
+                  {successMessage && (
+                    <SuccessAlert
+                      message={successMessage}
+                      isTablet={isTablet}
+                    />
+                  )}
 
                   <View className="gap-4 mt-4">
                     <Button
                       className="bg-[#5386A4] rounded-md"
                       isDisabled={isLoading}
                       onPress={handleSubmit}
+                      size={isTablet ? "xl" : "md"}
                     >
                       <ButtonText className="font-psemibold">
                         {isLoading ? "Submitting..." : "Submit Request"}
@@ -371,6 +391,7 @@ const SubmitRequestModal = ({ visible, onClose }: Props) => {
                       className="rounded-md"
                       onPress={onClose}
                       action="secondary"
+                      size={isTablet ? "xl" : "md"}
                     >
                       <ButtonText className="font-psemibold">Cancel</ButtonText>
                     </Button>
