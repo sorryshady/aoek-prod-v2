@@ -1,4 +1,5 @@
 import {
+    Dimensions,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -16,6 +17,8 @@ import ErrorAlert from "@/components/error-alert";
 import SecurityQuestionForm from "@/components/security-question-form";
 
 const ForgotPassword = () => {
+  const width = Dimensions.get("window").width;
+  const isTablet = width > 768;
   const { userId }: { userId: string } = useLocalSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [userDetails, setUserDetails] = useState<{

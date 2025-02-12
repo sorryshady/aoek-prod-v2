@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Alert,
+  Dimensions,
 } from "react-native";
 import React, { useState } from "react";
 import { images } from "@/constants";
@@ -63,6 +64,8 @@ const initialFormData: RegisterFormData = {
 };
 
 const SignUp = () => {
+  const width = Dimensions.get("window").width;
+  const isTablet = width > 768;
   const [errors, setErrors] = useState<RegisterFormErrors>({});
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");

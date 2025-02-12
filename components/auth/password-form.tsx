@@ -18,6 +18,7 @@ interface PasswordFormProps {
   isLoading: boolean;
   error: string;
   identifier: string;
+  isTablet: boolean;
 }
 
 export default function PasswordForm({
@@ -26,6 +27,7 @@ export default function PasswordForm({
   isLoading,
   error,
   identifier,
+  isTablet,
 }: PasswordFormProps) {
   const [password, setPassword] = useState("");
 
@@ -42,6 +44,7 @@ export default function PasswordForm({
           setValue={setPassword}
           placeholder="Enter your password"
           showPasswordStrength={false}
+          isTablet={isTablet}
         />
       </FormControl>
 

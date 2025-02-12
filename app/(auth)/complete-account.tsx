@@ -1,5 +1,6 @@
 import {
   Alert,
+  Dimensions,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -53,6 +54,8 @@ function determineStartingStep(user: CompleteUser): number {
 }
 const STAGES = ["Personal ", "Professional ", "Contact ", " Photo"];
 const CompleteAccount = () => {
+  const width = Dimensions.get("window").width;
+  const isTablet = width > 768;
   const { user, refetchData, isLoading: contextLoading } = useGlobalContext();
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");

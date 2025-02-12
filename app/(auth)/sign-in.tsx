@@ -20,6 +20,7 @@ import {
   Platform,
   KeyboardAvoidingView,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, ButtonText, ButtonIcon, HStack, Text } from "@/components/ui";
@@ -46,6 +47,8 @@ interface SetupFormData {
   confirmPassword: string;
 }
 const SignIn = () => {
+  const width = Dimensions.get("window").width;
+  const isTablet = width > 768;
   const { refetchData } = useGlobalContext();
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -284,6 +287,7 @@ const SignIn = () => {
                         }
                         isLoading={isLoading}
                         error={error}
+                        isTablet={isTablet}
                       />
                     )}
 
