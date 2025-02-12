@@ -1,4 +1,11 @@
-import { ScrollView, Text, View, Platform, Linking } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  Platform,
+  Linking,
+  Dimensions,
+} from "react-native";
 import GradientBackground from "@/components/gradient-background";
 import { send } from "@emailjs/react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -38,6 +45,9 @@ const templateId = process.env.EXPO_PUBLIC_TEMPLATE_ID;
 const userId = process.env.EXPO_PUBLIC_EMAIL_ID;
 
 export default function Contact() {
+  const width = Dimensions.get("window").width;
+  const isTablet = width >= 768;
+
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -134,20 +144,29 @@ export default function Contact() {
             flexGrow: 1,
           }}
         >
-          <View className="px-4 py-10 gap-8">
+          <View
+            className={`flex-1 ${isTablet ? "max-w-4xl mx-auto w-full" : ""}`}
+          >
             {/* Header Section */}
-            <View>
-              <Text className="text-3xl font-pbold text-white text-center">
+            <View className="pt-8">
+              <Text
+                className={`text-3xl font-pbold text-white text-center ${isTablet ? "text-5xl" : ""}`}
+              >
                 Contact Us
               </Text>
-              <Text className="text-base text-gray-200 font-pregular text-center mt-2">
+              <Text
+                className={`text-base text-gray-200 font-pmedium text-center mt-2 ${isTablet ? "text-xl" : ""}`}
+              >
                 Let&apos;s get in touch
               </Text>
             </View>
-            <View className=" gap-4 bg-white rounded-lg p-4">
+
+            <View className="gap-4 bg-white rounded-lg p-4 mt-8">
               <FormControl isInvalid={!!errors.name}>
                 <FormControlLabel>
-                  <FormControlLabelText className="font-pmedium">
+                  <FormControlLabelText
+                    className={`font-pmedium ${isTablet ? "text-xl" : ""}`}
+                  >
                     Name
                   </FormControlLabelText>
                 </FormControlLabel>
@@ -155,13 +174,15 @@ export default function Contact() {
                   <InputField
                     value={formData.name}
                     onChangeText={(value) => handleChange("name", value)}
-                    className="font-pregular"
+                    className={`font-pregular ${isTablet ? "text-lg py-4" : ""}`}
                     placeholder="Enter your name"
                   />
                 </Input>
                 {errors.name && (
                   <FormControlError>
-                    <FormControlErrorText className="font-pregular">
+                    <FormControlErrorText
+                      className={`font-pregular ${isTablet ? "text-lg" : ""}`}
+                    >
                       {errors.name}
                     </FormControlErrorText>
                   </FormControlError>
@@ -170,7 +191,9 @@ export default function Contact() {
 
               <FormControl isInvalid={!!errors.email}>
                 <FormControlLabel>
-                  <FormControlLabelText className="font-pmedium">
+                  <FormControlLabelText
+                    className={`font-pmedium ${isTablet ? "text-xl" : ""}`}
+                  >
                     Email
                   </FormControlLabelText>
                 </FormControlLabel>
@@ -178,14 +201,16 @@ export default function Contact() {
                   <InputField
                     value={formData.email}
                     onChangeText={(value) => handleChange("email", value)}
-                    className="font-pregular"
+                    className={`font-pregular ${isTablet ? "text-lg py-4" : ""}`}
                     placeholder="Enter your email"
                     keyboardType="email-address"
                   />
                 </Input>
                 {errors.email && (
                   <FormControlError>
-                    <FormControlErrorText className="font-pregular">
+                    <FormControlErrorText
+                      className={`font-pregular ${isTablet ? "text-lg" : ""}`}
+                    >
                       {errors.email}
                     </FormControlErrorText>
                   </FormControlError>
@@ -194,7 +219,9 @@ export default function Contact() {
 
               <FormControl isInvalid={!!errors.message}>
                 <FormControlLabel>
-                  <FormControlLabelText className="font-pmedium">
+                  <FormControlLabelText
+                    className={`font-pmedium ${isTablet ? "text-xl" : ""}`}
+                  >
                     Message
                   </FormControlLabelText>
                 </FormControlLabel>
@@ -202,13 +229,15 @@ export default function Contact() {
                   <TextareaInput
                     value={formData.message}
                     onChangeText={(value) => handleChange("message", value)}
-                    className="font-pregular"
+                    className={`font-pregular ${isTablet ? "text-lg py-4" : ""}`}
                     placeholder="Enter your message"
                   />
                 </Textarea>
                 {errors.message && (
                   <FormControlError>
-                    <FormControlErrorText className="font-pregular">
+                    <FormControlErrorText
+                      className={`font-pregular ${isTablet ? "text-lg" : ""}`}
+                    >
                       {errors.message}
                     </FormControlErrorText>
                   </FormControlError>
@@ -217,28 +246,44 @@ export default function Contact() {
 
               {error && <ErrorAlert error={error} />}
               {success && <SuccessAlert message={success} />}
+
               <Button
                 className="rounded-md"
                 isDisabled={isSending}
                 action="negative"
+                size={isTablet ? "xl" : "md"}
                 onPress={handleSubmit}
               >
-                <ButtonText className="font-psemibold">
+                <ButtonText
+                  className={`font-psemibold ml-2 ${isTablet ? "text-xl" : ""}`}
+                >
                   {isSending ? "Sending..." : "Send Message"}
                 </ButtonText>
-                {isSending && <ButtonSpinner size="small" color="white" />}
+                {isSending && (
+                  <ButtonSpinner
+                    size={isTablet ? "large" : "small"}
+                    color="white"
+                  />
+                )}
               </Button>
             </View>
-            <View className="mb-6">
+            <View className="my-6">
               <Text className="text-white text-center text-base font-psemibold">
                 Get Directions
               </Text>
               <Button
                 onPress={openInMaps}
                 className="mt-4 rounded-md bg-[#5386A4] w-full"
+                size={isTablet ? "xl" : "md"}
               >
-                <ButtonIcon as={MapPin} color="white" />
-                <ButtonText className="font-psemibold ml-2">
+                <ButtonIcon
+                  as={MapPin}
+                  color="white"
+                  size={isTablet ? "lg" : "sm"}
+                />
+                <ButtonText
+                  className={`font-psemibold ml-2 ${isTablet ? "text-xl" : ""}`}
+                >
                   Open in Maps
                 </ButtonText>
               </Button>

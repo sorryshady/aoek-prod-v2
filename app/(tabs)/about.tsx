@@ -1,10 +1,20 @@
-import { ScrollView, Text, View, Image, Platform } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  Image,
+  Platform,
+  Dimensions,
+} from "react-native";
 
 import GradientBackground from "@/components/gradient-background";
 import { images } from "../../constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function About() {
+  const width = Dimensions.get("window").width;
+  const isTablet = width >= 768;
+
   return (
     <SafeAreaView className="flex-1">
       <GradientBackground>
@@ -15,13 +25,19 @@ export default function About() {
             flexGrow: 1,
           }}
         >
-          <View className="px-4 py-10">
+          <View
+            className={`px-4 py-10 ${isTablet ? "max-w-4xl w-full mx-auto" : ""}`}
+          >
             {/* Header Section */}
             <View className="mb-8">
-              <Text className="text-3xl font-pbold text-white text-center">
+              <Text
+                className={`text-3xl font-pbold text-white text-center ${isTablet ? "text-5xl" : ""}`}
+              >
                 About Us
               </Text>
-              <Text className="text-base text-gray-200 font-pregular text-center mt-2">
+              <Text
+                className={`text-base text-gray-200 font-pmedium text-center mt-2 ${isTablet ? "text-xl" : ""}`}
+              >
                 Learn more about our organization
               </Text>
             </View>
@@ -30,14 +46,16 @@ export default function About() {
             <View className="items-center justify-center">
               <Image
                 source={images.logo}
-                className="w-[200px] h-[200px]"
+                className={`${isTablet ? "w-[300px] h-[300px]" : "w-[200px] h-[200px]"}`}
                 resizeMode="contain"
               />
             </View>
 
             {/* Content Section */}
             <View className="px-2">
-              <Text className="text-white text-base font-pregular leading-6 text-center">
+              <Text
+                className={`text-white font-pregular leading-relaxed text-center ${isTablet ? "text-xl leading-9" : "text-base leading-6"}`}
+              >
                 The Public Works, Irrigation & Local Self Government Departments
                 of Government of Kerala have united over a common goal and
                 formed a non-profit organization with over 3000 engineers. This
@@ -47,7 +65,9 @@ export default function About() {
                 construction and infrastructural development.
               </Text>
 
-              <Text className="text-white font-pregular text-base leading-6 text-center mt-4">
+              <Text
+                className={`text-white font-pregular leading-relaxed text-center mt-4 ${isTablet ? "text-xl leading-9" : "text-base leading-6"}`}
+              >
                 Formed in the <Text className="font-pbold">year 1963</Text> and
                 united by a shared vision, this organization aims to work
                 towards the welfare of engineers in these departments. The
@@ -57,7 +77,9 @@ export default function About() {
                 works of the State.
               </Text>
 
-              <Text className="text-white font-pregular text-base leading-6 text-center mt-4">
+              <Text
+                className={`text-white font-pregular leading-relaxed text-center mt-4 ${isTablet ? "text-xl leading-9" : "text-base leading-6"}`}
+              >
                 The retired Engineers will also continue to be the life members
                 of the Association attached to a district centre where their
                 residence is located or a district of their choice. However,
@@ -72,7 +94,9 @@ export default function About() {
                 schedule.
               </Text>
 
-              <Text className="text-white font-pregular text-base leading-6 text-center mt-4 mb-8">
+              <Text
+                className={`text-white font-pregular leading-relaxed text-center mt-4 mb-8 ${isTablet ? "text-xl leading-9" : "text-base leading-6"}`}
+              >
                 Three volumes of newsletters publishing every calendar year act
                 as an effective mode of communication to its members about the
                 activities of the Association.

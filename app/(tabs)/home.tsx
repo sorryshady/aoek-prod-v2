@@ -141,7 +141,7 @@ const Home = () => {
               <Button
                 action="negative"
                 className="flex-1 rounded-md shadow-lg"
-                size="lg"
+                size={isTablet ? "xl" : "md"}
                 onPress={() => router.push("/contact")}
               >
                 <ButtonText
@@ -153,7 +153,7 @@ const Home = () => {
               <Button
                 action="default"
                 className="flex-1 rounded-md shadow-lg bg-blue-500"
-                size="lg"
+                size={isTablet ? "xl" : "md"}
                 onPress={() => router.push("/about")}
               >
                 <ButtonText
@@ -302,6 +302,7 @@ const Home = () => {
                     <Button
                       className="bg-[#5386A4] rounded-md shadow-lg w-[200px]"
                       onPress={() => router.push("/committee")}
+                      size={isTablet ? "xl" : "md"}
                     >
                       <ButtonText
                         className={`text-white font-pmedium text-center w-full ${isTablet ? "text-xl" : ""}`}
