@@ -23,12 +23,14 @@ interface ShowRequestStatusProps {
     showAgain: boolean;
   };
   hideUserRequest: (id: string) => Promise<void>;
+  isTablet?: boolean;
 }
 
-const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
+const ShowRequestStatus = ({
   latestRequest,
   hideUserRequest,
-}) => {
+  isTablet,
+}: ShowRequestStatusProps) => {
   const { user } = useGlobalContext();
 
   const handleHideRequest = async () => {
@@ -68,23 +70,25 @@ const ShowRequestStatus: React.FC<ShowRequestStatusProps> = ({
               ? TriangleAlert
               : Clock
         }
+        size={isTablet ? "xl" : "md"}
       />
       <View className="justify-between flex-row flex-1">
         <VStack className="items-center justify-center flex-1">
           {latestRequest.adminComments && (
-            <AlertText className="font-pmedium">
+            <AlertText className="font-pmedium" size={isTablet ? "lg" : "md"}>
               Admin Comments: {latestRequest.adminComments}
             </AlertText>
           )}
-          <AlertText className="font-pmedium">
+          <AlertText className="font-pmedium" size={isTablet ? "lg" : "md"}>
             {changeTypeToText(latestRequest.status)} Request
           </AlertText>
         </VStack>
         <Button
           className={`p-3.5 rounded-full ${latestRequest.status === "PENDING" ? "bg-blue-200/60" : latestRequest.status === "VERIFIED" ? "bg-emerald-200/60" : "bg-red-200/60"}`}
           onPress={handleHideRequest}
+          size={isTablet ? "xl" : "md"}
         >
-          <ButtonIcon as={EyeOff} color="black" />
+          <ButtonIcon as={EyeOff} color="black" size={isTablet ? "xl" : "md"} />
         </Button>
       </View>
     </Alert>

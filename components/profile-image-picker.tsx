@@ -11,21 +11,23 @@ import { images } from "@/constants";
 import { updateProfilePhoto } from "@/api/user";
 import { pickImage, takePhoto } from "@/lib/image-uploads";
 import { Camera } from "lucide-react-native";
-import { Button, ButtonIcon, ButtonText } from "./ui";
+import { Button, ButtonText } from "./ui";
 
 interface ProfileImagePickerProps {
   currentPhotoUrl: string | null;
   onImageSelected: (imageUri: string) => void;
   name: string;
   createdAt: string;
+  isTablet?: boolean;
 }
 
-const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
+const ProfileImagePicker = ({
   currentPhotoUrl,
   onImageSelected,
   name,
   createdAt,
-}) => {
+  isTablet,
+}: ProfileImagePickerProps) => {
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +57,7 @@ const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
   };
 
   return (
-    <View className="items-center mb-6">
+    <View className="items-center mb-8">
       <View className="relative">
         <Image
           source={
@@ -65,18 +67,25 @@ const ProfileImagePicker: React.FC<ProfileImagePickerProps> = ({
                 ? { uri: currentPhotoUrl }
                 : images.member
           }
-          className="w-32 h-32 rounded-full"
-          resizeMode="cover"
+          className={`rounded-full bg-gray-300 ${
+            isTablet ? "w-40 h-40" : "w-32 h-32"
+          }`}
         />
         <TouchableOpacity
           className="absolute bottom-0 right-0 bg-white p-2 rounded-full "
           onPress={() => setImageModalVisible(true)}
         >
-          <Camera size={18} color="black" />
+          <Camera color="black" size={isTablet ? 24 : 20} />
         </TouchableOpacity>
       </View>
-      <Text className="text-xl text-white font-pbold mt-3">{name}</Text>
-      <Text className="text-white mt-1 font-pmedium">
+      <Text
+        className={`text-white font-pbold mt-4 ${isTablet ? "text-3xl" : "text-2xl"}`}
+      >
+        {name}
+      </Text>
+      <Text
+        className={`text-gray-300 font-pregular ${isTablet ? "text-lg" : "text-sm"}`}
+      >
         Member since {new Date(createdAt).getFullYear()}
       </Text>
 
