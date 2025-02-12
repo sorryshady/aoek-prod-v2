@@ -32,22 +32,26 @@ interface PersonalFormProps {
   setFormData: (data: RegisterFormData) => void;
   errors: RegisterFormErrors;
   setErrors: (errors: RegisterFormErrors) => void;
+  isTablet: boolean;
 }
 const PersonalForm = ({
   formData,
   setFormData,
   errors,
   setErrors,
+  isTablet,
 }: PersonalFormProps) => {
   return (
     <VStack className="gap-4">
       <FormControl isInvalid={!!errors.name}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Name
           </FormControlLabelText>
         </FormControlLabel>
-        <Input>
+        <Input size={isTablet ? "xl" : "md"}>
           <InputField
             value={formData.name}
             onChangeText={(value) => {
@@ -69,11 +73,13 @@ const PersonalForm = ({
 
       <FormControl isInvalid={!!errors.dob}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Date of Birth
           </FormControlLabelText>
         </FormControlLabel>
-        <Input>
+        <Input size={isTablet ? "xl" : "md"}>
           <InputField
             value={formData.dob}
             onChangeText={(value) => {
@@ -96,7 +102,9 @@ const PersonalForm = ({
 
       <FormControl isInvalid={!!errors.gender}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Gender
           </FormControlLabelText>
         </FormControlLabel>
@@ -110,7 +118,7 @@ const PersonalForm = ({
           }}
           className="font-pregular"
         >
-          <SelectTrigger>
+          <SelectTrigger size={isTablet ? "xl" : "md"}>
             <SelectInput placeholder="Select gender" />
           </SelectTrigger>
           <SelectPortal>
@@ -136,7 +144,9 @@ const PersonalForm = ({
 
       <FormControl isInvalid={!!errors.bloodGroup}>
         <FormControlLabel>
-          <FormControlLabelText className="font-pmedium">
+          <FormControlLabelText
+            className={`font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+          >
             Blood Group
           </FormControlLabelText>
         </FormControlLabel>
@@ -155,7 +165,7 @@ const PersonalForm = ({
           }}
           className="font-pregular"
         >
-          <SelectTrigger>
+          <SelectTrigger size={isTablet ? "xl" : "md"}>
             <SelectInput placeholder="Select blood group" />
           </SelectTrigger>
           <SelectPortal>

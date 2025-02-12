@@ -160,7 +160,7 @@ const SignUp = () => {
       {STAGES.map((stage, index) => (
         <View key={stage} className="flex-1 items-center">
           <View
-            className={`w-8 h-8 rounded-full items-center justify-center ${
+            className={`${isTablet ? "w-10 h-10" : "w-8 h-8"} rounded-full items-center justify-center ${
               index === currentStage
                 ? "bg-blue-500"
                 : index < currentStage
@@ -168,9 +168,21 @@ const SignUp = () => {
                   : "bg-gray-300"
             }`}
           >
-            <Text className="text-white font-psemibold">{index + 1}</Text>
+            <Text
+              className={`text-white font-psemibold ${
+                isTablet ? "text-lg" : "text-sm"
+              }`}
+            >
+              {index + 1}
+            </Text>
           </View>
-          <Text className="text-xs mt-1 font-pregular">{stage}</Text>
+          <Text
+            className={` mt-1 font-pregular ${
+              isTablet ? "text-base" : "text-sm"
+            }`}
+          >
+            {stage}
+          </Text>
         </View>
       ))}
     </HStack>
@@ -185,6 +197,7 @@ const SignUp = () => {
             setFormData={setFormData}
             errors={errors}
             setErrors={setErrors}
+            isTablet={isTablet}
           />
         );
       case 1:
@@ -234,7 +247,9 @@ const SignUp = () => {
             keyboardShouldPersistTaps="handled"
           >
             <View className="flex-1 px-4 items-center justify-center mt-10">
-              <View className="w-full max-w-[400px]">
+              <View
+                className={`w-full ${isTablet ? "max-w-[500px]" : "max-w-[400px]"}`}
+              >
                 <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
                   <Image
                     source={images.background}
@@ -242,12 +257,16 @@ const SignUp = () => {
                     resizeMode="cover"
                   />
                   <View className="p-6">
-                    <Text className="text-black text-center font-psemibold text-2xl mb-6">
+                    <Text
+                      className={`text-black text-center font-psemibold ${
+                        isTablet ? "text-4xl" : "text-2xl"
+                      } mb-6`}
+                    >
                       Register
                     </Text>
                     {success ? (
                       <View className="flex-1 items-center justify-center">
-                        <SuccessAlert message={success} />
+                        <SuccessAlert message={success} isTablet={isTablet} />
                       </View>
                     ) : (
                       <>
@@ -259,6 +278,7 @@ const SignUp = () => {
                               variant="outline"
                               onPress={handlePrevious}
                               className="flex-1 mx-2 rounded-md"
+                              size={isTablet ? "xl" : "md"}
                             >
                               <ButtonText className="font-psemibold">
                                 Previous
@@ -271,6 +291,7 @@ const SignUp = () => {
                               action="primary"
                               onPress={handleNext}
                               className="flex-1 mx-2 rounded-md"
+                              size={isTablet ? "xl" : "md"}
                             >
                               <ButtonText className="font-psemibold">
                                 Next
@@ -282,6 +303,7 @@ const SignUp = () => {
                               onPress={handleSubmit}
                               isDisabled={isLoading}
                               className="flex-1 mx-2 rounded-md"
+                              size={isTablet ? "xl" : "md"}
                             >
                               <ButtonText className="font-psemibold">
                                 {isLoading ? "Submitting..." : "Submit"}
@@ -302,6 +324,7 @@ const SignUp = () => {
                       <Button
                         variant="link"
                         onPress={() => router.push("/sign-in")}
+                        size={isTablet ? "lg" : "md"}
                       >
                         <ButtonText className="text-blue-500 font-psemibold">
                           Sign in
