@@ -115,7 +115,7 @@ const Home = () => {
           }
         >
           <View
-            className={`flex-1 bg-transparent px-4 py-8 ${isTablet ? "max-w-xl mx-auto" : ""}`}
+            className={`flex-1 bg-transparent px-4 py-8 ${isTablet ? "max-w-3xl w-full mx-auto" : ""}`}
           >
             <Image
               source={images.logo}
