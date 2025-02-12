@@ -71,11 +71,14 @@ const CommitteeType = () => {
           </Text>
           {type.type === "state" ? (
             <View className={isTablet ? "px-4" : ""}>
-              <StateCommittee members={stateCommittee || []} />
+              <StateCommittee members={stateCommittee || []} isTablet={isTablet} />
             </View>
           ) : (
             <View className={isTablet ? "px-4" : ""}>
-              <DistrictCommittee members={districtCommittee || []} />
+              <DistrictCommittee
+                members={districtCommittee || []}
+                isTablet={isTablet}
+              />
             </View>
           )}
         </View>

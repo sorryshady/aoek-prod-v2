@@ -12,7 +12,9 @@ const SuccessAlert = ({
   return (
     <Alert action="success" className="my-2">
       <AlertIcon as={CheckCircle} size={isTablet ? "xl" : "md"} />
-      <AlertText className="font-pmedium">{message}</AlertText>
+      <AlertText className={`font-pmedium ${isTablet ? "text-lg" : ""}`}>
+        {message}
+      </AlertText>
     </Alert>
   );
 };
