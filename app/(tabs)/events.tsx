@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   RefreshControl,
+  Dimensions,
 } from "react-native";
 import { urlFor } from "@/sanity";
 import { formatDateRange } from "@/lib/utils";
@@ -16,6 +17,8 @@ import GradientBackground from "@/components/gradient-background";
 import { Spinner } from "@/components/ui";
 
 export default function EventsScreen() {
+  const width = Dimensions.get("window").width;
+  const isTablet = width >= 768;
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [events, setEvents] = useState<{
@@ -58,33 +61,40 @@ export default function EventsScreen() {
           {event.image ? (
             <Image
               source={{ uri: urlFor(event.image).url() }}
-              className="w-28 h-28 rounded-lg"
+              className={`rounded-lg ${isTablet ? "w-40 h-40" : "w-28 h-28"}`}
               resizeMode="contain"
             />
           ) : (
             <Image
               source={{ uri: "https://via.placeholder.com/400x300" }}
-              className="w-28 h-28 rounded-lg"
+              className={`rounded-lg ${isTablet ? "w-40 h-40" : "w-28 h-28"}`}
               resizeMode="contain"
             />
           )}
           <View className="flex-1 ml-3">
-            <Text className="text-sm font-pmedium text-gray-500">
+            <Text
+              className={`font-pmedium text-gray-500 ${isTablet ? "text-lg" : "text-sm"}`}
+            >
               {formatDateRange(
                 event.dateRange.startDate,
                 event.dateRange.endDate,
               )}
             </Text>
-            <Text className="text-lg font-psemibold mt-1" numberOfLines={2}>
+            <Text
+              className={`font-psemibold mt-1 ${isTablet ? "text-2xl" : "text-lg"}`}
+              numberOfLines={2}
+            >
               {event.title}
             </Text>
             <Text
-              className="text-sm font-pregular text-gray-600 mt-1"
+              className={`font-pregular text-gray-600 mt-1 ${isTablet ? "text-xl" : "text-sm"}`}
               numberOfLines={2}
             >
               {event.description}
             </Text>
-            <Text className="text-blue-500 font-pregular text-sm mt-2">
+            <Text
+              className={`text-blue-500 font-pregular mt-2 ${isTablet ? "text-lg" : "text-sm"}`}
+            >
               Click to learn more
             </Text>
           </View>
@@ -103,14 +113,18 @@ export default function EventsScreen() {
     emptyMessage: string;
   }) => (
     <View className="mb-6">
-      <Text className="text-xl font-psemibold text-center mb-4 text-white">
+      <Text
+        className={`text-center font-psemibold mb-4 text-white ${isTablet ? "text-4xl" : "text-xl"}`}
+      >
         {title}
       </Text>
       {events.length > 0 ? (
         events.map((event) => <EventCard key={event._id} event={event} />)
       ) : (
         <View className="bg-white/30 backdrop-blur-md rounded-lg p-6">
-          <Text className="text-center text-white text-lg font-psemibold">
+          <Text
+            className={`text-center text-white font-psemibold ${isTablet ? "text-2xl" : "text-lg"}`}
+          >
             {emptyMessage}
           </Text>
         </View>
@@ -124,12 +138,16 @@ export default function EventsScreen() {
         <GradientBackground>
           <View className="flex-1 px-3">
             <View className="flex-1 bg-transparent">
-              <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
+              <Text
+                className={`font-psemibold text-center text-white pt-12 mb-4 ${isTablet ? "text-5xl" : "text-3xl"}`}
+              >
                 Events
               </Text>
               <View className="flex-1 justify-center items-center">
                 <Spinner size="large" color="white" />
-                <Text className="text-white text-2xl font-psemibold">
+                <Text
+                  className={`text-white font-psemibold ${isTablet ? "text-3xl" : "text-2xl"}`}
+                >
                   Loading events...
                 </Text>
               </View>
@@ -144,8 +162,12 @@ export default function EventsScreen() {
     <SafeAreaView className="flex-1">
       <GradientBackground>
         <View className="flex-1 px-3">
-          <View className="flex-1 bg-transparent">
-            <Text className="text-3xl font-psemibold text-center text-white pt-12 mb-4">
+          <View
+            className={`flex-1 bg-transparent ${isTablet ? "max-w-4xl w-full mx-auto" : ""}`}
+          >
+            <Text
+              className={`font-psemibold text-center text-white pt-12 mb-4 ${isTablet ? "text-5xl" : "text-3xl"}`}
+            >
               Events
             </Text>
 
