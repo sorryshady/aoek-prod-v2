@@ -24,20 +24,26 @@ import {
 import { changeTypeToText } from "@/lib/utils";
 import { District } from "@/constants/types";
 
-const DistrictCommittee = ({ members }: { members: any[] }) => {
+const DistrictCommittee = ({
+  members,
+  isTablet,
+}: {
+  members: any[];
+  isTablet: boolean;
+}) => {
   const [visible, setVisible] = useState(false);
   const [district, setDistrict] = useState<District>(District.KASARAGOD);
   const [member, setMember] = useState<any>(null);
   const [filteredMembers, setFilteredMembers] = useState<any[]>(
     members.filter((member) => member.workDistrict === district),
   );
-  const onClose = () => {
-    setVisible(false);
-  };
+  const onClose = () => setVisible(false);
 
   return (
     <View className="p-4 mt-4">
-      <Text className="text-base font-psemibold text-white">
+      <Text
+        className={`font-psemibold text-white ${isTablet ? "text-xl" : "text-base"}`}
+      >
         Select District
       </Text>
       <Select
@@ -48,10 +54,13 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
             members.filter((member) => member.workDistrict === value),
           );
         }}
-        className="font-pregular mb-4 mt-2"
+        className={`font-pregular mb-4 mt-2 ${isTablet ? "text-lg" : ""}`}
       >
         <SelectTrigger>
-          <SelectInput placeholder="Select district" />
+          <SelectInput
+            placeholder="Select district"
+            className={isTablet ? "text-lg py-4" : ""}
+          />
         </SelectTrigger>
         <SelectPortal>
           <SelectBackdrop />
@@ -73,11 +82,13 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
         {filteredMembers.map((member, index) => (
           <View
             key={index}
-            className="w-[48%] bg-white rounded-lg shadow-md p-4 mb-4 justify-between"
+            className={`w-[48%] bg-white rounded-lg shadow-md ${isTablet ? "p-6" : "p-4"} mb-4 justify-between`}
           >
             {/* Avatar Container */}
             <View className="items-center">
-              <View className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#5386A4] mb-3">
+              <View
+                className={`${isTablet ? "w-32 h-32" : "w-24 h-24"} rounded-full overflow-hidden border-2 border-[#5386A4] mb-3`}
+              >
                 <Image
                   source={
                     member.photoUrl ? { uri: member.photoUrl } : images.member
@@ -90,26 +101,35 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
 
             {/* Member Details */}
             <View className="items-center">
-              <Text className="text-center text-base font-pbold mb-1">
+              <Text
+                className={`text-center font-pbold mb-1 ${isTablet ? "text-xl" : "text-base"}`}
+              >
                 {member.name}
               </Text>
-              <Text className="text-center text-sm font-pmedium text-gray-600 mb-2">
+              <Text
+                className={`text-center font-pmedium text-gray-600 mb-2 ${isTablet ? "text-lg" : "text-sm"}`}
+              >
                 {changeTypeToText(member.positionDistrict)}
               </Text>
-              <Text className="text-center text-xs font-pmedium text-gray-500 mb-3">
+              <Text
+                className={`text-center font-pmedium text-gray-500 mb-3 ${isTablet ? "text-base" : "text-xs"}`}
+              >
                 {member.designation
                   ? changeTypeToText(member.designation)
                   : "N/A"}
               </Text>
             </View>
             <Button
-              className="bg-[#5386A4] rounded-md w-full"
+              className={`bg-[#5386A4] rounded-md w-full ${isTablet ? "py-3" : ""}`}
               onPress={() => {
                 setMember(member);
                 setVisible(true);
               }}
+              size={isTablet ? "xl" : "md"}
             >
-              <ButtonText className="text-white text-center text-sm">
+              <ButtonText
+                className={`text-white text-center font-psemibold ${isTablet ? "text-lg" : "text-sm"}`}
+              >
                 Details
               </ButtonText>
             </Button>
@@ -118,17 +138,26 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
       </View>
 
       {member && (
-        <AlertDialog isOpen={visible} onClose={onClose} size="lg">
+        <AlertDialog
+          isOpen={visible}
+          onClose={onClose}
+          size={isTablet ? "lg" : "md"}
+        >
           <AlertDialogBackdrop />
           <AlertDialogContent>
             <AlertDialogHeader>
-              <Heading className="text-typography-950 font-psemibold" size="md">
+              <Heading
+                className={`text-typography-950 font-psemibold ${isTablet ? "text-2xl" : ""}`}
+                size="md"
+              >
                 Member Details
               </Heading>
             </AlertDialogHeader>
             <AlertDialogBody>
               <View className="p-4 items-center">
-                <View className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#5386A4] mb-3">
+                <View
+                  className={`${isTablet ? "w-32 h-32" : "w-24 h-24"} rounded-full overflow-hidden border-2 border-[#5386A4] mb-3`}
+                >
                   <Image
                     source={
                       member.photoUrl ? { uri: member.photoUrl } : images.member
@@ -137,32 +166,45 @@ const DistrictCommittee = ({ members }: { members: any[] }) => {
                     resizeMode="cover"
                   />
                 </View>
-                <Text className="text-base font-pregular mb-1 text-center">
+                <Text
+                  className={`font-pregular mb-1 text-center ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   Name: {member.name}
                 </Text>
-                <Text className="text-base font-pregular mb-1 text-center">
+                <Text
+                  className={`font-pregular mb-1 text-center ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   Position: {changeTypeToText(member.positionDistrict)}
                 </Text>
-                <Text className="text-base font-pregular mb-1 text-center">
+                <Text
+                  className={`font-pregular mb-1 text-center ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   Designation:{" "}
                   {member.designation
                     ? changeTypeToText(member.designation)
                     : "N/A"}
                 </Text>
-                <Text className="text-base font-pregular mb-1 text-center">
+                <Text
+                  className={`font-pregular mb-1 text-center ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   Email: {member.email || "N/A"}
                 </Text>
-                <Text className="text-base font-pregular mb-1 text-center">
+                <Text
+                  className={`font-pregular mb-1 text-center ${isTablet ? "text-xl" : "text-base"}`}
+                >
                   Mobile: {member.mobileNumber || "N/A"}
                 </Text>
               </View>
             </AlertDialogBody>
             <AlertDialogFooter>
               <Button
-                className="bg-[#5386A4] rounded-md w-full"
+                className={`bg-[#5386A4] rounded-md w-full ${isTablet ? "py-3" : ""}`}
                 onPress={onClose}
+                size={isTablet ? "xl" : "md"}
               >
-                <ButtonText className="text-white text-center text-sm">
+                <ButtonText
+                  className={`text-white text-center font-psemibold ${isTablet ? "text-lg" : "text-sm"}`}
+                >
                   Close
                 </ButtonText>
               </Button>

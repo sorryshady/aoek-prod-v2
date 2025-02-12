@@ -28,12 +28,14 @@ type EventDetailModalProps = {
   event: EventItem | null;
   visible: boolean;
   onClose: () => void;
+  isTablet: boolean;
 };
 
 export default function EventDetailModal({
   event,
   visible,
   onClose,
+  isTablet,
 }: EventDetailModalProps) {
   if (!event) return null;
 
@@ -49,7 +51,10 @@ export default function EventDetailModal({
       <AlertDialogBackdrop />
       <AlertDialogContent>
         <AlertDialogHeader>
-          <Heading className="text-typography-950 font-psemibold" size="md">
+          <Heading
+            className={`text-typography-950 font-psemibold`}
+            size={isTablet ? "xl" : "md"}
+          >
             Event Details
           </Heading>
         </AlertDialogHeader>
@@ -60,22 +65,26 @@ export default function EventDetailModal({
                 {event.image ? (
                   <Image
                     source={{ uri: urlFor(event.image).url() }}
-                    className="w-full h-64"
+                    className={`w-full ${isTablet ? "h-80" : "h-64"}`}
                     resizeMode="contain"
                   />
                 ) : (
                   <Image
                     source={{ uri: "https://via.placeholder.com/400x300" }}
-                    className="w-full h-64"
+                    className={`w-full ${isTablet ? "h-80" : "h-64"}`}
                     resizeMode="contain"
                   />
                 )}
-                <View className="py-2 gap-2">
-                  <Text className="text-2xl font-pbold text-gray-900">
+                <View className={`py-2 gap-2 ${isTablet ? "px-6" : "px-4"}`}>
+                  <Text
+                    className={`font-pbold text-gray-900 ${isTablet ? "text-3xl mb-4 mt-4" : "text-2xl mb-2 mt-2 "}`}
+                  >
                     {event.title}
                   </Text>
 
-                  <Text className="text-base text-gray-600">
+                  <Text
+                    className={`text-gray-600 ${isTablet ? "text-xl mb-3" : "text-base mb-2"}`}
+                  >
                     <Text className="font-psemibold text-gray-900">Date: </Text>
                     {formatDateRange(
                       event.dateRange.startDate,
@@ -83,7 +92,9 @@ export default function EventDetailModal({
                     )}
                   </Text>
 
-                  <Text className="text-base text-gray-600">
+                  <Text
+                    className={`text-gray-600 ${isTablet ? "text-xl mb-3" : "text-base mb-2"}`}
+                  >
                     <Text className="font-psemibold text-gray-900">
                       Location:{" "}
                     </Text>
@@ -91,7 +102,9 @@ export default function EventDetailModal({
                   </Text>
 
                   {event.description && (
-                    <Text className="text-base font-pmedium text-gray-600">
+                    <Text
+                      className={`font-pmedium text-gray-600 ${isTablet ? "text-lg mb-4" : "text-base mb-3"}`}
+                    >
                       {event.description}
                     </Text>
                   )}
@@ -101,35 +114,39 @@ export default function EventDetailModal({
                       variant="link"
                       size="xs"
                       onPress={() => Linking.openURL(event.link!)}
-                      className="mt-2 justify-start"
+                      className={`justify-start ${isTablet ? "mb-3" : "mb-2"}`}
                     >
                       <ButtonText
-                        className="text-blue-500 font-pmedium"
-                        size="md"
+                        className={`text-blue-500 font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
                       >
                         {event.link}
                       </ButtonText>
                     </Button>
                   )}
+
                   {event.fileUrl && (
                     <Button
-                       variant="link"
+                      variant="link"
                       size="xs"
-                      className="mt-2 justify-start"
+                      className={`justify-start ${isTablet ? "mb-3" : "mb-2"}`}
                       onPress={() => Linking.openURL(event.fileUrl!)}
                     >
-                      <ButtonText className="text-blue-500 font-pmedium"
-                        size="md">Open File</ButtonText>
+                      <ButtonText
+                        className={`text-blue-500 font-pmedium ${isTablet ? "text-lg" : "text-base"}`}
+                      >
+                        Open File
+                      </ButtonText>
                     </Button>
                   )}
                 </View>
               </ScrollView>
               <Button
                 onPress={onClose}
-                className="mt-4 rounded-md"
+                className={`mt-4 rounded-md`}
                 action="secondary"
+                size={isTablet ? "xl" : "md"}
               >
-                <ButtonText className="font-psemibold">Close</ButtonText>
+                <ButtonText className={`font-psemibold`}>Close</ButtonText>
               </Button>
             </View>
           </View>

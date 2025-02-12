@@ -205,6 +205,7 @@ export default function EventsScreen() {
             <EventDetailModal
               event={selectedEvent}
               visible={modalVisible}
+              isTablet={isTablet}
               onClose={() => {
                 setModalVisible(false);
                 setSelectedEvent(null);
