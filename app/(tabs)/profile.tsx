@@ -635,15 +635,6 @@ const Profile = () => {
                 Data Control
               </ButtonText>
             </Button>
-            <Button
-              onPress={() => Linking.openURL("https://aoek.org/privacy-policy")}
-              className="mt-4 bg-white rounded-md border border-[#5386A4]"
-              size={isTablet ? "xl" : "md"}
-            >
-              <ButtonText className="text-[#5386A4] font-psemibold">
-                Privacy Policy
-              </ButtonText>
-            </Button>
           </View>
         </ScrollView>
         {dataControlVisible && (

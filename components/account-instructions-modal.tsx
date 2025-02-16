@@ -30,7 +30,7 @@ const AccountInstructionsModal = ({
             className={`text-typography-950 font-psemibold`}
             size={isTablet ? "xl" : "md"}
           >
-            Account & Data Controls
+            Account & Privacy Information
           </Heading>
         </AlertDialogHeader>
         <AlertDialogBody className="mt-4">
@@ -38,20 +38,23 @@ const AccountInstructionsModal = ({
             className={`font-pmedium text-gray-700 mb-4 ${isTablet ? "text-lg" : "text-base"}`}
           >
             As a member of AOEK, you have a lifetime membership with our
-            organization. Your account represents this permanent association.
+            organization. Your account represents this permanent association
+            with AOEK.
           </Text>
           <Text
             className={`font-pmedium text-gray-700 mb-4 ${isTablet ? "text-lg" : "text-base"}`}
           >
-            While account deletion is not available under normal circumstances,
-            we understand there may be exceptional situations where this is
-            needed.
+            We are committed to protecting your privacy and ensuring you have
+            control over your data. You can review our complete privacy policy
+            to understand how we handle your information.
           </Text>
           <Text
             className={`font-pmedium text-gray-700 mb-6 ${isTablet ? "text-lg" : "text-base"}`}
           >
-            To request account deletion under such circumstances, please visit
-            our Account Controls page.
+            While account deletion is not available under normal circumstances
+            due to the lifetime nature of membership, we understand there may be
+            exceptional situations. For such cases, please visit our Account
+            Data Controls page.
           </Text>
           <Button
             onPress={() => Linking.openURL("https://aoek.org/account-data")}
@@ -60,7 +63,16 @@ const AccountInstructionsModal = ({
             <ButtonText
               className={`text-white font-psemibold ${isTablet ? "text-lg" : ""}`}
             >
-              View Account Controls
+              Account Data Controls
+            </ButtonText>
+          </Button>
+          <Button
+            onPress={() => Linking.openURL("https://aoek.org/privacy-policy")}
+            className="mt-4 bg-white rounded-md border border-[#5386A4] w-full"
+            size={isTablet ? "xl" : "md"}
+          >
+            <ButtonText className="text-[#5386A4] font-psemibold">
+              View Privacy Policy
             </ButtonText>
           </Button>
         </AlertDialogBody>
