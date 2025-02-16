@@ -44,6 +44,7 @@ import { District } from "@/constants/types";
 import ErrorAlert from "@/components/error-alert";
 import ChangePasswordModal from "@/components/change-password-modal";
 import SubmitRequestModal from "@/components/submit-request-modal";
+import AccountInstructionsModal from "@/components/account-instructions-modal";
 
 const Profile = () => {
   const { user, logout, refetchData, latestRequest, isLoading } =
@@ -57,6 +58,7 @@ const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [passwordModalVisible, setPasswordModalVisible] = useState(false);
   const [requestModalVisible, setRequestModalVisible] = useState(false);
+  const [dataControlVisible, setDataControlVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
@@ -619,15 +621,24 @@ const Profile = () => {
                 logout();
               }}
               action="negative"
-              className="rounded-md"
+              className="rounded-md mt-4"
               size={isTablet ? "xl" : "md"}
             >
               <ButtonText className="font-psemibold">Logout</ButtonText>
             </Button>
             <Button
+              size={isTablet ? "xl" : "md"}
+              className="mt-4 bg-[#5386A4] rounded-md"
+              onPress={() => setDataControlVisible(true)}
+            >
+              <ButtonText className="font-psemibold text-white">
+                Data Control
+              </ButtonText>
+            </Button>
+            <Button
               onPress={() => Linking.openURL("https://aoek.org/privacy-policy")}
-              variant="link"
-              className="mt-4"
+              className="mt-4 bg-white rounded-md border border-[#5386A4]"
+              size={isTablet ? "xl" : "md"}
             >
               <ButtonText className="text-[#5386A4] font-psemibold">
                 Privacy Policy
@@ -635,6 +646,13 @@ const Profile = () => {
             </Button>
           </View>
         </ScrollView>
+        {dataControlVisible && (
+          <AccountInstructionsModal
+            visible={dataControlVisible}
+            onClose={() => setDataControlVisible(false)}
+            isTablet={isTablet}
+          />
+        )}
         {passwordModalVisible && (
           <ChangePasswordModal
             visible={passwordModalVisible}
