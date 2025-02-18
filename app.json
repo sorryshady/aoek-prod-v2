@@ -45,6 +45,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "AOEK needs access to your photo library to select your profile photo for membership verification purposes. This helps ensure the authenticity of our members.",
+          "cameraPermission": "AOEK needs access to your camera to capture your profile photo for membership verification purposes. This helps ensure the authenticity of our members."
+        }
       ]
     ],
     "experiments": {
