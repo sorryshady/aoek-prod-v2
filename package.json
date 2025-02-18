@@ -22,6 +22,7 @@
     "@gluestack-ui/alert": "^0.1.16",
     "@gluestack-ui/alert-dialog": "^0.1.32",
     "@gluestack-ui/button": "^1.0.8",
+    "@gluestack-ui/checkbox": "^0.1.33",
     "@gluestack-ui/form-control": "^0.1.19",
     "@gluestack-ui/icon": "^0.1.25",
     "@gluestack-ui/input": "^0.1.32",

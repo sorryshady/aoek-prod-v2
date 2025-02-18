@@ -41,6 +41,7 @@ import ProfessionalForm from "@/components/professional-form";
 import ContactForm from "@/components/contact-form";
 import PhotoForm from "@/components/photo-form";
 import SuccessAlert from "@/components/success-alert";
+import TermsConditions from "@/components/terms-conditions";
 
 const STAGES = ["Personal ", "Professional ", "Contact ", " Photo"];
 const initialFormData: RegisterFormData = {
@@ -72,6 +73,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentStage, setCurrentStage] = useState(0);
   const [formData, setFormData] = useState<RegisterFormData>(initialFormData);
+  const [showTerms, setShowTerms] = useState(true);
 
   const validateStage = (): boolean => {
     const newErrors: RegisterFormErrors = {};
@@ -155,6 +157,15 @@ const SignUp = () => {
     }
   };
 
+  const handleAcceptTerms = () => {
+    setShowTerms(false);
+    // Continue to registration form
+  };
+
+  const handleDeclineTerms = () => {
+    router.back(); // or router.push('/sign-in');
+  };
+
   const renderStageIndicators = () => (
     <HStack className="justify-between mb-6">
       {STAGES.map((stage, index) => (
@@ -235,111 +246,119 @@ const SignUp = () => {
   return (
     <SafeAreaView className="flex-1">
       <GradientBackground>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 47 : 0}
-          className="flex-1"
-          style={{ position: "relative" }}
-        >
-          <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              justifyContent: "center",
-            }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
+        {showTerms ? (
+          <TermsConditions
+            onAccept={handleAcceptTerms}
+            onDecline={handleDeclineTerms}
+            isTablet={isTablet}
+          />
+        ) : (
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 47 : 0}
+            className="flex-1"
+            style={{ position: "relative" }}
           >
-            <View className="flex-1 px-4 items-center justify-center mt-10">
-              <View
-                className={`w-full ${isTablet ? "max-w-[500px]" : "max-w-[400px]"}`}
-              >
-                <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
-                  <Image
-                    source={images.background}
-                    className="w-full h-full absolute opacity-10"
-                    resizeMode="cover"
-                  />
-                  <View className="p-6">
-                    <Text
-                      className={`text-black text-center font-psemibold ${
-                        isTablet ? "text-4xl" : "text-2xl"
-                      } mb-6`}
-                    >
-                      Register
-                    </Text>
-                    {success ? (
-                      <View className="flex-1 items-center justify-center">
-                        <SuccessAlert message={success} isTablet={isTablet} />
-                      </View>
-                    ) : (
-                      <>
-                        {renderStageIndicators()}
-                        {renderCurrentStage()}
-                        <View className="mt-6 flex-row">
-                          {currentStage > 0 && (
-                            <Button
-                              variant="outline"
-                              onPress={handlePrevious}
-                              className="flex-1 mx-2 rounded-md"
-                              size={isTablet ? "xl" : "md"}
-                            >
-                              <ButtonText className="font-psemibold">
-                                Previous
-                              </ButtonText>
-                            </Button>
-                          )}
-
-                          {currentStage < STAGES.length - 1 ? (
-                            <Button
-                              action="primary"
-                              onPress={handleNext}
-                              className="flex-1 mx-2 rounded-md"
-                              size={isTablet ? "xl" : "md"}
-                            >
-                              <ButtonText className="font-psemibold">
-                                Next
-                              </ButtonText>
-                            </Button>
-                          ) : (
-                            <Button
-                              action="primary"
-                              onPress={handleSubmit}
-                              isDisabled={isLoading}
-                              className="flex-1 mx-2 rounded-md"
-                              size={isTablet ? "xl" : "md"}
-                            >
-                              <ButtonText className="font-psemibold">
-                                {isLoading ? "Submitting..." : "Submit"}
-                              </ButtonText>
-                              {isLoading && <ButtonSpinner color="#fff" />}
-                            </Button>
-                          )}
-                        </View>
-                      </>
-                    )}
-                    <HStack
-                      space="sm"
-                      className="justify-center items-center mt-6"
-                    >
-                      <Text className="font-pregular">
-                        Already have an account?
-                      </Text>
-                      <Button
-                        variant="link"
-                        onPress={() => router.push("/sign-in")}
-                        size={isTablet ? "lg" : "md"}
+            <ScrollView
+              contentContainerStyle={{
+                flexGrow: 1,
+                justifyContent: "center",
+              }}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              <View className="flex-1 px-4 items-center justify-center mt-10">
+                <View
+                  className={`w-full ${isTablet ? "max-w-[500px]" : "max-w-[400px]"}`}
+                >
+                  <View className="bg-white rounded-2xl w-full gap-5 relative my-6">
+                    <Image
+                      source={images.background}
+                      className="w-full h-full absolute opacity-10"
+                      resizeMode="cover"
+                    />
+                    <View className="p-6">
+                      <Text
+                        className={`text-black text-center font-psemibold ${
+                          isTablet ? "text-4xl" : "text-2xl"
+                        } mb-6`}
                       >
-                        <ButtonText className="text-blue-500 font-psemibold">
-                          Sign in
-                        </ButtonText>
-                      </Button>
-                    </HStack>
+                        Register
+                      </Text>
+                      {success ? (
+                        <View className="flex-1 items-center justify-center">
+                          <SuccessAlert message={success} isTablet={isTablet} />
+                        </View>
+                      ) : (
+                        <>
+                          {renderStageIndicators()}
+                          {renderCurrentStage()}
+                          <View className="mt-6 flex-row">
+                            {currentStage > 0 && (
+                              <Button
+                                variant="outline"
+                                onPress={handlePrevious}
+                                className="flex-1 mx-2 rounded-md"
+                                size={isTablet ? "xl" : "md"}
+                              >
+                                <ButtonText className="font-psemibold">
+                                  Previous
+                                </ButtonText>
+                              </Button>
+                            )}
+
+                            {currentStage < STAGES.length - 1 ? (
+                              <Button
+                                action="primary"
+                                onPress={handleNext}
+                                className="flex-1 mx-2 rounded-md"
+                                size={isTablet ? "xl" : "md"}
+                              >
+                                <ButtonText className="font-psemibold">
+                                  Next
+                                </ButtonText>
+                              </Button>
+                            ) : (
+                              <Button
+                                action="primary"
+                                onPress={handleSubmit}
+                                isDisabled={isLoading}
+                                className="flex-1 mx-2 rounded-md"
+                                size={isTablet ? "xl" : "md"}
+                              >
+                                <ButtonText className="font-psemibold">
+                                  {isLoading ? "Submitting..." : "Submit"}
+                                </ButtonText>
+                                {isLoading && <ButtonSpinner color="#fff" />}
+                              </Button>
+                            )}
+                          </View>
+                        </>
+                      )}
+                      <HStack
+                        space="sm"
+                        className="justify-center items-center mt-6"
+                      >
+                        <Text className="font-pregular">
+                          Already have an account?
+                        </Text>
+                        <Button
+                          variant="link"
+                          onPress={() => router.push("/sign-in")}
+                          size={isTablet ? "lg" : "md"}
+                        >
+                          <ButtonText className="text-blue-500 font-psemibold">
+                            Sign in
+                          </ButtonText>
+                        </Button>
+                      </HStack>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        )}
       </GradientBackground>
     </SafeAreaView>
   );

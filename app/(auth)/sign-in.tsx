@@ -331,11 +331,11 @@ const SignIn = () => {
                         </Text>
                         <Button
                           variant="link"
-                          onPress={() => router.push("/register")}
+                          onPress={() => router.push("/sign-up")}
                           size={isTablet ? "lg" : "md"}
                         >
                           <ButtonText className="text-blue-500 font-psemibold">
-                            Click here
+                            Register
                           </ButtonText>
                         </Button>
                       </HStack>

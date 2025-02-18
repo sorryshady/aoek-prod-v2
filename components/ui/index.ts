@@ -1,4 +1,10 @@
-import { Button, ButtonText, ButtonSpinner, ButtonIcon,ButtonGroup } from "./button";
+import {
+  Button,
+  ButtonText,
+  ButtonSpinner,
+  ButtonIcon,
+  ButtonGroup,
+} from "./button";
 import {
   FormControl,
   FormControlLabel,
@@ -35,7 +41,13 @@ import {
   AlertDialogCloseButton,
 } from "./alert-dialog";
 import { Text } from "./text";
-import { Alert , AlertIcon, AlertText} from "./alert";
+import { Alert, AlertIcon, AlertText } from "./alert";
+import {
+  Checkbox,
+  CheckboxIndicator,
+  CheckboxIcon,
+  CheckboxLabel,
+} from "./checkbox";
 export {
   Button,
   ButtonText,
@@ -80,5 +92,9 @@ export {
   Alert,
   AlertIcon,
   AlertText,
-  Spinner
+  Spinner,
+  Checkbox,
+  CheckboxIndicator,
+  CheckboxIcon,
+  CheckboxLabel,
 };
