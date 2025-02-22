@@ -327,7 +327,7 @@ const SignIn = () => {
                         <Text
                           className={`font-pmedium ${isTablet ? "text-xl" : "text-base"}`}
                         >
-                          Don't have an account ?
+                          Don't have an account?
                         </Text>
                         <Button
                           variant="link"
